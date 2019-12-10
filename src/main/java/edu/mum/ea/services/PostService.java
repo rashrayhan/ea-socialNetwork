@@ -1,4 +1,6 @@
 package edu.mum.ea.services;
 
-public interface PostService extends GeneralService {
+import edu.mum.ea.models.Post;
+
+public interface PostService extends GenericService<Post> {
 }

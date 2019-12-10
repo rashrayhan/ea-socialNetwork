@@ -15,5 +15,6 @@ public abstract class Activity {
     @JoinColumn(name = "user_id")
     private User user;
     @Column(name = "activity_time")
-    private LocalDateTime activityTime;
+    private LocalDateTime activityTime
+            = LocalDateTime.now();
 }
