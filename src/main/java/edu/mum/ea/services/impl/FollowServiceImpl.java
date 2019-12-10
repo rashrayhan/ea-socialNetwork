@@ -1,8 +1,8 @@
 package edu.mum.ea.services.impl;
 
-import edu.mum.ea.models.Post;
-import edu.mum.ea.repos.PostRepository;
-import edu.mum.ea.services.PostService;
+import edu.mum.ea.models.Follow;
+import edu.mum.ea.repos.FollowRepository;
+import edu.mum.ea.services.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,19 +11,19 @@ import java.util.List;
 
 @Service
 @Transactional
-public class PostServiceImpl implements PostService {
+public class FollowServiceImpl implements FollowService {
 
-    private PostRepository postRepository;
+    private FollowRepository followRepository;
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository) {
-        this.postRepository = postRepository;
+    public FollowServiceImpl(FollowRepository followRepository) {
+        this.followRepository = followRepository;
     }
 
     @Override
     public Object save(Object object) {
-        Post post = (Post) object;
-        return postRepository.save(post);
+        Follow follow = (Follow) object;
+        return followRepository.save(follow);
     }
 
     @Override

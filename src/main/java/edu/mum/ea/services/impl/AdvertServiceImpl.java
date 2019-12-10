@@ -1,8 +1,8 @@
 package edu.mum.ea.services.impl;
 
-import edu.mum.ea.models.Post;
-import edu.mum.ea.repos.PostRepository;
-import edu.mum.ea.services.PostService;
+import edu.mum.ea.models.Advert;
+import edu.mum.ea.repos.AdvertRepository;
+import edu.mum.ea.services.AdvertService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,19 +11,19 @@ import java.util.List;
 
 @Service
 @Transactional
-public class PostServiceImpl implements PostService {
+public class AdvertServiceImpl implements AdvertService {
 
-    private PostRepository postRepository;
+    private AdvertRepository advertRepository;
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository) {
-        this.postRepository = postRepository;
+    public AdvertServiceImpl(AdvertRepository advertRepository) {
+        this.advertRepository = advertRepository;
     }
 
     @Override
     public Object save(Object object) {
-        Post post = (Post) object;
-        return postRepository.save(post);
+        Advert advert = (Advert) object;
+        return advertRepository.save(advert);
     }
 
     @Override

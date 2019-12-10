@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,6 +36,11 @@ public class User implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+    @ManyToMany
+    @JoinTable(name = "user_role",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
 
     public String getUsername() {
         return username;
@@ -66,5 +73,9 @@ public class User implements UserDetails {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

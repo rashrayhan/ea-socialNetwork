@@ -13,7 +13,7 @@ public class PostItem {
     private PostItemType postItemType;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private SimpleUser simpleUser;
+    private User performedUser;
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
