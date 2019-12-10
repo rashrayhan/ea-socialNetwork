@@ -2,6 +2,7 @@ package edu.mum.ea.models;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -33,14 +34,30 @@ public class User implements UserDetails {
     @Column(name = "cover_photo")
     private String coverPhoto;
     private String biography;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
+
     private Address address;
     @ManyToMany
     @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
+
+    public User(String surname, String otherNames, LocalDate dateOfBirth, String email, String username, String password, AccountStatus accountStatus, String profilePhoto, String coverPhoto, String biography, Address address) {
+        this.surname = surname;
+        this.otherNames = otherNames;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.accountStatus = accountStatus;
+        this.profilePhoto = profilePhoto;
+        this.coverPhoto = coverPhoto;
+        this.biography = biography;
+        this.address = address;
+
+    }
 
     public String getUsername() {
         return username;

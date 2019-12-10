@@ -24,6 +24,9 @@ public class UserController {
         this.userService = userService;
     }
 
+    public UserController() {
+    }
+
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public String welcome() {
         return "index";

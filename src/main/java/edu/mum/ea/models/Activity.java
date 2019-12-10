@@ -16,4 +16,11 @@ public abstract class Activity {
     private User user;
     @Column(name = "activity_time")
     private LocalDateTime activityTime;
+
+    public Activity() {
+    }
+
+    public Activity(User user) {
+        this.user = user;
+    }
 }
