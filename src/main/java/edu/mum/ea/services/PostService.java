@@ -1,4 +1,4 @@
 package edu.mum.ea.services;
 
-public interface PostService {
+public interface PostService extends GeneralService {
 }

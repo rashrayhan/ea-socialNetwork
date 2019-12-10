@@ -11,5 +11,5 @@ import javax.persistence.ManyToOne;
 public class Follow extends Activity {
     @ManyToOne
     @JoinColumn(name = "following_user_id")
-    private SimpleUser followingUser;
+    private User followingUser;
 }
