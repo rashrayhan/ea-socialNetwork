@@ -17,4 +17,10 @@ public class PostItem {
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
+
+    public PostItem(PostItemType postItemType, SimpleUser simpleUser, Post post) {
+        this.postItemType = postItemType;
+        this.simpleUser = simpleUser;
+        this.post = post;
+    }
 }

@@ -6,5 +6,7 @@ import javax.persistence.Entity;
 @Entity
 @DiscriminatorValue("USER_ADMIN")
 public class Admin extends UserRole{
-
+    public Admin(User user) {
+        super(user);
+    }
 }

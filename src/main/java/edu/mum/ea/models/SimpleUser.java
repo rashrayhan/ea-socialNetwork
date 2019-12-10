@@ -7,4 +7,7 @@ import javax.persistence.Entity;
 @DiscriminatorValue("USER_SIMPLE")
 public class SimpleUser extends UserRole {
 
+    public SimpleUser(User user) {
+        super(user);
+    }
 }

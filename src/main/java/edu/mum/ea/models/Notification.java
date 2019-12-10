@@ -8,7 +8,8 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 public class Notification {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -7,7 +7,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -34,6 +36,20 @@ public class User implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+
+    public User(String surname, String otherNames, String email, String username, String password, String profilePhoto, String coverPhoto, String biography, Address address) {
+        this.surname = surname;
+        this.otherNames = otherNames;
+
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.accountStatus = accountStatus;
+        this.profilePhoto = profilePhoto;
+        this.coverPhoto = coverPhoto;
+        this.biography = biography;
+        this.address = address;
+    }
 
     public String getUsername() {
         return username;
