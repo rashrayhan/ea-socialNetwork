@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ea-socialNetwork:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>ea-socialNetwork</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="ea-socialNetwork.war">
+      <element id="artifact" artifact-name="ea-socialNetwork:war exploded" />
+    </root>
+  </artifact>
+</component>
