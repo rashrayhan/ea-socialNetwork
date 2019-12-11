@@ -21,28 +21,27 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-    public Object save(Object object) {
-        Advert advert = (Advert) object;
+    public Advert save(Advert advert) {
         return advertRepository.save(advert);
     }
 
     @Override
-    public Object update(Object object) {
+    public Advert update(Advert advert) {
         return null;
     }
 
     @Override
-    public boolean delete(Object object) {
+    public boolean delete(Advert advert) {
         return false;
     }
 
     @Override
-    public Object findById(Long id) {
+    public Advert findById(Long id) {
         return null;
     }
 
     @Override
-    public List<Object> findAll() {
+    public List<Advert> findAll() {
         return null;
     }
 }

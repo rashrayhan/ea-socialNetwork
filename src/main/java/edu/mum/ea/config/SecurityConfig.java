@@ -1,5 +1,6 @@
 package edu.mum.ea.config;
 
+import edu.mum.ea.services.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -18,34 +19,35 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Qualifier("userDetailsServiceImpl")
-    @Autowired
-    private UserDetailsService userDetailsService;
+    @Bean
+    protected UserDetailsService userDetailsService() {
+        return new UserDetailsServiceImpl();
+    }
 
     @Bean
-    public PasswordEncoder pwdEncoder() {
+    public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(pwdEncoder());
+                .userDetailsService(userDetailsService())
+                .passwordEncoder(encoder());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/post", "/advertise", "/user","/register1")
+                .antMatchers("/post", "/advertise", "/user", "/dashboard")
                 .authenticated()
                 .antMatchers("/", "/**")
                 .permitAll()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/home")
+                .defaultSuccessUrl("/dashboard")
                 .and()
                 .logout();
     }

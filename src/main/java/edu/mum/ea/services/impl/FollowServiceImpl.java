@@ -21,28 +21,27 @@ public class FollowServiceImpl implements FollowService {
     }
 
     @Override
-    public Object save(Object object) {
-        Follow follow = (Follow) object;
+    public Follow save(Follow follow) {
         return followRepository.save(follow);
     }
 
     @Override
-    public Object update(Object object) {
+    public Follow update(Follow follow) {
         return null;
     }
 
     @Override
-    public boolean delete(Object object) {
+    public boolean delete(Follow follow) {
         return false;
     }
 
     @Override
-    public Object findById(Long id) {
+    public Follow findById(Long id) {
         return null;
     }
 
     @Override
-    public List<Object> findAll() {
+    public List<Follow> findAll() {
         return null;
     }
 }
