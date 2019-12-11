@@ -30,7 +30,7 @@
 		            </div>
 		        </div>
 		        <div class="">
-		            <a href="dashboard">Forgot password?</a>
+		            <a href="timeline">Forgot password?</a>
 		        </div>
 		    </div>
 		

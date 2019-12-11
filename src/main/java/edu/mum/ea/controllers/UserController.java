@@ -56,4 +56,26 @@ public class UserController {
         return "timeline";
     }
 
+    @RequestMapping(value = "/filthy")
+    public String filthy() {
+        return "filthy";
+    }
+
+    @RequestMapping(value = "/users_all")
+    public String users_all() {
+        return "users_all";
+    }
+
+    @RequestMapping(value = "/user_claims")
+    public String user_claims() {
+        return "user_claims";
+    }
+
+    @RequestMapping(value = "/filthy_words")
+    public String filthy_words() {
+        return "filthy_words";
+    }
+
+
+
 }

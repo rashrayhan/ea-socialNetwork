@@ -6,7 +6,7 @@
 .homepage-section{
 	display: grid;
 	grid-template-columns: 60% 40%;
-	background: linear-gradient(90deg, rgba(237, 203, 203, 0), rgba(109, 170, 238, 0.5));
+	background: linear-gradient(90deg, #1A237E, #E8EAF6);
 }
 .index-left {
 	max-height: 100vh;
@@ -32,6 +32,11 @@
 }
 textarea{
 	resize: none;
+}
+.uploadFile{
+	width: 0px;
+	height: 0px;
+	overflow: hidden;
 }
 @media only screen and (max-width: 768px) {
 	.homepage-section{
