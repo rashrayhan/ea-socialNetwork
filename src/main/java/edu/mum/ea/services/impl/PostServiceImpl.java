@@ -21,28 +21,27 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Object save(Object object) {
-        Post post = (Post) object;
+    public Post save(Post post) {
         return postRepository.save(post);
     }
 
     @Override
-    public Object update(Object object) {
+    public Post update(Post post) {
         return null;
     }
 
     @Override
-    public boolean delete(Object object) {
+    public boolean delete(Post post) {
         return false;
     }
 
     @Override
-    public Object findById(Long id) {
+    public Post findById(Long id) {
         return null;
     }
 
     @Override
-    public List<Object> findAll() {
+    public List<Post> findAll() {
         return null;
     }
 }

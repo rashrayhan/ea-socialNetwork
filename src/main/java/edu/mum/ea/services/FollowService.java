@@ -1,5 +1,7 @@
 package edu.mum.ea.services;
 
-public interface FollowService extends GeneralService {
+import edu.mum.ea.models.Follow;
+
+public interface FollowService extends GenericService<Follow> {
 
 }
