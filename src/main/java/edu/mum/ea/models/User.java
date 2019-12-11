@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -24,6 +25,7 @@ public class User {
     private String surname;
     @Column(name = "other_names")
     private String otherNames;
+    @DateTimeFormat(pattern = "yyyy-dd-MM")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
     private String email;
