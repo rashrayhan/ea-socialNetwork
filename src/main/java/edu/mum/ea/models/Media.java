@@ -10,7 +10,8 @@ public class Media {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String filePath;
-    @Column(name = "media_type", columnDefinition = "varchar(16) not null")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "media_type")
     private MediaType mediaType;
     @ManyToOne
     @JoinColumn(name = "post_id")
