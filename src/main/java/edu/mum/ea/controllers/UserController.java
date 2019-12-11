@@ -1,5 +1,6 @@
 package edu.mum.ea.controllers;
 
+import edu.mum.ea.models.AccountStatus;
 import edu.mum.ea.models.User;
 import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,8 @@ import javax.validation.Valid;
 public class UserController {
 
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserService userService;
 
     @Autowired
@@ -37,8 +40,9 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String postRegister(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if(!bindingResult.hasErrors()) {
+        if(bindingResult.hasErrors()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            user.setAccountStatus(AccountStatus.Active);
             User retUser = (User) userService.save(user);
             redirectAttributes.addFlashAttribute("registeredUser", retUser);
             return "redirect:/dashboard";
