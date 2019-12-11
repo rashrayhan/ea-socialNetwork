@@ -6,10 +6,10 @@
 		<div class="index-left text-center">
 <%--			<img src="./images/logo.png"/>--%>
 		</div>
-		<form class="index-right container shadow bg-white rounded border border-light p-5" action="#">
+		<form class="index-right container shadow bg-white rounded border border-light p-5" action="/login" method="post">
 			<p class="h2 mb-2 text-center">mum-social Sign in</p>
 			<p class="p-underline"></p>
-			
+			<input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden"/>
 			<div class="md-form">
 				<i class="fa fa-user blue-grey-text font-weight-normal prefix"></i>
 				<input type="text" id="form2" class="form-control" name="username">
@@ -45,6 +45,5 @@
 				</div>
 			</div>
 		</form>
-		
 	</section>
 <jsp:include page="/WEB-INF/jsp/includes/index-footer.jsp"></jsp:include>

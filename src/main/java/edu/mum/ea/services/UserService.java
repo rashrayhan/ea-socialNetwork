@@ -1,5 +1,7 @@
 package edu.mum.ea.services;
 
-public interface UserService extends GeneralService {
+import edu.mum.ea.models.User;
+
+public interface UserService extends GenericService<User> {
 
 }

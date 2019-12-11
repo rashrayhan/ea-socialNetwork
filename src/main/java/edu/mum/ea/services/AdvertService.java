@@ -1,5 +1,7 @@
 package edu.mum.ea.services;
 
-public interface AdvertService extends GeneralService {
+import edu.mum.ea.models.Advert;
+
+public interface AdvertService extends GenericService<Advert> {
 
 }

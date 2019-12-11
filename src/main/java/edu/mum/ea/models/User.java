@@ -2,7 +2,10 @@ package edu.mum.ea.models;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -15,7 +18,7 @@ import java.util.List;
 @Data
 @RequiredArgsConstructor
 @Table(name = "system_user")
-public class User implements UserDetails {
+public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String surname;
@@ -26,7 +29,8 @@ public class User implements UserDetails {
     private String email;
     private String username;
     private String password;
-    @Column(name = "account_status", columnDefinition = ("varchar(16) not null"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "account_status")
     private AccountStatus accountStatus;
     @Column(name = "profile_photo")
     private String profilePhoto;
@@ -36,39 +40,59 @@ public class User implements UserDetails {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getOtherNames() {
+        return otherNames;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
     public String getUsername() {
         return username;
     }
 
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
+    public AccountStatus getAccountStatus() {
+        return accountStatus;
     }
 
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
+    public String getProfilePhoto() {
+        return profilePhoto;
     }
 
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
+    public String getCoverPhoto() {
+        return coverPhoto;
     }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
+    public String getBiography() {
+        return biography;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+    public Address getAddress() {
+        return address;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
     }
 
     public String getPassword() {
