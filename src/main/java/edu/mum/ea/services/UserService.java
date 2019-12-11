@@ -1,5 +1,5 @@
 package edu.mum.ea.services;
 
-public interface UserService extends GeneralService {
+public interface  UserService   extends GeneralService {
 
 }
