@@ -27,19 +27,18 @@ public class UserController {
     public UserController() {
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+
+
+    @RequestMapping(value = {"/", "/login", "/index"}, method = RequestMethod.GET)
+
     public String welcome() {
         return "index";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
-        return "login";
-    }
 
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String getRegister() {
-        return "jsp/register";
+        return "register";
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
@@ -48,9 +47,22 @@ public class UserController {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             User retUser = (User) userService.save(user);
             redirectAttributes.addFlashAttribute("registeredUser", retUser);
-            return "redirect:/home";
+            return "redirect:/dashboard";
         }
         return "register";
     }
+
+    @RequestMapping(value = "/dashboard")
+    public String dashboard() {
+        return "dashboard";
+    }
+
+    @RequestMapping(value = "/timeline" ,method = RequestMethod.GET)
+    public String timeline() {
+        return "timeline";
+    }
+
+
+
 
 }

@@ -1,16 +1,50 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: root
-  Date: 12/2/19
-  Time: 11:08 AM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
+
+<jsp:include page="/WEB-INF/jsp/includes/index-header.jsp"></jsp:include>
+
 <body>
-    <h1>Welcome buddy!</h1>
-</body>
-</html>
+	<section id="" class="homepage-section container col-12">
+		<div class="index-left text-center">
+<%--			<img src="./images/logo.png"/>--%>
+		</div>
+		<form class="index-right container shadow bg-white rounded border border-light p-5" action="#">
+			<p class="h2 mb-2 text-center">mum-social Sign in</p>
+			<p class="p-underline"></p>
+			
+			<div class="md-form">
+				<i class="fa fa-user blue-grey-text font-weight-normal prefix"></i>
+				<input type="text" id="form2" class="form-control" name="username">
+				<label for="form2">Your username</label>
+			</div>
+
+		    <div class="md-form">
+				<i class="fa fa-key blue-grey-text prefix"></i>
+				<input type="password" id="form4" class="form-control" name="password">
+				<label for="form4">Your password</label>
+			</div>
+	
+		    <div class="d-flex justify-content-around mt-5">
+		        <div>
+		            <div class="custom-control custom-checkbox">
+		                <input type="checkbox" class="custom-control-input" id="defaultLoginFormRemember">
+		                <label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+		            </div>
+		        </div>
+		        <div class="">
+		            <a href="dashboard">Forgot password?</a>
+		        </div>
+		    </div>
+		
+		    <button class="btn btn-block blue-gradient my-4 mt-5" type="submit">Sign in</button>
+			<hr>
+			<div class="text-center mt-5">
+				
+				<p>Don't have an account?</p>
+
+				<div>
+					<a href="register" class="purple-text font-weight-normal">sign up</a>
+				</div>
+			</div>
+		</form>
+		
+	</section>
+<jsp:include page="/WEB-INF/jsp/includes/index-footer.jsp"></jsp:include>

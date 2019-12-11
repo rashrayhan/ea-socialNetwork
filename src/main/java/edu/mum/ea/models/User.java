@@ -59,6 +59,50 @@ public class User implements UserDetails {
 
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getOtherNames() {
+        return otherNames;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public AccountStatus getAccountStatus() {
+        return accountStatus;
+    }
+
+    public String getProfilePhoto() {
+        return profilePhoto;
+    }
+
+    public String getCoverPhoto() {
+        return coverPhoto;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
     public String getUsername() {
         return username;
     }

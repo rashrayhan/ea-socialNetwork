@@ -14,13 +14,26 @@ public class Post extends Activity {
     @JoinColumn(name = "comment_to")
     private Post commentTo;
 
-    public Post(String content, Post commentTo, User user) {
-        super(user);
-        this.content = content;
-        this.commentTo = commentTo;
-    }
+
 
     public Post() {
         super();
+    }
+
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Post getCommentTo() {
+        return commentTo;
+    }
+
+    public void setCommentTo(Post commentTo) {
+        this.commentTo = commentTo;
     }
 }
