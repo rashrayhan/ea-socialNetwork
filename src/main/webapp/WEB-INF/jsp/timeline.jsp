@@ -1,43 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="ISO-8859-1">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>MUM-Social</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/mdb.min.css">
-    <link  rel="stylesheet" type="text/css" href="../css/timelinestyle.css">
-</head>
-
-<body>
-
-<div class="container">
-    <div class="row" >
-        <div class="col-2 c-aside-left">
-            <a class="waves-effect">
-                <img src="./images/logo.PNG" class="img-fluid" alt="">
-            </a>
-
-            <div class="list-group list-group-flush mt-5">
-                <a href="dashboard" class="list-group-item waves-effect">
-                    <i class="fas fa-users mr-3"></i>Dashboard
-                </a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fas fa-user mr-3"></i>Link 1</a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fas fa-table mr-3"></i>Link 2</a>
-                <a href="#" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fas fa-map mr-3"></i>Link 3</a>
-                <a href="timeline" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fas fa-money-bill-alt mr-3"></i>timeline</a>
-            </div>
-            <br/>
-<%--            <button class="btn btn-lg btn-block btnSign" mat-raised-button (click)="openDialog()">peep</button>--%>
-
-        </div>
+<jsp:include page="/WEB-INF/jsp/includes/timeline-header.jsp"></jsp:include>
 
         <div class="col-md-6 col-sm-10 c-main">
             <h5 class="cm-title">Home</h5>
@@ -47,13 +8,20 @@
                 </span>
 
                 <span class="col-11 cmp-form">
-                    <form class="" >
+                    <form class="" method="post" action="" enctype="multipart/form-data" >
 
-                      <textarea matInput placeholder="What's happening?" formControlName="peep" resize="false"></textarea>
-                      <div class="row">
+                            <textarea matInput placeholder="What's happening?" name="peep" rows="3" resize="false"></textarea>
+                            <label class="btn purple-gradient btn-sm"> <i class="fa fa-image"></i><input type="file" class="uploadFile" name="picture[]" multiple accept="image/*">
+                            </label>
 
-<%--                          <button routerLink="" class="col btn btnSign">post</button>--%>
-                      </div>
+                            <label class="btn aqua-gradient btn-sm"> <i class="fa fa-video"></i><input type="file" class="uploadFile" name="video[]" multiple accept="video/*">
+                            </label>
+
+                            <input type="checkbox" class="form-check-input ml-2 mt-3" id="notify">
+                            <label class="form-check-label btn-sm ml-3" for="notify" name="notify">Notify users</label>
+
+                            <button class="btn btn-sm blue-gradient btn-rounded float-right" type="submit">Post</button>
+
                     </form>
                 </span>
             </div>

@@ -9,6 +9,14 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/mdb.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
     <link  rel="stylesheet" type="text/css" href="../css/style.css">
     <link  rel="stylesheet" type="text/css" href="./css/style.min.css">
+<<<<<<< HEAD
+    <link  rel="stylesheet" type="text/css" href="./css/dribble.css">
+    <link  rel="stylesheet" type="text/css" href="../css/timelinestyle.css">
+
 </head>
+=======
+</head>
+>>>>>>> d230f9ab7d2043a21e2d140e16129f0d0fe2d71e
