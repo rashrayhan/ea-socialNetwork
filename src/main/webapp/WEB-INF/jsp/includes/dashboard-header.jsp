@@ -1,19 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="ISO-8859-1">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>MUM-Social</title>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/mdb.min.css">
-    <link  rel="stylesheet" type="text/css" href="../css/style.css">
-    <link  rel="stylesheet" type="text/css" href="./css/style.min.css">
-    <link  rel="stylesheet" type="text/css" href="./css/mediaUploadStyle.css">
-
-</head>
+<jsp:include page="/WEB-INF/jsp/includes/index-header.jsp"></jsp:include>
 <body class="grey lighten-3">
 
 <header>
@@ -36,9 +21,12 @@
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
                 <li class="nav-item">
-                    <a href="index" class="nav-link border border-light rounded waves-effect">
-                        <i class="fas fa-sign-out-alt mr-2 blue-text"></i>Logout
-                    </a>
+                    <form action="/logout" method="post">
+                        <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden"/>
+                        <button type="submit" href="index" class="nav-link border border-light rounded waves-effect">
+                            <i class="fas fa-sign-out-alt mr-2 blue-text"></i>Logout
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -54,16 +42,18 @@
 
         <div class="list-group list-group-flush mt-5">
             <a href="dashboard" class="list-group-item waves-effect">
-                <i class="fas fa-users mr-3"></i>Dashboard
+                <i class="fas fa-bullhorn mr-3 blue-grey-text"></i>Dashboard
             </a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-user mr-3"></i>Link 1</a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-table mr-3"></i>Link 2</a>
-            <a href="#" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-map mr-3"></i>Link 3</a>
+            <a href="filthy" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-ban mr-3 blue-grey-text"></i>Filthy posts</a>
+            <a href="filthy_words" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-file-word mr-3 blue-grey-text"></i>Filthy words</a>
+            <a href="users_all" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-users mr-3 blue-grey-text"></i>System users</a>
+            <a href="user_claims" class="list-group-item list-group-item-action waves-effect">
+                <i class="fas fa-id-card mr-3 blue-grey-text"></i>User Claims</a>
             <a href="timeline" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-money-bill-alt mr-3"></i>timeline</a>
+                <i class="fas fa-stream mr-3 blue-grey-text"></i>System timeline</a>
         </div>
 
     </div>

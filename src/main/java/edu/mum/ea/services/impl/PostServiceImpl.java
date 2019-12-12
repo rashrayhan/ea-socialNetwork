@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class PostServiceImpl implements PostService {
+ public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
 
@@ -21,28 +21,42 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Object save(Object object) {
-        Post post = (Post) object;
+    public Post save(Post post) {
         return postRepository.save(post);
     }
 
     @Override
-    public Object update(Object object) {
+    public Post update(Post post) {
+        return postRepository.save(post);
+    }
+
+    @Override
+    public boolean delete(Post post) {
+
+
+            postRepository.delete(post);
+
+            return true;
+
+
+
+    }
+
+    @Override
+    public Post findById(Long id) {
         return null;
     }
 
     @Override
-    public boolean delete(Object object) {
-        return false;
+    public List<Post> findAll() {
+        return (List<Post>) postRepository.findAll();
     }
 
-    @Override
-    public Object findById(Long id) {
-        return null;
-    }
 
-    @Override
-    public List<Object> findAll() {
-        return null;
-    }
+
+//
+//    @Override
+//    public List<Post> allpost() {
+//        return postRepository.allpost();
+//    }
 }

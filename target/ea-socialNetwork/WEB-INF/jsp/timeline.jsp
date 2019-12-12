@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
@@ -44,6 +45,9 @@
 
         </div>
 
+<jsp:include page="/WEB-INF/jsp/includes/timeline-header.jsp"></jsp:include>
+
+
         <div class="col-md-6 col-sm-10 c-main">
             <h5 class="cm-title">Home</h5>
             <div class="row cm-peep">
@@ -52,33 +56,35 @@
                 </span>
 
                 <span class="col-11 cmp-form">
-                    <form class="" action="/makepost" method="get">
+
+                     <form class="" action="/makepost" method="get">
 
                       <textarea name="content" matInput placeholder="What's happening?" formControlName="peep" resize="false"></textarea>
                       <div class="row">
-                          <label>comment for:<input name="comment_to" type="text">
 
-
-                           <input id="submit" type="submit"   value="Post">
+                          </label>
                       </div>
-                    </form>
-
-                </span>
-            </div>
-<%--<form:form modelAttribute="employee" action="employee_save" method="post">--%>
-
-<%--                <input type="text" name="content">--%>
-
-<%--                <input type="submit" value="submit">--%>
 
 
 
-<%--</form:form>--%>
-
-            <!-- timelines -->
 
 
-            <div class="cm-timelines">
+
+                         <label class="btn purple-gradient btn-sm"> <i class="fa fa-image"></i><input type="file" class="uploadFile" name="picture[]" multiple accept="image/*">
+                            </label>
+
+                            <label class="btn aqua-gradient btn-sm"> <i class="fa fa-video"></i><input type="file" class="uploadFile" name="video[]" multiple accept="video/*">
+                            </label>
+
+                            <input type="checkbox" class="form-check-input ml-2 mt-3" id="notify">
+                            <label class="form-check-label btn-sm ml-3" for="notify" name="notify">Notify users</label>
+
+                            <button class="btn btn-sm blue-gradient btn-rounded float-right" type="submit">Post</button>
+
+
+                     </form>
+
+                    <div class="cm-timelines">
 
                 <!-- timeline -->
                 <div class="cm-timeline row">
@@ -92,7 +98,8 @@
             <p class="cmtt-title"><b>John Doe</b> &nbsp; &nbsp;
               <span id="cmttt-handle">@handle • 13h</span>
             </p>
-            <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups,  ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual </p>
+
+
             <div class="cmtt-img">
               <img src="assets/XNBgQIbg.jpg"/>
             </div>
@@ -113,8 +120,7 @@
                 </div>
 
 
-            </div>
-        </div>
+
 
         <div class="col-3 c-aside-right">
             <div class="car-search">

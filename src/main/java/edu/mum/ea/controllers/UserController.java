@@ -5,6 +5,7 @@ import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -60,6 +61,28 @@ public class UserController {
     @RequestMapping(value = "/timeline" ,method = RequestMethod.GET)
     public String timeline() {
         return "timeline";
+    }
+
+
+
+    @RequestMapping(value = "/filthy")
+    public String filthy() {
+        return "filthy";
+    }
+
+    @RequestMapping(value = "/users_all")
+    public String users_all() {
+        return "users_all";
+    }
+
+    @RequestMapping(value = "/user_claims")
+    public String user_claims() {
+        return "user_claims";
+    }
+
+    @RequestMapping(value = "/filthy_words")
+    public String filthy_words() {
+        return "filthy_words";
     }
 
 

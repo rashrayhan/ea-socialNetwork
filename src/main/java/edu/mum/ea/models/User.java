@@ -2,8 +2,14 @@ package edu.mum.ea.models;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
 import org.hibernate.annotations.Cascade;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -16,7 +22,7 @@ import java.util.List;
 @Data
 @RequiredArgsConstructor
 @Table(name = "system_user")
-public class User implements UserDetails {
+public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String surname;
@@ -27,7 +33,8 @@ public class User implements UserDetails {
     private String email;
     private String username;
     private String password;
-    @Column(name = "account_status", columnDefinition = ("varchar(16) not null"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "account_status")
     private AccountStatus accountStatus;
     @Column(name = "profile_photo")
     private String profilePhoto;
@@ -38,11 +45,13 @@ public class User implements UserDetails {
     @JoinColumn(name = "address_id")
 
     private Address address;
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "user_role",
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
+
 
     public User(String surname, String otherNames, LocalDate dateOfBirth, String email, String username, String password, AccountStatus accountStatus, String profilePhoto, String coverPhoto, String biography, Address address) {
         this.surname = surname;
@@ -58,6 +67,7 @@ public class User implements UserDetails {
         this.address = address;
 
     }
+
 
     public Long getId() {
         return id;
@@ -79,58 +89,8 @@ public class User implements UserDetails {
         return email;
     }
 
-    public AccountStatus getAccountStatus() {
-        return accountStatus;
-    }
 
-    public String getProfilePhoto() {
-        return profilePhoto;
-    }
 
-    public String getCoverPhoto() {
-        return coverPhoto;
-    }
-
-    public String getBiography() {
-        return biography;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
 
     public String getPassword() {
         return password;

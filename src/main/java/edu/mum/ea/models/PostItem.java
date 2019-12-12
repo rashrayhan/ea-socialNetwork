@@ -9,7 +9,8 @@ import javax.persistence.*;
 public class PostItem {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "item_type", columnDefinition = "varchar(16) not null")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "item_type")
     private PostItemType postItemType;
     @ManyToOne
     @JoinColumn(name = "user_id")

@@ -2,6 +2,7 @@ package edu.mum.ea.controllers;
 
 import edu.mum.ea.models.*;
 import edu.mum.ea.repos.UserRepository;
+import edu.mum.ea.services.MypostService;
 import edu.mum.ea.services.PostService;
 import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,17 +23,15 @@ import java.util.List;
 @Controller
 public class PostController {
 
-          @Autowired
-        UserService userservice;
-
-  private PostService postService;
 
     @Autowired
-    public PostController(PostService postService) {
-        this.postService = postService;
+    MypostService mypostService;
 
-    }
-//    @RequestMapping(value = "/please", method = RequestMethod.GET)
+    @Autowired
+    UserService userService;
+
+
+    //    @RequestMapping(value = "/please", method = RequestMethod.GET)
 //    public String indexco(){
 ////        System.out.println("*********************");
 ////
@@ -64,42 +63,32 @@ public class PostController {
 //
 //
 //        return "index";
-         @RequestMapping(value = "/makepost",method = RequestMethod.GET)
-              public String displaypost(Post post,User user){
-
-                   //long userid=(long)userservice.findById(3L);
-
-                          // System.out.println(userid);
-             User user2=new User("fikir","nnn",LocalDate.now(),
-              "fikirbereketu@gmail.com","fikirr","123456",
-               AccountStatus.Active,"uu","llk",
-              "jkl",
-             new Address("fghj","uilk","jkl","gh"));
-
-                     userservice.save(user2);
-
-                     post.setUser(user2);
-                   //  System.out.println(post.setCommentTo(post.setUser(user.getId())));
-                     post.setCommentTo(post);
+    @RequestMapping(value = "/makepost", method = RequestMethod.GET)
+    public String displaypost(Post post, User user, Model model) {
 
 
+        User user2 = new User("fikir", "nnn", LocalDate.now(),
+                "fikirbereketu@gmail.com", "fikirr", "123456",
+                AccountStatus.Active, "uu", "llk",
+                "jkl",
+                new Address("fghj", "uilk", "jkl", "gh"));
+
+        post.setUser(user2);
+        ;
+        userService.save(user2);
+        mypostService.save(post);
+
+        List<Post> postlist = (List<Post>) mypostService.getAll();
+        model.addAttribute("posts", postlist);
 
 
-
-
-                  postService.save(post);
-
-
-
-
-
-         return "timeline";
+        return "timeline";
 
 
     }
 
 
-    }
+}
 
 
 

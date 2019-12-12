@@ -3,8 +3,8 @@ edu\mum\ea\repos\FollowRepository.class
 edu\mum\ea\services\impl\FollowServiceImpl.class
 edu\mum\ea\services\FollowService.class
 edu\mum\ea\models\AccountStatus.class
-edu\mum\ea\services\GeneralService.class
 edu\mum\ea\models\Advert.class
+edu\mum\ea\models\util\UserPrincipal.class
 edu\mum\ea\controllers\PostController.class
 edu\mum\ea\models\PostItem.class
 edu\mum\ea\controllers\UserController.class
@@ -12,13 +12,17 @@ edu\mum\ea\controllers\AdvertController.class
 edu\mum\ea\models\MediaType.class
 edu\mum\ea\models\Media.class
 edu\mum\ea\repos\PostRepository.class
+edu\mum\ea\services\impl\MypostserviceImp.class
 edu\mum\ea\models\Post.class
 edu\mum\ea\services\impl\UserDetailsServiceImpl.class
 edu\mum\ea\models\PostItemType.class
+edu\mum\ea\services\GenericService.class
 edu\mum\ea\services\UserService.class
 edu\mum\ea\Application.class
 edu\mum\ea\repos\UserRepository.class
+edu\mum\ea\repos\RoleRepository.class
 edu\mum\ea\models\Activity.class
+edu\mum\ea\repos\MYPostRepository.class
 edu\mum\ea\models\Follow.class
 edu\mum\ea\models\Role.class
 edu\mum\ea\models\Notification.class
@@ -26,6 +30,7 @@ edu\mum\ea\services\PostService.class
 edu\mum\ea\controllers\FollowController.class
 edu\mum\ea\config\SecurityConfig.class
 edu\mum\ea\models\User.class
+edu\mum\ea\services\MypostService.class
 edu\mum\ea\services\AdvertService.class
 edu\mum\ea\repos\AdvertRepository.class
 edu\mum\ea\models\Address.class
