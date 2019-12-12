@@ -1,5 +1,5 @@
 
-<jsp:include page="/WEB-INF/jsp/includes/index-header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/includes/global-header.jsp"></jsp:include>
 	<section id="" class="homepage-section container col-12">
 		<div class="index-left text-center">
 <%--			<img src="./images/logo.png"/>--%>
@@ -62,4 +62,4 @@
 		</form>
 
 	</section>
-<jsp:include page="/WEB-INF/jsp/includes/index-footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/includes/global-footer.jsp"></jsp:include>

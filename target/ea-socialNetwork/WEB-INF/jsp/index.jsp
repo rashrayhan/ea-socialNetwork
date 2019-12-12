@@ -1,5 +1,5 @@
 
-<jsp:include page="/WEB-INF/jsp/includes/index-header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/includes/global-header.jsp"></jsp:include>
 
 <body>
 	<section id="" class="homepage-section container col-12">
@@ -30,7 +30,7 @@
 		            </div>
 		        </div>
 		        <div class="">
-		            <a href="dashboard">Forgot password?</a>
+		            <a href="timeline">Forgot password?</a>
 		        </div>
 		    </div>
 		
@@ -47,4 +47,4 @@
 		</form>
 		
 	</section>
-<jsp:include page="/WEB-INF/jsp/includes/index-footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/includes/global-footer.jsp"></jsp:include>

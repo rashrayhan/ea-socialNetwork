@@ -9,4 +9,4 @@
 </footer>
 <!--/.Footer-->
 
-<jsp:include page="/WEB-INF/jsp/includes/index-footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/includes/global-footer.jsp"></jsp:include>

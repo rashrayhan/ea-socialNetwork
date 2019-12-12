@@ -76,6 +76,24 @@ public class UserController {
         return "filthy_words";
     }
 
+    @RequestMapping(value = "/follow")
+    public String follow() {
+        return "follow";
+    }
 
+    @RequestMapping(value = "/profile")
+    public String profile() {
+        return "profile";
+    }
+
+    @RequestMapping(value = "/user_profile")
+    public String user_profile() {
+        return "user_profile";
+    }
+
+    @RequestMapping(value = "/claim")
+    public String claim() {
+        return "claim";
+    }
 
 }
