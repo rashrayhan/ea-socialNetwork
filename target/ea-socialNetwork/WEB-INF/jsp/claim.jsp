@@ -1,7 +1,7 @@
-<jsp:include page="/WEB-INF/jsp/includes/timeline-header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/includes/claim-header.jsp"></jsp:include>
 
         <div class="col-md-6 col-sm-10 c-main">
-            <h5 class="cm-title">Account Locked</h5>
+            <h5 class="cm-title text-center text-danger text-uppercase">Account Locked</h5>
 
             <div class="cm-timelines">
 
@@ -18,7 +18,7 @@
 
                         </div>
                         <div class="cmp-btn">
-                            <button class="btn btn-sm blue-gradient btn-rounded float-right" type="submit" data-toggle="modal" data-target="#claimModal">Claim Account</button>
+                            <button class="btn btn-sm btn-outline-danger float-right" type="submit" data-toggle="modal" data-target="#claimModal">Claim Account</button>
                         </div>
                     </div>
 
@@ -42,11 +42,11 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="addModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+<div class="modal fade" id="claimModal" tabindex="-1" role="dialog" aria-labelledby="claimModal" aria-hidden="true">
+    <div class="modal-dialog " role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Edit Profile</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Claim Account</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -57,7 +57,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="md-form mb-0">
-                                <input type="text" class="form-control" id="name"  name="name">
+                                <input type="text" class="form-control" id="name"  disabled name="name">
                                 <label for="name">Name</label>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                         <div class="col-md-12">
 
                             <div class="md-form">
-                                <label for="reason">Reason</label>
+                                <label for="reason">Claim message</label>
                                 <textarea class="form-control md-textarea" id="reason" name="reason" rows="5"></textarea>
                             </div>
 

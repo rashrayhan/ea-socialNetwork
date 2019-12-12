@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/jsp/includes/dashboard-header.jsp"></jsp:include>
 
     
@@ -6,29 +7,35 @@
             <div class="d-flex justify-content-center">
                 <div class="card mb-5 wow fadeIn col-8">
                     <div class="card-body d-sm-flex text-center">
-                        <form class="form col-12 p-5" action="" method="post" enctype="multipart/form-data">
-                            <textarea class="form-control mr-sm-2 p-2" rows="5" autofocus name="advertisement" placeholder="Enter advertisement text"></textarea>
+                        <form:form modelAttribute="advert" cssClass="form col-12 p-5" action="" method="post" enctype="multipart/form-data">
+                            <form:input path="title" cssClass="form-control mb-3 p-2" autofocus="true" placeholder="Enter advertisement title"/>
+                            <form:errors cssClass="text-danger" path="title"/>
 
-                            <label class="btn purple-gradient btn-sm"> <i class="fa fa-image"></i><input type="file" class="uploadFile" name="picture[]" multiple accept="image/*">
-                            </label>
+                            <form:textarea path="content" cssClass="form-control mr-sm-2 p-2" rows="5" placeholder="Enter advertisement text"/>
+                            <form:errors cssClass="text-danger" path="content"/>
 
-                            <label class="btn aqua-gradient btn-sm"> <i class="fa fa-video"></i><input type="file" class="uploadFile" name="video[]" multiple accept="video/*">
-                            </label>
+<%--                            <label class="btn purple-gradient btn-sm"> <i class="fa fa-image"></i><form:input path="title" type="file" cssClass="uploadFile"  multiple="true" accept="image/*"/>--%>
+<%--                            </label>--%>
+<%--                            <form:errors cssClass="text-danger" path="title"/>--%>
 
-                            <div class="md-form">
-                                <select name="symptoms" multiple data-placeholder="Target users">
-                                    <option value="all">All</option>
-                                    <option value="under 18">Under 18</option>
-                                    <option value="Adults">Adults</option>
-                                    <option value="males">Males</option>
-                                    <option value="females">Females</option>
-                                    <option value="married">Married</option>
-                                    <option value="single">Single</option>
-                                    <option value="americans">Americans</option>
-                                </select>
-                            </div>
-                            <button class="btn btn-block blue-gradient btn-rounded mt-3 p-3" type="submit">Advertise</button>
-                        </form>
+<%--                            <label class="btn aqua-gradient btn-sm"> <i class="fa fa-video"></i><form:input path="mediaList" type="file" cssClass="uploadFile"  multiple="true" accept="video/*"/>--%>
+<%--                            </label>--%>
+<%--                            <form:errors cssClass="text-danger" path="mediaList"/>--%>
+
+<%--                            <div class="md-form">--%>
+<%--                                <form:select path="target-users" multiple data-placeholder="Target users">--%>
+<%--                                    <option value="all">All</option>--%>
+<%--                                    <option value="under 18">Under 18</option>--%>
+<%--                                    <option value="Adults">Adults</option>--%>
+<%--                                    <option value="males">Males</option>--%>
+<%--                                    <option value="females">Females</option>--%>
+<%--                                    <option value="married">Married</option>--%>
+<%--                                    <option value="single">Single</option>--%>
+<%--                                    <option value="americans">Americans</option>--%>
+<%--                                </form:select>--%>
+<%--                            </div>--%>
+                            <form:button class="btn btn-block blue-gradient btn-rounded mt-3 p-3" type="submit">Advertise</form:button>
+                        </form:form>
                         <br/>
 
                     </div>

@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Entity
@@ -16,4 +17,13 @@ public abstract class Activity {
     private User user;
     @Column(name = "activity_time")
     private LocalDateTime activityTime;
+
+    public LocalDateTime getActivityTime() {
+        return activityTime;
+    }
+
+    public void setActivityTime(LocalDateTime activityTime) {
+        this.activityTime = activityTime;
+    }
+
 }

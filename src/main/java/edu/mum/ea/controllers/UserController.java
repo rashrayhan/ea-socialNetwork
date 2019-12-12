@@ -1,11 +1,13 @@
 package edu.mum.ea.controllers;
 
+import edu.mum.ea.models.Advert;
 import edu.mum.ea.models.User;
 import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -47,7 +49,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/dashboard")
-    public String dashboard() {
+    public String dashboard(@ModelAttribute("advert") Advert advert) {
         return "dashboard";
     }
 
