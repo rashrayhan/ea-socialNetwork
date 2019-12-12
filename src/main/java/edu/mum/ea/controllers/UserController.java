@@ -3,6 +3,7 @@ package edu.mum.ea.controllers;
 import edu.mum.ea.models.AccountStatus;
 import edu.mum.ea.models.User;
 import edu.mum.ea.services.UserService;
+import org.eclipse.jdt.internal.compiler.apt.model.ModuleElementImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -21,6 +24,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    private List<User> userList = new ArrayList<>();
+
+    public List<User> getUserList() {
+        return userList;
+    }
 
     @Autowired
     public UserController(PasswordEncoder passwordEncoder, UserService userService) {
@@ -39,16 +48,32 @@ public class UserController {
         return "register";
     }
 
+    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
+    public String findAll(Model model) {
+        userList=userService.findAll();
+        model.addAttribute("userList", userList);
+        return "users_all";
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String postRegister(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if(!bindingResult.hasErrors()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setAccountStatus(AccountStatus.Active);
+            user.setUsername(user.getSurname());
             User retUser = (User) userService.save(user);
             redirectAttributes.addFlashAttribute("registeredUser", retUser);
-            return "redirect:/dashboard";
+            //return "redirect:/dashboard";
+            return "redirect:/profile";
+
         }
         return "register";
+    }
+
+
+    @RequestMapping(value = "/profile")
+    public String profile() {
+        return "profile";
     }
 
     @RequestMapping(value = "/dashboard")
