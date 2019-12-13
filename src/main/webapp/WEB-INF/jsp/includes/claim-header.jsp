@@ -9,15 +9,6 @@
             </a>
 
             <div class="list-group list-group-flush mt-5">
-                <a href="timeline" class="list-group-item waves-effect">
-                    <i class="fas fa-home mr-3"></i>Home
-                </a>
-                <a href="follow" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fas fa-reply mr-3"></i>Followers</a>
-                <a href="follow" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fas fa-share mr-3"></i>Following</a>
-                <a href="profile" class="list-group-item list-group-item-action waves-effect">
-                    <i class="fas fa-user mr-3"></i>Profile</a>
                 <a href="index" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
             </div>
