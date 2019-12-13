@@ -5,6 +5,7 @@ import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -24,7 +25,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    public UserController() {
+    }
+
+
+
     @RequestMapping(value = {"/", "/login", "/index"}, method = RequestMethod.GET)
+
     public String welcome() {
         return "index";
     }
@@ -51,10 +58,12 @@ public class UserController {
         return "dashboard";
     }
 
-    @RequestMapping(value = "/timeline")
+    @RequestMapping(value = "/timeline" ,method = RequestMethod.GET)
     public String timeline() {
         return "timeline";
     }
+
+
 
     @RequestMapping(value = "/filthy")
     public String filthy() {
@@ -76,24 +85,7 @@ public class UserController {
         return "filthy_words";
     }
 
-    @RequestMapping(value = "/follow")
-    public String follow() {
-        return "follow";
-    }
 
-    @RequestMapping(value = "/profile")
-    public String profile() {
-        return "profile";
-    }
 
-    @RequestMapping(value = "/user_profile")
-    public String user_profile() {
-        return "user_profile";
-    }
-
-    @RequestMapping(value = "/claim")
-    public String claim() {
-        return "claim";
-    }
 
 }

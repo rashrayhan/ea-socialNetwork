@@ -1,44 +1,59 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/jsp/includes/timeline-header.jsp"></jsp:include>
 
-        <div class="col-md-6 col-sm-10 c-main">
-            <h5 class="cm-title">Home</h5>
-            <div class="row cm-peep">
+
+
+<div class="col-md-6 col-sm-10 c-main">
+    <h5 class="cm-title">Home</h5>
+    <div class="row cm-peep">
                 <span class="col-1 cmp-img">
                     <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
                 </span>
 
-                <span class="col-11 cmp-form">
-                    <form class="" method="post" action="" enctype="multipart/form-data" >
 
-                            <textarea matInput placeholder="What's happening?" name="peep" rows="3" resize="false"></textarea>
-                            <label class="btn purple-gradient btn-sm"> <i class="fa fa-image"></i><input type="file" class="uploadFile" name="picture[]" multiple accept="image/*">
-                            </label>
+        <form class="" method="get" action="/makepost" enctype="multipart/form-data" >
 
-                            <label class="btn aqua-gradient btn-sm"> <i class="fa fa-video"></i><input type="file" class="uploadFile" name="video[]" multiple accept="video/*">
-                            </label>
+            <textarea name="content" matInput placeholder="What's happening?" name="peep" rows="3" resize="false"></textarea>
+            <label class="btn purple-gradient btn-sm"> <i class="fa fa-image"></i><input type="file" class="uploadFile" name="picture[]" multiple accept="image/*">
+            </label>
 
-                            <input type="checkbox" class="form-check-input ml-2 mt-3" id="notify">
-                            <label class="form-check-label btn-sm ml-3" for="notify" name="notify">Notify users</label>
+            <label class="btn aqua-gradient btn-sm"> <i class="fa fa-video"></i><input type="file" class="uploadFile" name="video[]" multiple accept="video/*">
+            </label>
 
-                            <button class="btn btn-sm blue-gradient btn-rounded float-right" type="submit">Post</button>
+            <input type="checkbox" class="form-check-input ml-2 mt-3" id="notify">
+            <label class="form-check-label btn-sm ml-3" for="notify" name="notify">Notify users</label>
 
-                    </form>
-                </span>
-            </div>
-            <!-- timelines -->
-            <div class="cm-timelines">
+            <button class="btn btn-sm blue-gradient btn-rounded float-right" type="submit">Post</button>
 
-                <!-- timeline -->
-                <div class="cm-timeline row">
+        </form>
+
+
+    </div>
+    <!-- timelines -->
+
+
+
+
+
+
+
+
+<c:forEach var="mypost" items = "${posts}">
+
+    <div class="cm-timelines">
+
+        <!-- timeline -->
+
+        <div class="cm-timeline row">
                       <span class="col-1 cmt-img">
                           <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
                       </span>
 
-                      <span class="col-11 cmt-text">
-                        <p class="cmtt-title"><b>John Doe</b> &nbsp; &nbsp;
+            <span class="col-11 cmt-text">
+                        <p class="cmtt-title"><b>${userid.surname}</b> &nbsp; &nbsp;
                           <span id="cmttt-handle">@username <i class="fa fa-circle small"></i> Dec 12</span>
                         </p>
-                        <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups,  ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual </p>
+                        <p>    ${mypost.content} </p>
                         <div class="cmtt-img">
                           <img src="./images/HIyWCaRh.jpg"/>
                         </div>
@@ -69,14 +84,17 @@
                             </div>
                         </div>
                       </span>
-                </div>
-
-
-            </div>
         </div>
+
+
+    </div>
+</div>
+</c:forEach>
+
+
 <%--        right side externlized--%>
 <jsp:include page="/WEB-INF/jsp/includes/whotofollow.jsp"></jsp:include>
-    </div>
+</div>
 </div>
 
 <jsp:include page="/WEB-INF/jsp/includes/global-footer.jsp"></jsp:include>

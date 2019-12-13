@@ -1,5 +1,10 @@
 <jsp:include page="/WEB-INF/jsp/includes/global-header.jsp"></jsp:include>
+
+
+
 <body>
+
+
 
 <div class="container">
     <div class="row" >

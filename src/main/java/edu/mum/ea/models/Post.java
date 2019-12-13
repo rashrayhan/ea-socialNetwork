@@ -13,4 +13,27 @@ public class Post extends Activity {
     @ManyToOne
     @JoinColumn(name = "comment_to")
     private Post commentTo;
+
+
+
+    public Post() {
+        super();
+    }
+
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Post getCommentTo() {
+        return commentTo;
+    }
+
+    public void setCommentTo(Post commentTo) {
+        this.commentTo = commentTo;
+    }
 }
