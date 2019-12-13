@@ -18,13 +18,6 @@ public abstract class Activity {
 
     private LocalDateTime activityTime;
 
-    public Activity() {
-    }
-
-    public Activity(User user) {
-        this.user = user;
-    }
-
     public Long getId() {
         return id;
     }
@@ -48,7 +41,5 @@ public abstract class Activity {
     public void setActivityTime(LocalDateTime activityTime) {
         this.activityTime = activityTime;
     }
-
-
 
 }

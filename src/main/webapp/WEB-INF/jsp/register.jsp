@@ -1,4 +1,5 @@
-
+<%@ taglib  uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/jsp/includes/global-header.jsp"></jsp:include>
 	<section id="" class="homepage-section container col-12">
 		<div class="index-left text-center">

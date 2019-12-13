@@ -65,7 +65,6 @@ public class User {
         this.coverPhoto = coverPhoto;
         this.biography = biography;
         this.address = address;
-
     }
 
 
