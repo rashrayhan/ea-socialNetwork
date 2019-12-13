@@ -25,7 +25,7 @@ VALUES (null,'ADVERTISE_PRIVILEGE'),
 INSERT INTO role_privilege
 VALUES (1,1),
         (1,6),
-        (2,2),
-        (2,3),
-        (2,4),
-        (2,5);
+(2,2),
+(2,3),
+(2,4),
+(2,5);

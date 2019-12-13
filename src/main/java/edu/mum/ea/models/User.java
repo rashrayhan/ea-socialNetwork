@@ -2,8 +2,12 @@ package edu.mum.ea.models;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+
+import org.hibernate.annotations.Cascade;
+
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,8 +41,9 @@ public class User {
     @Column(name = "cover_photo")
     private String coverPhoto;
     private String biography;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
+
     private Address address;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
@@ -46,6 +51,23 @@ public class User {
     joinColumns = @JoinColumn(name = "user_id"),
     inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles = new ArrayList<>();
+
+
+    public User(String surname, String otherNames, LocalDate dateOfBirth, String email, String username, String password, AccountStatus accountStatus, String profilePhoto, String coverPhoto, String biography, Address address) {
+        this.surname = surname;
+        this.otherNames = otherNames;
+        this.dateOfBirth = dateOfBirth;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.accountStatus = accountStatus;
+        this.profilePhoto = profilePhoto;
+        this.coverPhoto = coverPhoto;
+        this.biography = biography;
+        this.address = address;
+
+    }
+
 
     public Long getId() {
         return id;
@@ -67,33 +89,8 @@ public class User {
         return email;
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public AccountStatus getAccountStatus() {
-        return accountStatus;
-    }
 
-    public String getProfilePhoto() {
-        return profilePhoto;
-    }
-
-    public String getCoverPhoto() {
-        return coverPhoto;
-    }
-
-    public String getBiography() {
-        return biography;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
 
     public String getPassword() {
         return password;

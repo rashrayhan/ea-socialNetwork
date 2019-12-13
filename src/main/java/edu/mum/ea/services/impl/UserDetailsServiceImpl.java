@@ -16,13 +16,16 @@ import java.util.*;
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
+
     @Autowired
     private UserRepository userRepository;
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        if(user == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("Invalid user!");
         }
         return new UserPrincipal(user);
@@ -52,4 +55,8 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
     public List<User> findAll() {
         return null;
     }
+
+
 }
+
+

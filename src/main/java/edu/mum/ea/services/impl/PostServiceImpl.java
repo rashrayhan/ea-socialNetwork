@@ -19,7 +19,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class PostServiceImpl implements PostService {
+ public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
     private FilthyRepository filthyRepository;
@@ -64,12 +64,19 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Post update(Post post) {
-        return null;
+        return postRepository.save(post);
     }
 
     @Override
     public boolean delete(Post post) {
-        return false;
+
+
+            postRepository.delete(post);
+
+            return true;
+
+
+
     }
 
     @Override
@@ -79,7 +86,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<Post> findAll() {
-        return null;
+        return (List<Post>) postRepository.findAll();
     }
 
     private boolean containsFilthyWord(String content, String fileNames, List<String>words) {
