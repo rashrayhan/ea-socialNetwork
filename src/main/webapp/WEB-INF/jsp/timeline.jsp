@@ -118,5 +118,9 @@
         </div>
     </div>
 </div>
+<script src="js/jquery.min.js"></script>
+<script src="js/messaging/stomp.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+<script src="js/messaging/config.js"></script>
 </body>
 </html>

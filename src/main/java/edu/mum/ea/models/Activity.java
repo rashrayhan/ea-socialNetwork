@@ -15,6 +15,29 @@ public abstract class Activity {
     @JoinColumn(name = "user_id")
     private User user;
     @Column(name = "activity_time")
-    private LocalDateTime activityTime
-            = LocalDateTime.now();
+    private LocalDateTime activityTime;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public LocalDateTime getActivityTime() {
+        return activityTime;
+    }
+
+    public void setActivityTime(LocalDateTime activityTime) {
+        this.activityTime = activityTime;
+    }
 }
