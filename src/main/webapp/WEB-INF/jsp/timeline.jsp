@@ -1,7 +1,6 @@
-
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +12,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/mdb.min.css">
-    <link  rel="stylesheet" type="text/css" href="../css/timelinestyle.css">
+    <link rel="stylesheet" type="text/css" href="../css/timelinestyle.css">
 </head>
 
 <body>
@@ -21,7 +20,7 @@
     <i class="fas fa-money-bill-alt mr-3"></i>timeline</a>
 
 <div class="container">
-    <div class="row" >
+    <div class="row">
         <div class="col-2 c-aside-left">
             <a class="waves-effect">
                 <img src="./images/logo.PNG" class="img-fluid" alt="">
@@ -41,11 +40,11 @@
                     <i class="fas fa-money-bill-alt mr-3"></i>timeline</a>
             </div>
             <br/>
-<%--            <button class="btn btn-lg btn-block btnSign" mat-raised-button (click)="openDialog()">peep</button>--%>
+            <%--            <button class="btn btn-lg btn-block btnSign" mat-raised-button (click)="openDialog()">peep</button>--%>
 
         </div>
 
-<jsp:include page="/WEB-INF/jsp/includes/timeline-header.jsp"></jsp:include>
+        <jsp:include page="/WEB-INF/jsp/includes/timeline-header.jsp"></jsp:include>
 
 
         <div class="col-md-6 col-sm-10 c-main">
@@ -59,7 +58,8 @@
 
                      <form class="" action="/makepost" method="get">
 
-                      <textarea name="content" matInput placeholder="What's happening?" formControlName="peep" resize="false"></textarea>
+                      <textarea name="content" matInput placeholder="What's happening?" formControlName="peep"
+                                resize="false"></textarea>
                       <div class="row">
 
                           </label>
@@ -70,10 +70,18 @@
 
 
 
-                         <label class="btn purple-gradient btn-sm"> <i class="fa fa-image"></i><input type="file" class="uploadFile" name="picture[]" multiple accept="image/*">
+                         <label class="btn purple-gradient btn-sm"> <i class="fa fa-image"></i><input type="file"
+                                                                                                      class="uploadFile"
+                                                                                                      name="picture[]"
+                                                                                                      multiple
+                                                                                                      accept="image/*">
                             </label>
 
-                            <label class="btn aqua-gradient btn-sm"> <i class="fa fa-video"></i><input type="file" class="uploadFile" name="video[]" multiple accept="video/*">
+                            <label class="btn aqua-gradient btn-sm"> <i class="fa fa-video"></i><input type="file"
+                                                                                                       class="uploadFile"
+                                                                                                       name="video[]"
+                                                                                                       multiple
+                                                                                                       accept="video/*">
                             </label>
 
                             <input type="checkbox" class="form-check-input ml-2 mt-3" id="notify">
@@ -133,19 +141,26 @@
             <div class="car-suggest">
                 <h6>Who to follow</h6>
                 <!-- contact row -->
-                <div class="row cars-contact" >
+                <div class="row cars-contact">
                 <span class="col-2 carsc-1">
                     <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
                 </span>
                     <span class="col-6 carsc-2" routerLink="/user"><b>MilanMiranda.</b> <br/><span class="handle">@azarq_m</span></span>
                     <span class="col-4 carsc-3">
-<%--                    <button routerLink="/" class="col btn btn-lg btn-block btnFollow">Follow</button>--%>
-                </span>
+                        <%--                    <button routerLink="/" class="col btn btn-lg btn-block btnFollow">Follow</button>--%>
+                    </span>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+                    </div>
+                </span>
+            </div>
+        </div>
 
+
+        <script src="js/jquery.min.js"></script>
+        <script src="js/messaging/stomp.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+        <script src="js/messaging/config.js"></script>
 </body>
 </html>

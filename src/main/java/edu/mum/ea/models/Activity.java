@@ -15,15 +15,7 @@ public abstract class Activity {
     @JoinColumn(name = "user_id")
     private User user;
     @Column(name = "activity_time")
-
     private LocalDateTime activityTime;
-
-    public Activity() {
-    }
-
-    public Activity(User user) {
-        this.user = user;
-    }
 
     public Long getId() {
         return id;
@@ -48,7 +40,4 @@ public abstract class Activity {
     public void setActivityTime(LocalDateTime activityTime) {
         this.activityTime = activityTime;
     }
-
-
-
 }
