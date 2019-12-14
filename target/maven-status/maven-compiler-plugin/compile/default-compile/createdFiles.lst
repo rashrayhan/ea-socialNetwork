@@ -15,6 +15,7 @@ edu\mum\ea\repos\PostRepository.class
 edu\mum\ea\models\Post.class
 edu\mum\ea\services\impl\UserDetailsServiceImpl.class
 edu\mum\ea\models\PostItemType.class
+edu\mum\ea\util\AppProperties.class
 edu\mum\ea\services\UserService.class
 edu\mum\ea\Application.class
 edu\mum\ea\repos\UserRepository.class

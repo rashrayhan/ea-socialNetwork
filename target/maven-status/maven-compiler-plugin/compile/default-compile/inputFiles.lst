@@ -19,6 +19,7 @@ E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\User.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\repos\UserRepository.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\Follow.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\impl\UserDetailsServiceImpl.java
+E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\util\AppProperties.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\Media.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\AccountStatus.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\Activity.java
