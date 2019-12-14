@@ -2,9 +2,11 @@ package edu.mum.ea.controllers;
 
 import edu.mum.ea.models.AccountStatus;
 import edu.mum.ea.models.User;
+import edu.mum.ea.models.util.UserPrincipal;
 import edu.mum.ea.services.UserService;
 import org.eclipse.jdt.internal.compiler.apt.model.ModuleElementImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -63,19 +65,39 @@ public class UserController {
             user.setUsername(user.getSurname());
             User retUser = (User) userService.save(user);
             redirectAttributes.addFlashAttribute("registeredUser", retUser);
-            //return "redirect:/dashboard";
-            return "redirect:/profile";
+            return "redirect:/login";
 
         }
         return "register";
     }
 
 
-    @RequestMapping(value = "/profile")
-    public String profile() {
+
+    @RequestMapping(value = "/profile", method = RequestMethod.POST)
+    public String updateProfile(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()) {
+            user.setUsername(user.getUsername());
+            User retUser = (User) userService.save(user);
+           // return "redirect:/profile";
+
+        }
         return "profile";
     }
 
+
+    @RequestMapping(value = "/profile")
+    public String profile(@AuthenticationPrincipal UserPrincipal userPrincipal, Model model)
+    {
+        User user = userPrincipal.getUser();
+        model.addAttribute("user", user);
+        return "profile";
+    }
+
+    @RequestMapping(value = "/updateprofile")
+    public String getUpdateProfile()
+    {
+        return "profile";
+    }
     @RequestMapping(value = "/dashboard")
     public String dashboard() {
         return "dashboard";

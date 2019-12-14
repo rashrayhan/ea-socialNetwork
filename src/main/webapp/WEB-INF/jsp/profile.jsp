@@ -48,8 +48,8 @@
 
 
                     <div class="cm-details mt-1">
-                        <p class="cmd-handle"><b>RJ Barnesdel</b> <br/><span class="">@azarq_m</span></p>
-                        <p class="cmd-bio">Living mutual has always been at the core of human existence, and it's guided us since our founding in 1851. </p>
+                        <p class="cmd-handle"><b>${user.surname}   ${user.otherNames}</b> <br/><span class="">@${user.username}</span></p>
+                        <p class="cmd-bio">${user.biography} </p>
                         <p class="cmd-follow">127 <span class="">Following</span> &nbsp; &nbsp; &nbsp; 300 <span class="">Follow</span></p>
 
                     </div>
@@ -65,8 +65,8 @@
                       </span>
 
                     <span class="col-11 cmt-text">
-                        <p class="cmtt-title"><b>John Doe</b> &nbsp; &nbsp;
-                          <span id="cmttt-handle">@username <i class="fa fa-circle small"></i> Dec 12</span>
+                        <p class="cmtt-title"><b>${user.surname}</b> &nbsp; &nbsp;
+                          <span id="cmttt-handle">@${user.surname} <i class="fa fa-circle small"></i> <%= (new java.util.Date()).toString()%></span>
                         </p>
                         <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups,  ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual </p>
                         <div class="cmtt-img">
@@ -120,30 +120,30 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="">
+                <form method="post" action="/profile">
                     <!--Grid row-->
                     <div class="row">
                         <div class="col-md-12">
                             <div class="md-form mb-0">
-                                <input type="text" class="form-control" id="name"  name="name">
+                                <input type="text" class="form-control" id="name"  name="name" value="${user.username}">
                                 <label for="name">Name</label>
                             </div>
                         </div>
                     </div>
                     <!--Grid row-->
-
+                    <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden"/>
                     <!--Grid row-->
                     <div class="row">
                         <div class="col-md-6">
                             <div class="md-form mb-0">
-                                <input type="text" class="form-control" id="yob"  name="yob">
+                                <input type="text" class="form-control" id="yob"  name="yob" value="${user.dateOfBirth}">
                                 <label for="yob">Year of Birth</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="md-form mb-0">
-                                <input type="email" class="form-control" id="email"  name="email">
+                                <input type="email" class="form-control" id="email"  name="email" value="${user.email}">
                                 <label for="email">Email</label>
                             </div>
                         </div>
@@ -154,27 +154,27 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="md-form mb-0">
-                                <input type="text" class="form-control" id="country"  name="country">
+                                <input type="text" class="form-control" id="country"  name="country" value="${user.address.country}">
                                 <label for="country">Country</label>
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="md-form mb-0">
-                                <input type="text" class="form-control" id="state"  name="state">
+                                <input type="text" class="form-control" id="state"  name="state" value="${user.address.state}">
                                 <label for="state">State</label>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="md-form mb-0">
-                                <input type="text" class="form-control" id="city"  name="city">
+                                <input type="text" class="form-control" id="city"  name="city" value="${user.address.city}">
                                 <label for="city">City</label>
                             </div>
                         </div>
 
                         <div class="col-md-3">
                             <div class="md-form mb-0">
-                                <input type="text" class="form-control" id="zip"  name="zip">
+                                <input type="text" class="form-control" id="zip"  name="zip" value="${user.address.zipCode}">
                                 <label for="zip">Zip</label>
                             </div>
                         </div>
@@ -182,23 +182,6 @@
                     <!--Grid row-->
 
 
-                    <!--Grid row-->
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="md-form mb-0">
-                                <input type="password" class="form-control" id="oldpass"  name="oldpass">
-                                <label for="oldpass">Old password</label>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="md-form mb-0">
-                                <input type="password" class="form-control" id="newpass"  name="newpass">
-                                <label for="newpass">New password</label>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Grid row-->
 
 
                     <!--Grid row-->
@@ -209,18 +192,21 @@
 
                             <div class="md-form">
                                 <label for="bio">Bio</label>
-                                <textarea class="form-control md-textarea" id="bio" name="bio" rows="3"></textarea>
+                                <textarea class="form-control md-textarea" id="bio" name="bio" rows="3" >${user.biography}</textarea>
                             </div>
 
                         </div>
                     </div>
                     <!--Grid row-->
-                </form>
-            </div>
+
+
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-warning" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline-primary">save</button>
+                <button type="submit" class="btn btn-outline-primary">save</button>
             </div>
+                </form>
+            </div>
+
         </div>
     </div>
 </div>
