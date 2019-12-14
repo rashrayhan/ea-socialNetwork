@@ -8,10 +8,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+=======
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+>>>>>>> 7116a2cf423565ac8e55fba271e3b7d359d5571e
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -28,18 +34,18 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = {"/", "/login", "/index"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/", "/login", "/index"})
     public String welcome() {
         return "index";
     }
 
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping(value = "/register")
     public String getRegister() {
         return "register";
     }
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @PostMapping(value = "/register")
     public String postRegister(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if(!bindingResult.hasErrors()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -50,12 +56,17 @@ public class UserController {
         return "register";
     }
 
+<<<<<<< HEAD
     @RequestMapping(value = "/dashboard")
     public String dashboard(@ModelAttribute("advert") Advert advert) {
+=======
+    @GetMapping(value = "/dashboard")
+    public String dashboard() {
+>>>>>>> 7116a2cf423565ac8e55fba271e3b7d359d5571e
         return "dashboard";
     }
 
-    @RequestMapping(value = "/timeline")
+    @GetMapping(value = "/timeline")
     public String timeline() {
         return "timeline";
     }
@@ -99,5 +110,6 @@ public class UserController {
     public String claim() {
         return "claim";
     }
+
 
 }

@@ -17,4 +17,16 @@ public class Privilege {
     private String name;
     @ManyToMany(mappedBy = "privileges")
     private List<Role> roles = new ArrayList<>();
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
 }

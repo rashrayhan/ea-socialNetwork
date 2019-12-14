@@ -18,6 +18,25 @@ public abstract class Activity {
     @Column(name = "activity_time")
     private LocalDateTime activityTime;
 
+<<<<<<< HEAD
+=======
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+>>>>>>> 7116a2cf423565ac8e55fba271e3b7d359d5571e
     public LocalDateTime getActivityTime() {
         return activityTime;
     }
@@ -25,5 +44,8 @@ public abstract class Activity {
     public void setActivityTime(LocalDateTime activityTime) {
         this.activityTime = activityTime;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 7116a2cf423565ac8e55fba271e3b7d359d5571e
 }

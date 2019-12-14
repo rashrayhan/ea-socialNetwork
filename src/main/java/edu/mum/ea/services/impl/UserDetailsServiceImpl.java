@@ -1,6 +1,7 @@
 package edu.mum.ea.services.impl;
 
 import edu.mum.ea.models.User;
+import edu.mum.ea.models.util.UserPrincipal;
 import edu.mum.ea.repos.UserRepository;
 import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,52 +10,53 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
+import java.util.*;
 
 @Service
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
-    private UserRepository userRepository;
 
     @Autowired
-    public UserDetailsServiceImpl(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private UserRepository userRepository;
+
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username);
-        if(user != null) {
-            return user;
+        if (user == null) {
+            throw new UsernameNotFoundException("Invalid user!");
         }
-        throw new UsernameNotFoundException("Invalid User details!");
+        return new UserPrincipal(user);
     }
 
     @Override
-    public Object save(Object object) {
-        User user = (User)object;
+    public User save(User user) {
         return userRepository.save(user);
     }
 
     @Override
-    public Object update(Object object) {
+    public User update(User user) {
         return null;
     }
 
     @Override
-    public boolean delete(Object object) {
+    public boolean delete(User user) {
         return false;
     }
 
     @Override
-    public Object findById(Long id) {
+    public User findById(Long id) {
         return null;
     }
 
     @Override
-    public List<Object> findAll() {
+    public List<User> findAll() {
         return null;
     }
+
+
 }
+
+

@@ -21,9 +21,12 @@
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
                 <li class="nav-item">
-                    <a href="index" class="nav-link border border-light rounded waves-effect">
-                        <i class="fas fa-sign-out-alt mr-2 blue-text"></i>Logout
-                    </a>
+                    <form action="/logout" method="post">
+                        <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden"/>
+                        <button type="submit" href="index" class="nav-link border border-light rounded waves-effect">
+                            <i class="fas fa-sign-out-alt mr-2 blue-text"></i>Logout
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>
