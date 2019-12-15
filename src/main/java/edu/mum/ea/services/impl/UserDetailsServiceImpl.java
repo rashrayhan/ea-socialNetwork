@@ -1,5 +1,6 @@
 package edu.mum.ea.services.impl;
 
+import edu.mum.ea.models.AccountStatus;
 import edu.mum.ea.models.User;
 import edu.mum.ea.models.util.UserPrincipal;
 import edu.mum.ea.repos.UserRepository;
@@ -16,11 +17,8 @@ import java.util.*;
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
-
     @Autowired
     private UserRepository userRepository;
-
-
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,6 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public User save(User user) {
+        user.setAccountStatus(AccountStatus.Active);
         return userRepository.save(user);
     }
 
@@ -56,7 +55,10 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         return null;
     }
 
-
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 }
 
 

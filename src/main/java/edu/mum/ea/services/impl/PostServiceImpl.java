@@ -139,7 +139,7 @@ public class PostServiceImpl implements PostService {
     public List<Post> recentPostsByFollowings(List<User> followings) {
         List<Post> posts = findAll();
         return posts.stream()
-                .filter(post -> followings.stream().anyMatch(user -> user.equals(post.getUser())))
+                .filter(post -> followings.stream().anyMatch(user -> user.getUsername().equals(post.getUser().getUsername())))
                 .collect(Collectors.toList());
     }
 }

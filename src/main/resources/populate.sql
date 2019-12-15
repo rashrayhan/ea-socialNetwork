@@ -1,10 +1,23 @@
 INSERT INTO system_user
-VALUES (null,'Active',null,null, null,'aplus@ea.project','Ea',
+VALUES (null,'Active',null,null, null,'admin@ea.project','EA',
         '$2a$10$vl0.RUUKvId5/hCh5ND5Ve.8C853e/K5KjBRLvDufOeu09R72W76.'
         ,null,'A Plus Admin','admin',null),
-        (null,'Active',null,null,'1993-07-29','aplus@ea.project','Security',
+        (null,'Active',null,null,'1993-07-29','user1@ea.project','EA',
          '$2a$10$vl0.RUUKvId5/hCh5ND5Ve.8C853e/K5KjBRLvDufOeu09R72W76.'
-            ,null,'Test User','user',null);
+            ,null,'Test User 1','user1',null),
+       (null,'Active',null,null, '1983-07-29','user2@ea.project','EA',
+        '$2a$10$vl0.RUUKvId5/hCh5ND5Ve.8C853e/K5KjBRLvDufOeu09R72W76.'
+           ,null,'Test User 2','user2',null),
+       (null,'Active',null,null,'2004-07-29','user3@ea.project','EA',
+        '$2a$10$vl0.RUUKvId5/hCh5ND5Ve.8C853e/K5KjBRLvDufOeu09R72W76.'
+           ,null,'Test User 3','user3',null),
+       (null,'Active',null,null, '2009-07-29','user4@ea.project','EA',
+        '$2a$10$vl0.RUUKvId5/hCh5ND5Ve.8C853e/K5KjBRLvDufOeu09R72W76.'
+           ,null,'Test User 4','user4',null),
+       (null,'Active',null,null,'1974-07-29','user5@ea.project','EA',
+        '$2a$10$vl0.RUUKvId5/hCh5ND5Ve.8C853e/K5KjBRLvDufOeu09R72W76.'
+           ,null,'Test User 5','user5',null)
+       ;
 
 INSERT INTO system_role
 VALUES (null,'ROLE_ADMIN'),
@@ -12,7 +25,11 @@ VALUES (null,'ROLE_ADMIN'),
 
 INSERT INTO user_role
 VALUES (1,1),
-        (2,2);
+        (2,2),
+       (3,2),
+       (4,2),
+       (5,2),
+       (6,2);
 
 INSERT INTO system_privilege
 VALUES (null,'ADVERTISE_PRIVILEGE'),
