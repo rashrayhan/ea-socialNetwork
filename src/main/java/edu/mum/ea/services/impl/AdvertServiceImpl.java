@@ -41,11 +41,9 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
     @Override
-<<<<<<< HEAD
-    public Object save(Object object) {
+    public Advert save(Advert advert) {
         String picturePath = context.getRealPath("/") + appProperties.getPicture();
         String videoPath = context.getRealPath("/") + appProperties.getVideo();
-        Advert advert = (Advert) object;
 
         StringBuilder fileNames = new StringBuilder();
 
@@ -66,10 +64,6 @@ public class AdvertServiceImpl implements AdvertService {
             e.printStackTrace();
         }
         return advert;
-=======
-    public Advert save(Advert advert) {
-        return advertRepository.save(advert);
->>>>>>> 7116a2cf423565ac8e55fba271e3b7d359d5571e
     }
 
 
