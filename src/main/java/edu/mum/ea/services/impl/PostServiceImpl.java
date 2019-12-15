@@ -136,10 +136,16 @@ public class PostServiceImpl implements PostService {
         return recentPostsByFollowings(followings);
     }
 
+    @Override
     public List<Post> recentPostsByFollowings(List<User> followings) {
-        List<Post> posts = findAll();
+        List<Post> posts = postRepository.findAllByActivityTimeDesc();
         return posts.stream()
                 .filter(post -> followings.stream().anyMatch(user -> user.getUsername().equals(post.getUser().getUsername())))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Post> recentPostsByUser(User user) {
+        return postRepository.findAllByUserOrderByActivityTimeDesc(user);
     }
 }

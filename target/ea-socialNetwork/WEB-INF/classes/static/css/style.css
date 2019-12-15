@@ -1,0 +1,51 @@
+*, body, container{
+	padding: 0px;
+	margin: 0px;
+}
+
+.homepage-section{
+	display: grid;
+	grid-template-columns: 60% 40%;
+	background: linear-gradient(90deg, #1A237E, #E8EAF6);
+}
+.index-left {
+	max-height: 100vh;
+}
+.index-left img{
+	max-height: 100vh;
+}
+.index-right{
+	height: 100vh;
+}
+.patient-navs-custom{
+	display: grid; 
+	grid-template-columns: 20% 20% 20% 20% 20%;
+}
+.p-underline{
+	width: 40px; 
+	margin: 0 auto; 
+	border-bottom: 4px solid rgb(81, 45, 168); 
+}
+.patient-avatar img{
+	height: 250px; 
+	width: 220px;
+}
+textarea{
+	resize: none;
+}
+.uploadFile{
+	width: 0px;
+	height: 0px;
+	overflow: hidden;
+}
+@media only screen and (max-width: 768px) {
+	.homepage-section{
+		grid-template-columns: 0% 100%;
+	}
+	.index-left img{
+		height: 575px;
+	}
+}
+#img{
+	display: none;
+}

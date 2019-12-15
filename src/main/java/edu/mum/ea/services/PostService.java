@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface PostService extends GenericService<Post> {
 
-    public List<Post> getTimelinePosts(User user);
+    List<Post> getTimelinePosts(User user);
+    List<Post> recentPostsByFollowings(List<User> followings);
+    List<Post> recentPostsByUser(User user);
 
 }
