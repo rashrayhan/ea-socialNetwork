@@ -1,23 +1,15 @@
 package edu.mum.ea.controllers;
 
-import edu.mum.ea.models.Advert;
+import edu.mum.ea.models.Post;
 import edu.mum.ea.models.User;
 import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-<<<<<<< HEAD
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-=======
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
->>>>>>> 7116a2cf423565ac8e55fba271e3b7d359d5571e
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -56,57 +48,52 @@ public class UserController {
         return "register";
     }
 
-<<<<<<< HEAD
-    @RequestMapping(value = "/dashboard")
-    public String dashboard(@ModelAttribute("advert") Advert advert) {
-=======
     @GetMapping(value = "/dashboard")
     public String dashboard() {
->>>>>>> 7116a2cf423565ac8e55fba271e3b7d359d5571e
         return "dashboard";
     }
 
     @GetMapping(value = "/timeline")
-    public String timeline() {
+    public String timeline(@ModelAttribute("newPost") Post post) {
         return "timeline";
     }
 
-    @RequestMapping(value = "/filthy")
+    @GetMapping(value = "/filthy")
     public String filthy() {
         return "filthy";
     }
 
-    @RequestMapping(value = "/users_all")
+    @GetMapping(value = "/users_all")
     public String users_all() {
         return "users_all";
     }
 
-    @RequestMapping(value = "/user_claims")
+    @GetMapping(value = "/user_claims")
     public String user_claims() {
         return "user_claims";
     }
 
-    @RequestMapping(value = "/filthy_words")
+    @GetMapping(value = "/filthy_words")
     public String filthy_words() {
         return "filthy_words";
     }
 
-    @RequestMapping(value = "/follow")
+    @GetMapping(value = "/follow")
     public String follow() {
         return "follow";
     }
 
-    @RequestMapping(value = "/profile")
+    @GetMapping(value = "/profile")
     public String profile() {
         return "profile";
     }
 
-    @RequestMapping(value = "/user_profile")
+    @GetMapping(value = "/user_profile")
     public String user_profile() {
         return "user_profile";
     }
 
-    @RequestMapping(value = "/claim")
+    @GetMapping(value = "/claim")
     public String claim() {
         return "claim";
     }

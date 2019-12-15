@@ -15,14 +15,4 @@ public class Address {
     private String city;
     @Column(name = "zip_code")
     private String zipCode;
-
-    public Address(String country, String state, String city, String zipCode) {
-        this.country = country;
-        this.state = state;
-        this.city = city;
-        this.zipCode = zipCode;
-    }
-
-    public Address() {
-    }
 }

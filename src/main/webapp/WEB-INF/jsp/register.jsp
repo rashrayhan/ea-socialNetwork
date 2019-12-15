@@ -1,11 +1,7 @@
-<<<<<<< HEAD
 
-<jsp:include page="/WEB-INF/jsp/includes/global-header.jsp"></jsp:include>
-=======
 <%@ taglib  uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="/WEB-INF/jsp/includes/index-header.jsp"></jsp:include>
->>>>>>> 7116a2cf423565ac8e55fba271e3b7d359d5571e
+<jsp:include page="/WEB-INF/jsp/includes/global-header.jsp"></jsp:include>
 	<section id="" class="homepage-section container col-12">
 		<div class="index-left text-center">
 <%--			<img src="./images/logo.png"/>--%>

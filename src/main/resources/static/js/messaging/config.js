@@ -4,28 +4,18 @@ $(function(){
 
 
 const conn = function( ){
-    let url = "test";
-    let client = new SockJS(url);
+    let url = "/advert-not";
+    let sock = new SockJS(url);
 
-    client.onopen = function () {
-        console.log("Connection opened!");
-        client.send("How are you buddy!");
-    };
+    let client = Stomp.over(sock);
+    
+    client.connect('spring', 'spring', {}, function(fr){
+        client.subscribe("/topic/notification", handleData);
+    }, function (error) {
+        console.log("Failed with error: " + error);
+    });
 
-    client.onmessage = function(data) {
-        console.log("Feedback: " + data);
-    };
-    /*let client = Stomp.client(url, "v11.stomp");
-    let username = '';
-    let passcode = '';
+    function handleData(incomingData) {
 
-    let callbackSuccess = function () {
-        console.log("I am connected with the server!")
-    };
-
-    let callbackError = function () {
-        console.log("Cannot connect to the server!");
-    };
-
-    client.connect(username, passcode, callbackSuccess, callbackError);*/
+    }
 };

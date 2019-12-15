@@ -46,8 +46,4 @@
 			</div>
 		</form>
 	</section>
-<<<<<<< HEAD
 <jsp:include page="/WEB-INF/jsp/includes/global-footer.jsp"></jsp:include>
-=======
-<jsp:include page="/WEB-INF/jsp/includes/index-footer.jsp"></jsp:include>
->>>>>>> 7116a2cf423565ac8e55fba271e3b7d359d5571e
