@@ -48,9 +48,9 @@
 
 
                     <div class="cm-details mt-1">
-                        <p class="cmd-handle"><b>RJ Barnesdel</b> <br/><span class="">@azarq_m</span></p>
+                        <p class="cmd-handle"><b><span class="profileNames"></span></b> <br/><span class="profileUsername"></span></p>
                         <p class="cmd-bio">Living mutual has always been at the core of human existence, and it's guided us since our founding in 1851. </p>
-                        <p class="cmd-follow">127 <span class="">Following</span> &nbsp; &nbsp; &nbsp; 300 <span class="">Follow</span></p>
+                        <p class="cmd-follow"><span class="profileFollowing"></span><span> Following</span> &nbsp; &nbsp; &nbsp; <span class="profileFollowers"></span><span> Followers</span></p>
 
                     </div>
 

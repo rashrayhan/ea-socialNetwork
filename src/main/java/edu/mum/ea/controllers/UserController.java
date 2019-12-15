@@ -3,6 +3,8 @@ package edu.mum.ea.controllers;
 import edu.mum.ea.models.Advert;
 import edu.mum.ea.models.Post;
 import edu.mum.ea.models.User;
+import edu.mum.ea.models.util.ProfileFollowInfo;
+import edu.mum.ea.models.util.ProfileUserInfo;
 import edu.mum.ea.models.util.UserPrincipal;
 import edu.mum.ea.services.FollowService;
 import edu.mum.ea.services.UserService;
@@ -47,7 +49,7 @@ public class UserController {
 
     @PostMapping(value = "/register")
     public String postRegister(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if(!bindingResult.hasErrors()) {
+        if (!bindingResult.hasErrors()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             User retUser = userService.save(user);
             redirectAttributes.addFlashAttribute("registeredUser", retUser);
@@ -107,7 +109,27 @@ public class UserController {
     }
 
     @GetMapping("/who-to-follow")
-    public @ResponseBody List<User> whoToFollow(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+    public @ResponseBody
+    List<User> whoToFollow(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         return followService.whoToFollow(userPrincipal.getUser());
+    }
+
+    @GetMapping("/authenticated-user-info")
+    public @ResponseBody ProfileUserInfo authenticatedUserInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        User user = userPrincipal.getUser();
+        ProfileUserInfo info = new ProfileUserInfo();
+        info.setUser(user);
+        info.setFollowers(followService.whoFollowsMe(user).size());
+        info.setFollowings(followService.whoIFollow(user).size());
+        return info;
+    }
+
+    @GetMapping("/authenticated-user-follow-info")
+    public @ResponseBody ProfileFollowInfo authenticatedUserProfileFollowInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        User user = userPrincipal.getUser();
+        ProfileFollowInfo info = new ProfileFollowInfo();
+        info.setFollowers(followService.whoFollowsMe(user));
+        info.setFollowings(followService.whoIFollow(user));
+        return info;
     }
 }
