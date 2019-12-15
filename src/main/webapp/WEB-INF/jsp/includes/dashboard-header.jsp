@@ -1,4 +1,4 @@
-<jsp:include page="/WEB-INF/jsp/includes/index-header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/includes/global-header.jsp"></jsp:include>
 <body class="grey lighten-3">
 
 <header>

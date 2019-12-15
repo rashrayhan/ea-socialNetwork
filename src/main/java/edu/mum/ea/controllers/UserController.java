@@ -7,10 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -59,27 +58,45 @@ public class UserController {
         return "timeline";
     }
 
-    @RequestMapping(value = "/filthy")
+    @GetMapping(value = "/filthy")
     public String filthy() {
         return "filthy";
     }
 
-    @RequestMapping(value = "/users_all")
+    @GetMapping(value = "/users_all")
     public String users_all() {
         return "users_all";
     }
 
-    @RequestMapping(value = "/user_claims")
+    @GetMapping(value = "/user_claims")
     public String user_claims() {
         return "user_claims";
     }
 
-    @RequestMapping(value = "/filthy_words")
+    @GetMapping(value = "/filthy_words")
     public String filthy_words() {
         return "filthy_words";
     }
 
+    @GetMapping(value = "/follow")
+    public String follow() {
+        return "follow";
+    }
 
+    @GetMapping(value = "/profile")
+    public String profile() {
+        return "profile";
+    }
+
+    @GetMapping(value = "/user_profile")
+    public String user_profile() {
+        return "user_profile";
+    }
+
+    @GetMapping(value = "/claim")
+    public String claim() {
+        return "claim";
+    }
 
 
 }

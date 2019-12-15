@@ -73,6 +73,58 @@
 
                 <!-- timeline -->
                 <div class="cm-timeline row">
+<<<<<<< HEAD
+                      <span class="col-1 cmt-img">
+                          <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
+                      </span>
+
+                      <span class="col-11 cmt-text">
+                        <p class="cmtt-title"><b>John Doe</b> &nbsp; &nbsp;
+                          <span id="cmttt-handle">@username <i class="fa fa-circle small"></i> Dec 12</span>
+                        </p>
+                        <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups,  ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual </p>
+                        <div class="cmtt-img">
+                          <img src="./images/HIyWCaRh.jpg"/>
+                        </div>
+                        <div class="row cmtt-action">
+                          <span class="ca-action"><i class="fa fa-heart"></i></span>
+                          <span class="col-3 ca-count">82.5K</span>
+
+                          <span class="ca-action commentToggle"><i class="fa fa-comment"></i></span>
+                          <span class="col-3 ca-count">7.2k</span>
+                        </div>
+
+                          <div class="container cmtt-comments">
+                            <div class="md-form mb-0">
+                               <form  style="width: 100%;" method="post" action="#">
+                                <input type="text" class="col-8" placeholder="enter comment" name="comment">
+                                   <button type="submit" class="btn btn-primary btn-sm" style="">send</button>
+                               </form>
+
+                            </div>
+                            <div class="row cmttc-otherComments" >
+                              <div class="col-1 cmttco-user">
+                                  <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
+                                  <p class="small">@user</p>
+                              </div>
+                              <div class="col-9 cmttco-cmt">
+                                  <p>This is a comment from me</p>
+                              </div>
+                            </div>
+                        </div>
+                      </span>
+                </div>
+
+
+            </div>
+        </div>
+<%--        right side externlized--%>
+<jsp:include page="/WEB-INF/jsp/includes/whotofollow.jsp"></jsp:include>
+    </div>
+</div>
+
+<jsp:include page="/WEB-INF/jsp/includes/global-footer.jsp"></jsp:include>
+=======
           <span class="col-1 cmt-img">
               <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
 
@@ -142,3 +194,4 @@
         <script src="js/custom.js"></script>
 </body>
 </html>
+>>>>>>> 7116a2cf423565ac8e55fba271e3b7d359d5571e

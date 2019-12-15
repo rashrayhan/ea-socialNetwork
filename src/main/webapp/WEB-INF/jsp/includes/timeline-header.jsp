@@ -1,4 +1,4 @@
-<jsp:include page="/WEB-INF/jsp/includes/index-header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/includes/global-header.jsp"></jsp:include>
 <body>
 
 <div class="container">
@@ -16,7 +16,7 @@
                     <i class="fas fa-reply mr-3"></i>Followers</a>
                 <a href="follow" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-share mr-3"></i>Following</a>
-                <a href="persona_profile" class="list-group-item list-group-item-action waves-effect">
+                <a href="profile" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-user mr-3"></i>Profile</a>
                 <a href="index" class="list-group-item list-group-item-action waves-effect">
                     <i class="fas fa-sign-out-alt mr-3"></i>Logout</a>
