@@ -5,8 +5,12 @@ $(function () {
         whoToFollow();
         timeline();
     }
-    if(res === "/profile") {
+    if (res === "/profile") {
+        authenticatedUserInfo();
         authenticatedUserProfile();
+    }
+    if(res === "/follow") {
+        authenticatedUserFollowInfo();
     }
 
     $(document).on('click', '.follow-btn', function (e) {
@@ -88,7 +92,7 @@ const timeline = function () {
             $('.cm-timeline').remove();
             $('.cm-timelines').append(postsDesigner(posts));
         },
-        error:function (err) {
+        error: function (err) {
             console.log(err);
         }
     });
@@ -102,7 +106,7 @@ const authenticatedUserProfile = function () {
             $('.profile-row').remove();
             $('.cm-timelines').append(postsDesigner(posts, 'profile-row'));
         },
-        error:function (err) {
+        error: function (err) {
             console.log(err);
         }
     });
@@ -116,7 +120,7 @@ const searchedUserProfile = function (username) {
             $('.cm-timeline').remove();
             $('.cm-timelines').append(postsDesigner(posts, ''));
         },
-        error:function (err) {
+        error: function (err) {
             console.log(err);
         }
     });
@@ -125,11 +129,11 @@ const searchedUserProfile = function (username) {
 const postsDesigner = function (posts, rowClass) {
     let timeline = "";
     for (let i = 0; i < posts.length; i++) {
-        timeline += '<div class="'+rowClass+' row cm-timeline"><span class="col-1 cmt-img">'
+        timeline += '<div class="' + rowClass + ' row cm-timeline"><span class="col-1 cmt-img">'
             + '<img class="aAvatar" src="./images/parallel-avatar.jpg"/></span>'
-            + '<span class="col-11 cmt-text"><p class="cmtt-title"><b>'+ posts[i].user.otherNames + ' ' +
-            posts[i].user.surname+'</b> &nbsp; &nbsp;'
-            + '<span id="cmttt-handle">@'+posts[i].user.username+'<i class="fa fa-circle small"></i>'+posts[i].activityTime+'</span></p>';
+            + '<span class="col-11 cmt-text"><p class="cmtt-title"><b>' + posts[i].user.otherNames + ' ' +
+            posts[i].user.surname + '</b> &nbsp; &nbsp;'
+            + '<span id="cmttt-handle">@' + posts[i].user.username + '<i class="fa fa-circle small"></i>' + posts[i].activityTime + '</span></p>';
         if (posts[i].content) {
             timeline += '<p>' + posts[i].content + '</p>';
         }
@@ -149,4 +153,71 @@ const postsDesigner = function (posts, rowClass) {
             + '</div></div></div></span></div>';
     }
     return timeline;
+};
+
+const authenticatedUserInfo = function () {
+    $.ajax({
+        url: '/authenticated-user-info',
+        method: 'GET',
+        success: function (info) {
+            $('.profileNames').text(info.user.otherNames + " " + info.user.surname);
+            $('.profileUsername').text("@" + info.user.username);
+            $('.profileFollowing').text(info.followings);
+            $('.profileFollowers').text(info.followers);
+
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+};
+
+const authenticatedUserFollowInfo = function () {
+    $.ajax({
+        url: '/authenticated-user-follow-info',
+        method: 'GET',
+        success: function (info) {
+            let followings = info.followings;
+            let followers = info.followers;
+            if (followings) {
+                let data = "";
+                $('.followings .cars-contact').remove();
+                for (let i = 0; i < followings.length; i++) {
+                    data += '<div class="row cars-contact"><span class="col-1 carsc-1">'
+                        + '<img class="aAvatar" src="./images/parallel-avatar.jpg" alt="User Photo"/>'
+                        + '</span><span class="col-8 carsc-2"><b class="f-names">' + followings[i].otherNames + ' '
+                        + followings[i].surname + '</b><span class="muted small f-username">' +
+                        '@'+followings[i].username+'</span><br/>';
+                        if(followings[i].bio) {
+                            data += '<span class="bio small">'+followings[i].biography+'</span>';
+                        }
+                        data += '</span><span class="col-2 carsc-3">'
+                        + '<button class="btn btn-sm btn-outline-danger" type="submit">Unfollow</button>'
+                        + '</span></div>';
+                }
+                $('.followings').append(data);
+            }
+            if(followers) {
+                let data = "";
+                $('.followers .cars-contact').remove();
+                for (let i = 0; i < followers.length; i++) {
+                    data += '<div class="row cars-contact"><span class="col-1 carsc-1">'
+                        + '<img class="aAvatar" src="./images/parallel-avatar.jpg" alt="User Photo"/>'
+                        + '</span><span class="col-8 carsc-2"><b class="f-names">' + followers[i].otherNames + ' '
+                        + followers[i].surname + '</b><span class="muted small f-username">' +
+                        '@'+followers[i].username+'</span><br/>';
+                    if(followers[i].bio) {
+                        data += '<span class="bio small">'+followers[i].biography+'</span>';
+                    }
+                    data += '</span><span class="col-2 carsc-3">'
+                        + '<button class="btn btn-sm btn-outline-info" type="submit">Follow</button>'
+                        + '</span></div>';
+                }
+                $('.followers').append(data);
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
 };
