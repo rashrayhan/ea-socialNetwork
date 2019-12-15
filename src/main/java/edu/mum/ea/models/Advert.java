@@ -1,5 +1,8 @@
 package edu.mum.ea.models;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Advert extends Activity {
     @NotEmpty
     private String title;
@@ -28,6 +32,7 @@ public class Advert extends Activity {
     @Transient
     private MultipartFile[] videos;
 
+    @JsonIgnore
     public MultipartFile[] getPictures() {
         return pictures;
     }
@@ -36,6 +41,7 @@ public class Advert extends Activity {
         this.pictures = pictures;
     }
 
+    @JsonIgnore
     public MultipartFile[] getVideos() {
         return videos;
     }

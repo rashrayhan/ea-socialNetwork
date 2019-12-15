@@ -5,7 +5,7 @@
     <div class="row" >
         <div class="col-2 c-aside-left">
             <a class="waves-effect">
-                <img src="./images/logo.PNG" class="img-fluid" alt="">
+                <img src="./images/logo.png" class="img-fluid" alt="">
             </a>
 
             <div class="list-group list-group-flush mt-5">
@@ -25,6 +25,3 @@
             <%--            <button class="btn btn-lg btn-block btnSign" mat-raised-button (click)="openDialog()">peep</button>--%>
 
         </div>
-    </div>
-</div>
-</body>

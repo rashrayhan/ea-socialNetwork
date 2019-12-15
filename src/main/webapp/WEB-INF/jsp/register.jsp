@@ -7,8 +7,9 @@
 <%--			<img src="./images/logo.png"/>--%>
 		</div>
 		<!-- Default form register -->
-		<form class="text-center shadow bg-white rounded border border-light p-5" action="#" method="post">
+		<form class="text-center shadow bg-white rounded border border-light p-5" method="post">
 
+			<input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden"/>
 			<p class="h4 mb-2">Sign up</p>
 			<p class="p-underline"></p>
 

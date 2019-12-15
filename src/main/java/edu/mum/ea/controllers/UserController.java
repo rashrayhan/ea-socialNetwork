@@ -1,29 +1,37 @@
 package edu.mum.ea.controllers;
 
+import edu.mum.ea.models.Advert;
 import edu.mum.ea.models.Post;
 import edu.mum.ea.models.User;
+import edu.mum.ea.models.util.UserPrincipal;
+import edu.mum.ea.services.FollowService;
 import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class UserController {
 
     private PasswordEncoder passwordEncoder;
     private UserService userService;
+    private FollowService followService;
 
     @Autowired
-    public UserController(PasswordEncoder passwordEncoder, UserService userService) {
+    public UserController(PasswordEncoder passwordEncoder, UserService userService, FollowService followService) {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
+        this.followService = followService;
     }
 
     @GetMapping(value = {"/", "/login", "/index"})
@@ -41,15 +49,15 @@ public class UserController {
     public String postRegister(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if(!bindingResult.hasErrors()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            User retUser = (User) userService.save(user);
+            User retUser = userService.save(user);
             redirectAttributes.addFlashAttribute("registeredUser", retUser);
-            return "redirect:/dashboard";
+            return "redirect:/login";
         }
         return "register";
     }
 
     @GetMapping(value = "/dashboard")
-    public String dashboard() {
+    public String dashboard(@ModelAttribute("advert") Advert advert) {
         return "dashboard";
     }
 
@@ -98,5 +106,8 @@ public class UserController {
         return "claim";
     }
 
-
+    @GetMapping("/who-to-follow")
+    public @ResponseBody List<User> whoToFollow(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return followService.whoToFollow(userPrincipal.getUser());
+    }
 }

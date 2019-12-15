@@ -1,26 +1,14 @@
 package edu.mum.ea.models;
 
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
-
-import org.hibernate.annotations.Cascade;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Data
-@RequiredArgsConstructor
 @Table(name = "system_user")
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,6 +60,7 @@ public class User {
         return email;
     }
 
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
@@ -104,7 +93,56 @@ public class User {
         return address;
     }
 
+    @JsonIgnore
     public List<Role> getRoles() {
         return roles;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setOtherNames(String otherNames) {
+        this.otherNames = otherNames;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setAccountStatus(AccountStatus accountStatus) {
+        this.accountStatus = accountStatus;
+    }
+
+    public void setProfilePhoto(String profilePhoto) {
+        this.profilePhoto = profilePhoto;
+    }
+
+    public void setCoverPhoto(String coverPhoto) {
+        this.coverPhoto = coverPhoto;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }
