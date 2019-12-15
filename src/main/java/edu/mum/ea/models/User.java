@@ -8,6 +8,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -36,6 +37,15 @@ public class User {
     private AccountStatus accountStatus;
     @Column(name = "profile_photo")
     private String profilePhoto;
+
+    @Transient
+    private MultipartFile[] pictures;
+
+    public MultipartFile[] getPictures() {
+        return pictures;
+    }
+
+
     @Column(name = "cover_photo")
     private String coverPhoto;
     private String biography;
