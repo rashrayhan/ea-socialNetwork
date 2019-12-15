@@ -5,6 +5,9 @@ $(function () {
         whoToFollow();
         timeline();
     }
+    if(res === "/profile") {
+        authenticatedUserProfile();
+    }
 
     $(document).on('click', '.follow-btn', function (e) {
         e.preventDefault();
@@ -17,6 +20,8 @@ $(function () {
                 if (res) {
                     $this.text("Following");
                     $this.attr('disabled', true);
+                    timeline();
+                    setTimeout(whoToFollow, 5000);
                 }
             },
             error: function (err) {
@@ -80,35 +85,68 @@ const timeline = function () {
         url: '/timeline/data',
         method: 'GET',
         success: function (posts) {
-            let timeline = "";
             $('.cm-timeline').remove();
-            for (let i = 0; i < posts.length; i++) {
-                timeline += '<div class="cm-timeline row"><span class="col-1 cmt-img">'
-                    + '<img class="aAvatar" src="./images/parallel-avatar.jpg"/></span>'
-                    + '<span class="col-11 cmt-text"><p class="cmtt-title"><b>John Doe</b> &nbsp; &nbsp;'
-                    + '<span id="cmttt-handle">@username <i class="fa fa-circle small"></i> Dec 12</span></p>';
-                if (posts[i].content) {
-                    timeline += '<p>' + posts[i].content + '</p>';
-                }
-                if (posts[i].mediaItems && posts[i].mediaItems.length > 0) {
-                    timeline += '<div class="cmtt-img"><img src="/uploads/pictures/' + posts[i].mediaItems[0].filePath + '" alt="Default Image"/></div>';
-                }
-                timeline += '<div class="row cmtt-action"><span class="ca-action"><i class="fa fa-heart"></i></span>'
-                    + '<span class="col-3 ca-count">82.5K</span><span class="ca-action commentToggle">'
-                    + '<i class="fa fa-comment"></i></span><span class="col-3 ca-count">7.2k</span></div>'
-                    + '<div class="container cmtt-comments"><div class="md-form mb-0">'
-                    + '<form style="width: 100%;" method="post" action="#">'
-                    + '<input type="text" class="col-8" placeholder="enter comment" name="comment">'
-                    + '<button type="submit" class="btn btn-primary btn-sm" style="">send</button>'
-                    + '</form></div><div class="row cmttc-otherComments"><div class="col-1 cmttco-user">'
-                    + '<img class="aAvatar" src="./images/parallel-avatar.jpg"/><p class="small">@user</p>'
-                    + '</div><div class="col-9 cmttco-cmt"><p>This is a comment from me</p>'
-                    + '</div></div></div></span></div>';
-            }
-            $('.cm-timelines').append(timeline);
+            $('.cm-timelines').append(postsDesigner(posts));
         },
         error:function (err) {
             console.log(err);
         }
     });
-}
+};
+
+const authenticatedUserProfile = function () {
+    $.ajax({
+        url: '/authenticated-user-profile-data',
+        method: 'GET',
+        success: function (posts) {
+            $('.profile-row').remove();
+            $('.cm-timelines').append(postsDesigner(posts, 'profile-row'));
+        },
+        error:function (err) {
+            console.log(err);
+        }
+    });
+};
+
+const searchedUserProfile = function (username) {
+    $.ajax({
+        url: '/searched-user-profile-data/' + username,
+        method: 'GET',
+        success: function (posts) {
+            $('.cm-timeline').remove();
+            $('.cm-timelines').append(postsDesigner(posts, ''));
+        },
+        error:function (err) {
+            console.log(err);
+        }
+    });
+};
+
+const postsDesigner = function (posts, rowClass) {
+    let timeline = "";
+    for (let i = 0; i < posts.length; i++) {
+        timeline += '<div class="'+rowClass+' row cm-timeline"><span class="col-1 cmt-img">'
+            + '<img class="aAvatar" src="./images/parallel-avatar.jpg"/></span>'
+            + '<span class="col-11 cmt-text"><p class="cmtt-title"><b>'+ posts[i].user.otherNames + ' ' +
+            posts[i].user.surname+'</b> &nbsp; &nbsp;'
+            + '<span id="cmttt-handle">@'+posts[i].user.username+'<i class="fa fa-circle small"></i>'+posts[i].activityTime+'</span></p>';
+        if (posts[i].content) {
+            timeline += '<p>' + posts[i].content + '</p>';
+        }
+        if (posts[i].mediaItems && posts[i].mediaItems.length > 0) {
+            timeline += '<div class="cmtt-img"><img src="/uploads/pictures/' + posts[i].mediaItems[0].filePath + '" alt="Default Image"/></div>';
+        }
+        timeline += '<div class="row cmtt-action"><span class="ca-action"><i class="fa fa-heart"></i></span>'
+            + '<span class="col-3 ca-count">82.5K</span><span class="ca-action commentToggle">'
+            + '<i class="fa fa-comment"></i></span><span class="col-3 ca-count">7.2k</span></div>'
+            + '<div class="container cmtt-comments"><div class="md-form mb-0">'
+            + '<form style="width: 100%;" method="post" action="#">'
+            + '<input type="text" class="col-8" placeholder="enter comment" name="comment">'
+            + '<button type="submit" class="btn btn-primary btn-sm" style="">send</button>'
+            + '</form></div><div class="row cmttc-otherComments"><div class="col-1 cmttco-user">'
+            + '<img class="aAvatar" src="./images/parallel-avatar.jpg"/><p class="small">@user</p>'
+            + '</div><div class="col-9 cmttco-cmt"><p>This is a comment from me</p>'
+            + '</div></div></div></span></div>';
+    }
+    return timeline;
+};

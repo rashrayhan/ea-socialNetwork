@@ -48,6 +48,16 @@ public class PostController {
         User user = userPrincipal.getUser();
         return postService.getTimelinePosts(user);
     }
+
+    @GetMapping("/authenticated-user-profile-data")
+    public @ResponseBody List<Post> authenticatedUserProfileData(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return postService.recentPostsByUser(userPrincipal.getUser());
+    }
+
+    @GetMapping("/searched-user-profile-data/{username}")
+    public @ResponseBody List<Post> searchedUserProfileData(@PathVariable String username) {
+        return postService.recentPostsByUser(userService.findByUsername(username));
+    }
 }
 
 
