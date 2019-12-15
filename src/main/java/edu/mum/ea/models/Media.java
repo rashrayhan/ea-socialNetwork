@@ -1,11 +1,7 @@
 package edu.mum.ea.models;
 
-import lombok.Data;
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.persistence.*;
 
-@Data
 @Entity
 public class Media {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,22 +10,12 @@ public class Media {
     @Enumerated(EnumType.STRING)
     @Column(name = "media_type")
     private MediaType mediaType;
-    @Transient
-    private MultipartFile multipartFile;
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
     @ManyToOne
     @JoinColumn(name = "advert_id")
     private Advert advert;
-
-    public MultipartFile getMultipartFile() {
-        return multipartFile;
-    }
-
-    public void setMultipartFile(MultipartFile multipartFile) {
-        this.multipartFile = multipartFile;
-    }
 
     public Long getId() {
         return id;

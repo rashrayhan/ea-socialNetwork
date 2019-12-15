@@ -45,52 +45,29 @@
         </div>
 
         <jsp:include page="/WEB-INF/jsp/includes/timeline-header.jsp"></jsp:include>
-
-
         <div class="col-md-6 col-sm-10 c-main">
             <h5 class="cm-title">Home</h5>
             <div class="row cm-peep">
                 <span class="col-1 cmp-img">
                     <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
                 </span>
-
                 <span class="col-11 cmp-form">
+                    <h6 style="color: green;" id="postSaved"></h6>
+                     <form:form action="/post" method="post" modelAttribute="newPost" enctype="multipart/form-data">
+                         <form:textarea path="content" placeholder="What's happening?" formControlName="peep" resize="false"/>
 
-                     <form class="" action="/makepost" method="get">
+                         <form:label class="btn purple-gradient btn-sm" path="picture"> <i class="fa fa-image"></i>
+                             <form:input type="file" class="uploadFile" path="picture" accept="image/*"/>
+                         </form:label>
+                         <form:label class="btn aqua-gradient btn-sm" path="picture"> <i class="fa fa-video"></i>
+                             <form:input type="file" class="uploadFile" path="video" accept="video/*"/>
+                         </form:label>
 
-                      <textarea name="content" matInput placeholder="What's happening?" formControlName="peep"
-                                resize="false"></textarea>
-                      <div class="row">
-
-                          </label>
-                      </div>
-
-
-
-
-
-
-                         <label class="btn purple-gradient btn-sm"> <i class="fa fa-image"></i><input type="file"
-                                                                                                      class="uploadFile"
-                                                                                                      name="picture[]"
-                                                                                                      multiple
-                                                                                                      accept="image/*">
-                            </label>
-
-                            <label class="btn aqua-gradient btn-sm"> <i class="fa fa-video"></i><input type="file"
-                                                                                                       class="uploadFile"
-                                                                                                       name="video[]"
-                                                                                                       multiple
-                                                                                                       accept="video/*">
-                            </label>
-
-                            <input type="checkbox" class="form-check-input ml-2 mt-3" id="notify">
-                            <label class="form-check-label btn-sm ml-3" for="notify" name="notify">Notify users</label>
-
-                            <button class="btn btn-sm blue-gradient btn-rounded float-right" type="submit">Post</button>
-
-
-                     </form>
+                         <form:checkbox css="form-check-input ml-2 mt-3" path="notifyFollowers"/>
+                         <form:label class="form-check-label btn-sm ml-3"
+                                     path="notifyFollowers">Notify users</form:label>
+                         <button class="btn btn-sm blue-gradient btn-rounded float-right" type="submit">Post</button>
+                     </form:form>
 
                     <div class="cm-timelines">
 
@@ -159,8 +136,9 @@
 
 
         <script src="js/jquery.min.js"></script>
-        <script src="js/messaging/stomp.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.4.0/sockjs.min.js"></script>
+        <script src="js/messaging/stomp.js"></script>
         <script src="js/messaging/config.js"></script>
+        <script src="js/custom.js"></script>
 </body>
 </html>

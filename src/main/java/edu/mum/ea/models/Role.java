@@ -25,12 +25,6 @@ public class Role {
     inverseJoinColumns = @JoinColumn(name = "privilege_id"))
     private List<Privilege> privileges = new ArrayList<>();
 
-
-    public Role(String name, List<User> users, List<Privilege> privileges) {
-        this.name = name;
-        this.users = users;
-        this.privileges = privileges;
-    }
     public Long getId() {
         return id;
     }

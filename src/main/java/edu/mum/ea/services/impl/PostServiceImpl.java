@@ -1,14 +1,20 @@
 package edu.mum.ea.services.impl;
 
 import edu.mum.ea.models.Media;
+import edu.mum.ea.models.MediaType;
 import edu.mum.ea.models.Post;
+import edu.mum.ea.models.User;
 import edu.mum.ea.repos.FilthyRepository;
+import edu.mum.ea.repos.FollowRepository;
 import edu.mum.ea.repos.PostRepository;
 import edu.mum.ea.services.PostService;
 import edu.mum.ea.services.util.MediaUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
 import java.io.BufferedOutputStream;
@@ -16,45 +22,73 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
- public class PostServiceImpl implements PostService {
+@PropertySource("classpath:application.properties")
+public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
     private FilthyRepository filthyRepository;
+    private FollowRepository followRepository;
     private ServletContext servletContext;
+    @Value("${url.pictures}")
+    private String pictureUploadSubFolder;
+    @Value("${url.videos}")
+    private String videoUploadSubFolder;
 
     @Autowired
-    public PostServiceImpl(PostRepository postRepository, ServletContext servletContext, FilthyRepository filthyRepository) {
+    public PostServiceImpl(PostRepository postRepository, ServletContext servletContext,
+                           FilthyRepository filthyRepository, FollowRepository followRepository) {
         this.postRepository = postRepository;
         this.servletContext = servletContext;
         this.filthyRepository = filthyRepository;
+        this.followRepository = followRepository;
     }
 
     @Override
     public Post save(Post post) {
         StringBuilder fileNames = new StringBuilder();
-        if(post.getMediaItems() != null) {
-            File folder = new File(servletContext.getRealPath("/") + "/media/");
-            if(!folder.exists()) {
-                folder.mkdirs();
-            }
-            for(Media media : post.getMediaItems()) {
-                fileNames.append(" ").append(media.getMultipartFile().getOriginalFilename());
-                media.setFilePath(folder.getPath() + media.getMultipartFile().getOriginalFilename());
-                addMediaFile(media);
-            }
-        }
         post.setActivityTime(LocalDateTime.now());
         post.setHasFilthyWord(containsFilthyWord(post.getContent(), fileNames.toString(), filthyRepository.getAllAsListOfNames()));
-        return postRepository.save(post);
+        post = postRepository.save(post);
+        if (post.getPicture() != null && !post.getPicture().isEmpty()) {
+            Media media = new Media();
+            fileNames.append(" ").append(post.getPicture().getOriginalFilename());
+            media.setPost(post);
+            media.setFilePath(post.getPicture().getOriginalFilename());
+            post.getMediaItems().add(media);
+            media.setMediaType(MediaType.Image);
+            addMediaFile(post.getPicture(), MediaType.Image);
+        }
+        if (post.getVideo() != null && !post.getVideo().isEmpty()) {
+            Media media = new Media();
+            media.setPost(post);
+            fileNames.append(" ").append(post.getVideo().getOriginalFilename());
+            media.setFilePath(post.getVideo().getOriginalFilename());
+            post.getMediaItems().add(media);
+            media.setMediaType(MediaType.Video);
+            addMediaFile(post.getVideo(), MediaType.Video);
+        }
+        return post;
     }
 
-    private void addMediaFile(Media media) {
+    private void addMediaFile(MultipartFile media, MediaType mediaType) {
+        File folder;
+        if (mediaType.equals(MediaType.Image)) {
+            folder = new File(servletContext.getRealPath("/") + pictureUploadSubFolder);
+        } else {
+            folder = new File(servletContext.getRealPath("/") + videoUploadSubFolder);
+        }
+
+        if (!folder.exists()) {
+            folder.mkdirs();
+        }
+
         try {
-            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(media.getFilePath()));
-            bos.write(media.getMultipartFile().getBytes());
+            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(folder.getPath() + "/" + media.getOriginalFilename()));
+            bos.write(media.getBytes());
             bos.flush();
             bos.close();
         } catch (Exception e) {
@@ -71,10 +105,9 @@ import java.util.List;
     public boolean delete(Post post) {
 
 
-            postRepository.delete(post);
+        postRepository.delete(post);
 
-            return true;
-
+        return true;
 
 
     }
@@ -89,11 +122,24 @@ import java.util.List;
         return (List<Post>) postRepository.findAll();
     }
 
-    private boolean containsFilthyWord(String content, String fileNames, List<String>words) {
-        if(words != null) {
+    private boolean containsFilthyWord(String content, String fileNames, List<String> words) {
+        if (words != null) {
             return words.stream().
                     anyMatch(w -> (content != null && content.contains(w)) || (fileNames != null && fileNames.contains(w)));
         }
         return false;
+    }
+
+    @Override
+    public List<Post> getTimelinePosts(User user) {
+        List<User> followings = followRepository.peopleIFollow(user);
+        return recentPostsByFollowings(followings);
+    }
+
+    public List<Post> recentPostsByFollowings(List<User> followings) {
+        List<Post> posts = findAll();
+        return posts.stream()
+                .filter(post -> followings.stream().anyMatch(user -> user.equals(post.getUser())))
+                .collect(Collectors.toList());
     }
 }
