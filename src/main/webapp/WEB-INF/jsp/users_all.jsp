@@ -1,5 +1,5 @@
 <jsp:include page="/WEB-INF/jsp/includes/dashboard-header.jsp"></jsp:include>
-
+<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 
 <main class="pt-5 mx-lg-5">
     <div class="container-fluid mt-5">
@@ -31,6 +31,7 @@
 
                             <!-- Table body -->
                             <tbody>
+
                             <tr>
                                 <th scope="row">1</th>
                                 <td>Felix Walle Josh</td>

@@ -12,9 +12,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
     <link  rel="stylesheet" type="text/css" href="../css/style.css">
     <link  rel="stylesheet" type="text/css" href="./css/style.min.css">
-
     <link  rel="stylesheet" type="text/css" href="./css/dribble.css">
     <link  rel="stylesheet" type="text/css" href="../css/timelinestyle.css">
 
 </head>
-

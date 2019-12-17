@@ -3,6 +3,9 @@ package edu.mum.ea.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,9 +16,11 @@ import java.util.List;
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String surname;
     @Column(name = "other_names")
     private String otherNames;
+    @DateTimeFormat(pattern = "yyyy-dd-MM")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
     private String email;
@@ -26,6 +31,15 @@ public class User {
     private AccountStatus accountStatus;
     @Column(name = "profile_photo")
     private String profilePhoto;
+
+    @Transient
+    private MultipartFile[] pictures;
+
+    public MultipartFile[] getPictures() {
+        return pictures;
+    }
+
+
     @Column(name = "cover_photo")
     private String coverPhoto;
     private String biography;
