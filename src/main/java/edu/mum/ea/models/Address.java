@@ -7,7 +7,8 @@ import javax.persistence.*;
 @Data
 @Entity
 public class Address {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String country;
     private String state;

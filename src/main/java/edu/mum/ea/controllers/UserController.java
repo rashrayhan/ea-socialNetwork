@@ -1,31 +1,24 @@
 package edu.mum.ea.controllers;
 
 import edu.mum.ea.models.*;
+import edu.mum.ea.models.util.ProfileFollowInfo;
+import edu.mum.ea.models.util.ProfileUserInfo;
 import edu.mum.ea.models.util.UserPrincipal;
 import edu.mum.ea.services.AddressService;
+import edu.mum.ea.services.FollowService;
 import edu.mum.ea.services.UserService;
-import org.eclipse.jdt.internal.compiler.apt.model.ModuleElementImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletContext;
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +29,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    private FollowService followService;
 
     @Autowired
     private AddressService addressService;
@@ -51,18 +45,19 @@ public class UserController {
    // AppProperties appProperties;
 
     @Autowired
-    public UserController(PasswordEncoder passwordEncoder, UserService userService) {
+    public UserController(PasswordEncoder passwordEncoder, UserService userService, FollowService followService) {
         this.passwordEncoder = passwordEncoder;
         this.userService = userService;
+        this.followService = followService;
     }
 
-    @RequestMapping(value = {"/", "/login", "/index"}, method = RequestMethod.GET)
+    @GetMapping(value = {"/", "/login", "/index"})
     public String welcome() {
         return "index";
     }
 
 
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    @GetMapping(value = "/register")
     public String getRegister() {
         return "register";
     }
@@ -73,10 +68,9 @@ public class UserController {
         model.addAttribute("userList", userList);
         return "users_all";
     }
-
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @PostMapping(value = "/register")
     public String postRegister(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if(!bindingResult.hasErrors()) {
+        if (!bindingResult.hasErrors()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setAccountStatus(AccountStatus.Active);
             user.setUsername(user.getSurname());
@@ -84,11 +78,9 @@ public class UserController {
             User retUser = (User) userService.save(user);
             redirectAttributes.addFlashAttribute("registeredUser", retUser);
             return "redirect:/login";
-
         }
         return "register";
     }
-
 
 
     @RequestMapping(value = "/updateprofile", method = RequestMethod.POST)
@@ -135,34 +127,78 @@ public class UserController {
     {
         return "profile";
     }
-    @RequestMapping(value = "/dashboard")
-    public String dashboard() {
+    @GetMapping(value = "/dashboard")
+    public String dashboard(@ModelAttribute("advert") Advert advert) {
+
         return "dashboard";
     }
 
-    @RequestMapping(value = "/timeline")
-    public String timeline() {
+    @GetMapping(value = "/timeline")
+    public String timeline(@ModelAttribute("newPost") Post post) {
         return "timeline";
     }
-
-    @RequestMapping(value = "/filthy")
+    @GetMapping(value = "/filthy")
     public String filthy() {
         return "filthy";
     }
 
-    @RequestMapping(value = "/users_all")
+    @GetMapping(value = "/users_all")
     public String users_all() {
         return "users_all";
     }
 
-    @RequestMapping(value = "/user_claims")
+    @GetMapping(value = "/user_claims")
     public String user_claims() {
         return "user_claims";
     }
 
-    @RequestMapping(value = "/filthy_words")
+    @GetMapping(value = "/filthy_words")
     public String filthy_words() {
         return "filthy_words";
     }
 
+    @GetMapping(value = "/follow")
+    public String follow() {
+        return "follow";
+    }
+
+    @GetMapping(value = "/profile")
+    public String profile() {
+        return "profile";
+    }
+
+    @GetMapping(value = "/user_profile")
+    public String user_profile() {
+        return "user_profile";
+    }
+
+    @GetMapping(value = "/claim")
+    public String claim() {
+        return "claim";
+    }
+
+    @GetMapping("/who-to-follow")
+    public @ResponseBody
+    List<User> whoToFollow(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return followService.whoToFollow(userPrincipal.getUser());
+    }
+
+    @GetMapping("/authenticated-user-info")
+    public @ResponseBody ProfileUserInfo authenticatedUserInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        User user = userPrincipal.getUser();
+        ProfileUserInfo info = new ProfileUserInfo();
+        info.setUser(user);
+        info.setFollowers(followService.whoFollowsMe(user).size());
+        info.setFollowings(followService.whoIFollow(user).size());
+        return info;
+    }
+
+    @GetMapping("/authenticated-user-follow-info")
+    public @ResponseBody ProfileFollowInfo authenticatedUserProfileFollowInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        User user = userPrincipal.getUser();
+        ProfileFollowInfo info = new ProfileFollowInfo();
+        info.setFollowers(followService.whoFollowsMe(user));
+        info.setFollowings(followService.whoIFollow(user));
+        return info;
+    }
 }

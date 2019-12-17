@@ -7,4 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 public interface UserService extends GenericService<User> {
 
 public String editProfilePicture(MultipartFile file);
+
+    public User findByUsername(String username);
+
 }

@@ -39,5 +39,6 @@ public class Role {
 
     public List<Privilege> getPrivileges() {
         return privileges;
+
     }
 }

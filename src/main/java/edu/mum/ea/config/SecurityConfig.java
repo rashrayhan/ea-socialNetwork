@@ -40,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/post", "/advertise", "/user", "/dashboard")
+                .antMatchers("/claims", "/advertise", "/users", "/dashboard",
+                        "/timeline", "/profile", "/user_profile", "/follow")
                 .authenticated()
                 .antMatchers("/", "/**")
                 .permitAll()
@@ -49,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/login")
                 .defaultSuccessUrl("/dashboard")
                 .and()
-                .logout();
+                .logout()
+                .logoutSuccessUrl("/login");
     }
 }
