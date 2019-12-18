@@ -40,6 +40,9 @@
 		    </div>
 		
 		    <button class="btn btn-block blue-gradient my-4 mt-5" type="submit">Sign in</button>
+
+			<p class="text-center">or sign in with:
+			<a href="/login" class="mx-2" role="button"><i class="fab fa-google light-blue-text"></i></a></p>
 			<hr>
 			<div class="text-center mt-5">
 				

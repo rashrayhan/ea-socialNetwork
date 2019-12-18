@@ -32,7 +32,7 @@ public class UserController {
         this.followService = followService;
     }
 
-    @GetMapping(value = {"/", "/login", "/index"})
+    @GetMapping(value = {"/", "/index"})
     public String welcome() {
         return "index";
     }
@@ -55,6 +55,19 @@ public class UserController {
     }
 
 
+<<<<<<< HEAD
+=======
+    @GetMapping(value = "/home")
+    public String home(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        User user = userService.findByUsername(userPrincipal.getUser().getUsername());
+        if(user.getRoles().get(0).getName().equalsIgnoreCase("ROLE_ADMIN")) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/timeline";
+        }
+    }
+
+>>>>>>> 73b8fb914823120babe0685d92a792cc1cc4ecd7
     @GetMapping(value = "/timeline")
     public String timeline(@ModelAttribute("newPost") Post post) {
         return "timeline";
@@ -127,5 +140,10 @@ public class UserController {
         info.setFollowers(followService.whoFollowsMe(user));
         info.setFollowings(followService.whoIFollow(user));
         return info;
+    }
+
+    @PostMapping(value = "/login")
+    public String login() {
+        return "timeline";
     }
 }

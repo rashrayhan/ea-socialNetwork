@@ -6,6 +6,8 @@ import edu.mum.ea.repos.FollowRepository;
 import edu.mum.ea.repos.UserRepository;
 import edu.mum.ea.services.FollowService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@PreAuthorize("isAuthenticated()")
 public class FollowServiceImpl implements FollowService {
 
     private FollowRepository followRepository;
@@ -26,6 +29,7 @@ public class FollowServiceImpl implements FollowService {
         this.userRepository = userRepository;
     }
 
+    @Secured("ROLE_FOLLOW_PRIVILEGE")
     @Override
     public Follow save(Follow follow) {
         follow.setActivityTime(LocalDateTime.now());
@@ -37,6 +41,7 @@ public class FollowServiceImpl implements FollowService {
         return null;
     }
 
+    @Secured("ROLE_FOLLOW_PRIVILEGE")
     @Override
     public boolean delete(Follow follow) {
         return false;
@@ -52,6 +57,7 @@ public class FollowServiceImpl implements FollowService {
         return null;
     }
 
+    @Secured("ROLE_FOLLOW_PRIVILEGE")
     @Override
     public List<User> whoToFollow(User user) {
         List<User> users = (List<User>) userRepository.findAll();
@@ -63,13 +69,21 @@ public class FollowServiceImpl implements FollowService {
                 .collect(Collectors.toList());
     }
 
+    @Secured("ROLE_FOLLOW_PRIVILEGE")
     @Override
     public List<User> whoFollowsMe(User user) {
         return followRepository.peopleWhoFollowMe(user);
     }
 
+    @Secured("ROLE_FOLLOW_PRIVILEGE")
     @Override
     public List<User> whoIFollow(User user) {
         return followRepository.peopleIFollow(user);
+    }
+
+    @Secured("ROLE_FOLLOW_PRIVILEGE")
+    @Override
+    public List<String> stringListOfMyFollowers(User user) {
+        return followRepository.stringListOfMyFollowers(user);
     }
 }
