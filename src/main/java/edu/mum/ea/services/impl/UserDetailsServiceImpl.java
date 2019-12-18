@@ -52,7 +52,27 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public User update(User user) {
-        return userRepository.save(user);
+        User editUser = userRepository.findById(user.getId()).get();
+        if(user.getBiography() != null) {
+            editUser.setBiography(user.getBiography());
+        }
+
+        if(user.getDateOfBirth() != null) {
+            editUser.setDateOfBirth(user.getDateOfBirth());
+        }
+
+        if(user.getEmail() != null) {
+            editUser.setEmail(user.getEmail());
+        }
+
+        if(user.getAddress().getCountry()!= null && user.getAddress().getCity()!= null  && user.getAddress().getZipCode()!= null && user.getAddress().getState()!= null )  {
+            editUser.setAddress(user.getAddress());
+        }
+
+        if(user.getProfilePhoto() != null) {
+            editUser.setProfilePhoto(user.getProfilePhoto());
+        }
+        return editUser;
     }
 
     @Override
@@ -83,6 +103,7 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
             bos.flush();
             bos.close();
         } catch (Exception e) {
+            e.printStackTrace();
             //throw new MediaUploadException(e.getMessage());
         }
         return fileName;

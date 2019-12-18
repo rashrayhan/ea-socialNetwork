@@ -20,7 +20,7 @@ public class User {
     private String surname;
     @Column(name = "other_names")
     private String otherNames;
-    @DateTimeFormat(pattern = "yyyy-dd-MM")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
     private String email;
@@ -45,7 +45,6 @@ public class User {
     private String biography;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
-
     private Address address;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)

@@ -1,6 +1,9 @@
 package edu.mum.ea.controllers;
 
-import edu.mum.ea.models.*;
+import edu.mum.ea.models.AccountStatus;
+import edu.mum.ea.models.Advert;
+import edu.mum.ea.models.Post;
+import edu.mum.ea.models.User;
 import edu.mum.ea.models.util.ProfileFollowInfo;
 import edu.mum.ea.models.util.ProfileUserInfo;
 import edu.mum.ea.models.util.UserPrincipal;
@@ -42,7 +45,7 @@ public class UserController {
 
     @Autowired
     private ServletContext context;
-   // AppProperties appProperties;
+    // AppProperties appProperties;
 
     @Autowired
     public UserController(PasswordEncoder passwordEncoder, UserService userService, FollowService followService) {
@@ -64,10 +67,11 @@ public class UserController {
 
     @RequestMapping(value = "/findAll", method = RequestMethod.GET)
     public String findAll(Model model) {
-        userList=userService.findAll();
+        userList = userService.findAll();
         model.addAttribute("userList", userList);
         return "users_all";
     }
+
     @PostMapping(value = "/register")
     public String postRegister(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (!bindingResult.hasErrors()) {
@@ -84,49 +88,36 @@ public class UserController {
 
 
     @RequestMapping(value = "/updateprofile", method = RequestMethod.POST)
-    public String updateProfile(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if(!bindingResult.hasErrors()) {
-            User object =  userService.findById(user.getId());
-            object.setUsername(user.getUsername());
-            object.setBiography(user.getBiography());
-            object.setDateOfBirth(user.getDateOfBirth());
-
-            Address address = addressService.save(user.getAddress());
-            object.setAddress(address);
-
-            User retUser = (User) userService.update(object);
+    public String updateProfile(@Valid @ModelAttribute("editUser") User user, BindingResult bindingResult,
+                                RedirectAttributes redirectAttributes) {
+        if (!bindingResult.hasErrors()) {
+            User retUser = userService.update(user);
             return "redirect:/profile";
         }
-        return "timeline";
+
+        return "profile";
     }
 
     @RequestMapping(value = "/updateProfilePicture", method = RequestMethod.POST)
-    public String updatePicture(MultipartFile file, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+    public String updatePicture(@RequestPart("file") MultipartFile file, @RequestParam("userId") Long userId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
         try {
-            if(file.getBytes().length>0){
-            User user = userPrincipal.getUser();
-            String picture = userService.editProfilePicture(file);
-            user.setProfilePhoto(picture);
-            userService.update(user);}
+            if (file.getBytes().length > 0) {
+                User user = userService.findById(userId);
+                String picture = userService.editProfilePicture(file);
+                user.setProfilePhoto(picture);
+                userService.update(user);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "redirect:/profile";
-        }
-
-    @RequestMapping(value = "/profile")
-    public String profile(@AuthenticationPrincipal UserPrincipal userPrincipal, Model model)
-    {
-        User user = userPrincipal.getUser();
-        model.addAttribute("user", user);
-        return "profile";
     }
 
     @RequestMapping(value = "/updateprofile")
-    public String getUpdateProfile()
-    {
+    public String getUpdateProfile() {
         return "profile";
     }
+
     @GetMapping(value = "/dashboard")
     public String dashboard(@ModelAttribute("advert") Advert advert) {
 
@@ -137,6 +128,7 @@ public class UserController {
     public String timeline(@ModelAttribute("newPost") Post post) {
         return "timeline";
     }
+
     @GetMapping(value = "/filthy")
     public String filthy() {
         return "filthy";
@@ -163,7 +155,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/profile")
-    public String profile() {
+    public String profile(@ModelAttribute("editUser") User user, @AuthenticationPrincipal UserPrincipal userPrincipal, Model model) {
+        model.addAttribute("editUser", userService.findByUsername(userPrincipal.getUser().getUsername()));
         return "profile";
     }
 
@@ -184,7 +177,8 @@ public class UserController {
     }
 
     @GetMapping("/authenticated-user-info")
-    public @ResponseBody ProfileUserInfo authenticatedUserInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+    public @ResponseBody
+    ProfileUserInfo authenticatedUserInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         User user = userPrincipal.getUser();
         ProfileUserInfo info = new ProfileUserInfo();
         info.setUser(user);
@@ -194,7 +188,8 @@ public class UserController {
     }
 
     @GetMapping("/authenticated-user-follow-info")
-    public @ResponseBody ProfileFollowInfo authenticatedUserProfileFollowInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+    public @ResponseBody
+    ProfileFollowInfo authenticatedUserProfileFollowInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         User user = userPrincipal.getUser();
         ProfileFollowInfo info = new ProfileFollowInfo();
         info.setFollowers(followService.whoFollowsMe(user));
