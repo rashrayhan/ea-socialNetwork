@@ -16,4 +16,6 @@ public interface PostRepository extends CrudRepository<Post, Long> {
     @Query("select p from Post p order by p.activityTime desc")
     List<Post> findAllByActivityTimeDesc();
 
+    List<Post> findAllByHasFilthyWordTrue();
+
 }

@@ -21,9 +21,12 @@
             <!-- Right -->
             <ul class="navbar-nav nav-flex-icons">
                 <li class="nav-item">
-                    <a href="index" class="nav-link border border-light rounded waves-effect">
-                        <i class="fas fa-sign-out-alt mr-2 blue-text"></i>Logout
-                    </a>
+                    <form action="/logout" method="post">
+                        <input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden"/>
+                        <button type="submit" href="index" class="nav-link border border-light rounded waves-effect">
+                            <i class="fas fa-sign-out-alt mr-2 blue-text"></i>Logout
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -44,7 +47,7 @@
             <a href="filthy" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-ban mr-3 blue-grey-text"></i>Filthy posts</a>
             <a href="filthy_words" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-file-word mr-3 blue-grey-text"></i>Filthy words</a>
+                <i class="fas fa-file-word mr-3 blue-grey-text"></i> Filthy words</a>
             <a href="users_all" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-users mr-3 blue-grey-text"></i>System users</a>
             <a href="user_claims" class="list-group-item list-group-item-action waves-effect">

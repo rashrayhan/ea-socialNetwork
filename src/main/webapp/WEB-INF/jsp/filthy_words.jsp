@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <jsp:include page="/WEB-INF/jsp/includes/dashboard-header.jsp"></jsp:include>
 
     
@@ -35,15 +37,16 @@
 
                                 <!-- Table body -->
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>Cunt</td>
-                                    <td>One of the most offensive dirty words, referring to a vagina</td>
-                                    <td class="text-center">
-                                        <a href="#" class="mx-2 tooltip-test" role="button" title="delete word"><i class="fa fa-trash-alt text-danger"></i></a>
-                                    </td>
-                                </tr>
-
+                                    <c:forEach items="${filthy_words}" var="filthy_words" varStatus="loop">
+                                        <tr>
+                                            <th scope="row">${loop.count}</th>
+                                            <td>${filthy_words.name}</td>
+                                            <td>${filthy_words.meaning}</td>
+                                            <td class="text-center">
+                                                <a href="filthy_words/delete/${filthy_words.id}" class="mx-2 tooltip-test" role="button" title="delete word"><i class="fa fa-trash-alt text-danger"></i></a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                 </tbody>
                                 <!-- Table body -->
                             </table>
@@ -72,13 +75,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form method="post" action="">
+                <form:form modelAttribute="filthyWord" method="post" action="">
                     <!--Grid row-->
                     <div class="row">
                         <div class="col-md-12">
                             <div class="md-form mb-0">
-                                <input type="text" class="form-control" id="word"  name="word">
-                                <label for="word">Word</label>
+                                <form:input  path="name" type="text" cssClass="form-control" id="word" autofocus="true"/>
+                                <form:label path="name">Word</form:label>
+                                <form:errors cssClass="text-danger" path="name"/>
                             </div>
                         </div>
                     </div>
@@ -91,19 +95,21 @@
                         <div class="col-md-12">
 
                             <div class="md-form">
-                                <label for="meaning">Word Meaning</label>
-                                <textarea class="form-control md-textarea" id="meaning" name="meaning" rows="3"></textarea>
+                                <form:label for="meaning" path="meaning">Word Meaning</form:label>
+                                <form:textarea cssClass="form-control md-textarea" rows="3" path="meaning"/>
+                                <form:errors cssClass="text-danger" path="meaning"/>
                             </div>
 
                         </div>
                     </div>
                     <!--Grid row-->
-                </form>
+                    <div class="modal-footer">
+                        <form:button type="button" class="btn btn-secondary" data-dismiss="modal">Close</form:button>
+                        <form:button type="submit" class="btn btn-primary">Add</form:button>
+                    </div>
+                </form:form>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Add</button>
-            </div>
+
         </div>
     </div>
 </div>

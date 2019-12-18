@@ -1,13 +1,9 @@
 package edu.mum.ea.controllers;
 
-import edu.mum.ea.models.AccountStatus;
-import edu.mum.ea.models.Advert;
-import edu.mum.ea.models.Post;
-import edu.mum.ea.models.User;
+import edu.mum.ea.models.*;
 import edu.mum.ea.models.util.ProfileFollowInfo;
 import edu.mum.ea.models.util.ProfileUserInfo;
 import edu.mum.ea.models.util.UserPrincipal;
-import edu.mum.ea.services.AddressService;
 import edu.mum.ea.services.FollowService;
 import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,35 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.ServletContext;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class UserController {
 
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private UserService userService;
     private FollowService followService;
-
-    @Autowired
-    private AddressService addressService;
-
-    private List<User> userList = new ArrayList<>();
-
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    @Autowired
-    private ServletContext context;
-    // AppProperties appProperties;
 
     @Autowired
     public UserController(PasswordEncoder passwordEncoder, UserService userService, FollowService followService) {
@@ -65,21 +43,11 @@ public class UserController {
         return "register";
     }
 
-    @RequestMapping(value = "/findAll", method = RequestMethod.GET)
-    public String findAll(Model model) {
-        userList = userService.findAll();
-        model.addAttribute("userList", userList);
-        return "users_all";
-    }
-
     @PostMapping(value = "/register")
     public String postRegister(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (!bindingResult.hasErrors()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            user.setAccountStatus(AccountStatus.Active);
-            user.setUsername(user.getSurname());
-            user.setProfilePhoto("default.png");
-            User retUser = (User) userService.save(user);
+            User retUser = userService.save(user);
             redirectAttributes.addFlashAttribute("registeredUser", retUser);
             return "redirect:/login";
         }
@@ -87,67 +55,33 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/updateprofile", method = RequestMethod.POST)
-    public String updateProfile(@Valid @ModelAttribute("editUser") User user, BindingResult bindingResult,
-                                RedirectAttributes redirectAttributes) {
-        if (!bindingResult.hasErrors()) {
-            User retUser = userService.update(user);
-            return "redirect:/profile";
-        }
-
-        return "profile";
-    }
-
-    @RequestMapping(value = "/updateProfilePicture", method = RequestMethod.POST)
-    public String updatePicture(@RequestPart("file") MultipartFile file, @RequestParam("userId") Long userId, @AuthenticationPrincipal UserPrincipal userPrincipal) {
-        try {
-            if (file.getBytes().length > 0) {
-                User user = userService.findById(userId);
-                String picture = userService.editProfilePicture(file);
-                user.setProfilePhoto(picture);
-                userService.update(user);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "redirect:/profile";
-    }
-
-    @RequestMapping(value = "/updateprofile")
-    public String getUpdateProfile() {
-        return "profile";
-    }
-
-    @GetMapping(value = "/dashboard")
-    public String dashboard(@ModelAttribute("advert") Advert advert) {
-
-        return "dashboard";
-    }
-
     @GetMapping(value = "/timeline")
     public String timeline(@ModelAttribute("newPost") Post post) {
         return "timeline";
     }
 
-    @GetMapping(value = "/filthy")
-    public String filthy() {
-        return "filthy";
-    }
-
     @GetMapping(value = "/users_all")
-    public String users_all() {
+    public String users_all(@ModelAttribute("user") User user, Model model) {
+        model.addAttribute("users", userService.findAll());
         return "users_all";
     }
 
-    @GetMapping(value = "/user_claims")
-    public String user_claims() {
-        return "user_claims";
+    @GetMapping(value="/users_all/block/{userId}")
+    public String block(@PathVariable("userId") Long userId){
+        User user = userService.findById(userId);
+        user.setAccountStatus(AccountStatus.Blocked);
+        userService.update(user);
+        return "redirect:/users_all";
     }
 
-    @GetMapping(value = "/filthy_words")
-    public String filthy_words() {
-        return "filthy_words";
+    @GetMapping(value="/users_all/unblock/{userId}")
+    public String unblock(@PathVariable("userId") Long userId){
+        User user = userService.findById(userId);
+        user.setAccountStatus(AccountStatus.Active);
+        userService.update(user);
+        return "redirect:/users_all";
     }
+
 
     @GetMapping(value = "/follow")
     public String follow() {
@@ -155,8 +89,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/profile")
-    public String profile(@ModelAttribute("editUser") User user, @AuthenticationPrincipal UserPrincipal userPrincipal, Model model) {
-        model.addAttribute("editUser", userService.findByUsername(userPrincipal.getUser().getUsername()));
+    public String profile() {
         return "profile";
     }
 
@@ -165,20 +98,20 @@ public class UserController {
         return "user_profile";
     }
 
-    @GetMapping(value = "/claim")
-    public String claim() {
-        return "claim";
-    }
-
     @GetMapping("/who-to-follow")
     public @ResponseBody
     List<User> whoToFollow(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         return followService.whoToFollow(userPrincipal.getUser());
     }
 
+    @GetMapping(value = "/claim")
+    public String claim() {
+        return "claim";
+    }
+
+
     @GetMapping("/authenticated-user-info")
-    public @ResponseBody
-    ProfileUserInfo authenticatedUserInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+    public @ResponseBody ProfileUserInfo authenticatedUserInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         User user = userPrincipal.getUser();
         ProfileUserInfo info = new ProfileUserInfo();
         info.setUser(user);
@@ -188,8 +121,7 @@ public class UserController {
     }
 
     @GetMapping("/authenticated-user-follow-info")
-    public @ResponseBody
-    ProfileFollowInfo authenticatedUserProfileFollowInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+    public @ResponseBody ProfileFollowInfo authenticatedUserProfileFollowInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         User user = userPrincipal.getUser();
         ProfileFollowInfo info = new ProfileFollowInfo();
         info.setFollowers(followService.whoFollowsMe(user));
