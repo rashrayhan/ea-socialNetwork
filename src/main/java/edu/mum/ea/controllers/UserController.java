@@ -55,6 +55,16 @@ public class UserController {
     }
 
 
+    @GetMapping(value = "/home")
+    public String home(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        User user = userService.findByUsername(userPrincipal.getUser().getUsername());
+        if(user.getRoles().get(0).getName().equalsIgnoreCase("ROLE_ADMIN")) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/timeline";
+        }
+    }
+
     @GetMapping(value = "/timeline")
     public String timeline(@ModelAttribute("newPost") Post post) {
         return "timeline";

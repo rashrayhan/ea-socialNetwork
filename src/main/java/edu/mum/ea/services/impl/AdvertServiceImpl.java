@@ -10,6 +10,8 @@ import edu.mum.ea.services.AdvertService;
 import edu.mum.ea.util.AppProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +30,7 @@ import java.util.List;
 
 @Service
 @Transactional
+@PreAuthorize("isAuthenticated()")
 public class AdvertServiceImpl implements AdvertService {
 
     private AdvertRepository advertRepository;
@@ -41,6 +44,7 @@ public class AdvertServiceImpl implements AdvertService {
         this.appProperties = appProperties;
     }
 
+    @Secured("ROLE_ADVERTISE_PRIVILEGE")
     @Override
     public Advert save(Advert advert) {
 
@@ -69,12 +73,13 @@ public class AdvertServiceImpl implements AdvertService {
     }
 
 
-
+    @Secured("ROLE_ADVERTISE_PRIVILEGE")
     @Override
     public Advert update(Advert advert) {
         return null;
     }
 
+    @Secured("ROLE_ADVERTISE_PRIVILEGE")
     @Override
     public boolean delete(Advert advert) {
         return false;

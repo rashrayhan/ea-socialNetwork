@@ -20,4 +20,8 @@ public interface FollowRepository extends CrudRepository<Follow, Long> {
             " f.followingUser = ?1")
     List<User> peopleWhoFollowMe(User user);
 
+    @Query("select f.user.username from Follow f where" +
+            " f.followingUser = ?1")
+    List<String> stringListOfMyFollowers(User user);
+
 }

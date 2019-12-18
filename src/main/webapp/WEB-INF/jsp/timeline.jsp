@@ -6,7 +6,7 @@
     <h5 class="cm-title">Home</h5>
     <div class="row cm-peep">
                 <span class="col-1 cmp-img">
-                    <img class="aAvatar" src="../../../resources/static/images/parallel-avatar.jpg"/>
+                    <img class="aAvatar" src="../images/parallel-avatar.jpg"/>
                 </span>
         <div class="col-11 cmp-form">
             <h6 style="color: green;" id="postSaved"></h6>
@@ -17,7 +17,7 @@
                 <form:label class="btn purple-gradient btn-sm" path="picture"> <i class="fa fa-image"></i>
                     <form:input type="file" class="uploadFile" path="picture" accept="image/*"/>
                 </form:label>
-                <form:label class="btn aqua-gradient btn-sm" path="picture"> <i class="fa fa-video"></i>
+                <form:label class="btn aqua-gradient btn-sm" path="video"> <i class="fa fa-video"></i>
                     <form:input type="file" class="uploadFile" path="video" accept="video/*"/>
                 </form:label>
 

@@ -1,4 +1,4 @@
-INSERT INTO system_user
+/*INSERT INTO system_user
 VALUES (null,'Active',null,null, null,'admin@ea.project','EA',
         '$2a$10$vl0.RUUKvId5/hCh5ND5Ve.8C853e/K5KjBRLvDufOeu09R72W76.'
         ,null,'A Plus Admin','admin',null),
@@ -30,14 +30,14 @@ VALUES (1,1),
        (4,2),
        (5,2),
        (6,2);
-
-INSERT INTO system_privilege
-VALUES (null,'ADVERTISE_PRIVILEGE'),
-        (null,'POST_PRIVILEGE'),
-        (null,'COMMENT_PRIVILEGE'),
-        (null,'FOLLOW_PRIVILEGE'),
-        (null,'CLAIM_PRIVILEGE'),
-        (null,'USER_MANAGEMENT_PRIVILEGE');
+*/
+/*INSERT INTO system_privilege
+VALUES (null,'ROLE_ADVERTISE_PRIVILEGE'),
+        (null,'ROLE_POST_PRIVILEGE'),
+        (null,'ROLE_COMMENT_PRIVILEGE'),
+        (null,'ROLE_FOLLOW_PRIVILEGE'),
+        (null,'ROLE_CLAIM_PRIVILEGE'),
+        (null,'ROLE_USER_MANAGEMENT_PRIVILEGE');
 
 INSERT INTO role_privilege
 VALUES (1,1),
@@ -45,4 +45,20 @@ VALUES (1,1),
 (2,2),
 (2,3),
 (2,4),
-(2,5);
+(2,5);*/
+
+INSERT INTO system_privilege
+VALUES (null, 'ROLE_DASHBOARD_PRIVILEGE'),
+       (null, 'ROLE_CLAIMS_PRIVILEGE'),
+       (null, 'ROLE_CLAIM_PRIVILEGE'),
+       (null, 'ROLE_FILTHY_PRIVILEGE'),
+       (null, 'ROLE_PROFILE_PRIVILEGE'),
+       (null, 'ROLE_TIMELINE_PRIVILEGE');
+
+INSERT INTO role_privilege
+VALUES (1, 7),
+       (1, 8),
+       (1, 10),
+       (2, 9),
+       (2, 11),
+       (2, 12);
