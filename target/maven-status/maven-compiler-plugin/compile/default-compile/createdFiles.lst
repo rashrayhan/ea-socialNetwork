@@ -1,5 +1,4 @@
 edu\mum\ea\repos\FilthyRepository.class
-edu\mum\ea\controllers\util\ExceptionHandlerControllerAdvice.class
 edu\mum\ea\services\impl\PostServiceImpl.class
 edu\mum\ea\repos\FollowRepository.class
 edu\mum\ea\services\impl\FollowServiceImpl.class
@@ -30,13 +29,14 @@ edu\mum\ea\services\UserService.class
 edu\mum\ea\Application.class
 edu\mum\ea\repos\UserRepository.class
 edu\mum\ea\repos\RoleRepository.class
+edu\mum\ea\services\MessagingService.class
 edu\mum\ea\models\Activity.class
 edu\mum\ea\models\Follow.class
 edu\mum\ea\models\Role.class
 edu\mum\ea\models\Notification.class
 edu\mum\ea\services\PostService.class
 edu\mum\ea\controllers\ClaimController.class
-edu\mum\ea\config\ArtemisConfig.class
+edu\mum\ea\models\util\NotificationTemplate.class
 edu\mum\ea\controllers\FollowController.class
 edu\mum\ea\models\util\ProfileUserInfo.class
 edu\mum\ea\config\SecurityConfig.class
@@ -46,6 +46,7 @@ edu\mum\ea\services\impl\ClaimServiceImpl.class
 edu\mum\ea\models\util\ProfileFollowInfo.class
 edu\mum\ea\services\AdvertService.class
 edu\mum\ea\repos\AdvertRepository.class
+edu\mum\ea\services\impl\MessageServiceImpl.class
 edu\mum\ea\models\Address.class
 edu\mum\ea\models\Privilege.class
 edu\mum\ea\models\Claim.class

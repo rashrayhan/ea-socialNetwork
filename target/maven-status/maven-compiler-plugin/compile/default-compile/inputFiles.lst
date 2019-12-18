@@ -10,16 +10,19 @@ E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\repos\FollowRepository.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\GenericService.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\controllers\FilthyController.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\FilthyWord.java
+E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\MessagingService.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\Follow.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\impl\UserDetailsServiceImpl.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\util\AppProperties.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\Media.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\PostService.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\impl\PostServiceImpl.java
+E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\impl\MessageServiceImpl.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\impl\AdvertServiceImpl.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\Notification.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\UserService.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\impl\FilthyServiceImpl.java
+E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\util\NotificationTemplate.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\repos\FilthyRepository.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\services\util\MediaUploadException.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\PostItem.java
@@ -40,7 +43,6 @@ E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\User.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\repos\UserRepository.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\repos\RoleRepository.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\util\UserPrincipal.java
-E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\controllers\util\ExceptionHandlerControllerAdvice.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\AccountStatus.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\Activity.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\Post.java
@@ -48,5 +50,4 @@ E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\MediaType.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\Address.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\repos\PostRepository.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\models\PostItemType.java
-E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\config\ArtemisConfig.java
 E:\EA\ea-socialNetwork\src\main\java\edu\mum\ea\controllers\PostController.java

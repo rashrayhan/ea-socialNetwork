@@ -15,10 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-<<<<<<< HEAD
-=======
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
->>>>>>> e3adacdb531607946905a59a2a04560f407c8cb5
 @EnableOAuth2Sso
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 

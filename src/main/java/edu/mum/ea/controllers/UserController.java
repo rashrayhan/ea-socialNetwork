@@ -32,7 +32,7 @@ public class UserController {
         this.followService = followService;
     }
 
-    @GetMapping(value = {"/", "/index"})
+    @GetMapping(value = {"/", "/login", "/index"})
     public String welcome() {
         return "index";
     }
@@ -139,8 +139,4 @@ public class UserController {
         return info;
     }
 
-    @PostMapping(value = "/login")
-    public String login() {
-        return "timeline";
-    }
 }
