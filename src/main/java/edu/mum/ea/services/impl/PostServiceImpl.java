@@ -12,6 +12,10 @@ import edu.mum.ea.services.util.MediaUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,11 +26,11 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Transactional
 @PropertySource("classpath:application.properties")
+@PreAuthorize("isAuthenticated()")
 public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
@@ -47,6 +51,7 @@ public class PostServiceImpl implements PostService {
         this.followRepository = followRepository;
     }
 
+    @Secured("ROLE_POST_PRIVILEGE")
     @Override
     public Post save(Post post) {
         StringBuilder fileNames = new StringBuilder();
@@ -74,6 +79,7 @@ public class PostServiceImpl implements PostService {
         return post;
     }
 
+    @Secured("ROLE_POST_PRIVILEGE")
     private void addMediaFile(MultipartFile media, MediaType mediaType) {
         File folder;
         if (mediaType.equals(MediaType.Image)) {
@@ -96,11 +102,13 @@ public class PostServiceImpl implements PostService {
         }
     }
 
+    @Secured("ROLE_POST_PRIVILEGE")
     @Override
     public Post update(Post post) {
         return postRepository.save(post);
     }
 
+    @Secured({"ROLE_POST_PRIVILEGE", "ROLE_USER_MANAGEMENT_PRIVILEGE"})
     @Override
     public boolean delete(Post post) {
 
@@ -130,22 +138,25 @@ public class PostServiceImpl implements PostService {
         return false;
     }
 
+    @Secured("ROLE_TIMELINE_PRIVILEGE")
     @Override
-    public List<Post> getTimelinePosts(User user) {
+    public List<Post> getTimelinePosts(User user, int pageNumber) {
         List<User> followings = followRepository.peopleIFollow(user);
-        return recentPostsByFollowings(followings);
+        return recentPostsByFollowings(followings, pageNumber);
     }
 
+    @Secured("ROLE_TIMELINE_PRIVILEGE")
     @Override
-    public List<Post> recentPostsByFollowings(List<User> followings) {
-        List<Post> posts = postRepository.findAllByActivityTimeDesc();
-        return posts.stream()
-                .filter(post -> followings.stream().anyMatch(user -> user.getUsername().equals(post.getUser().getUsername())))
-                .collect(Collectors.toList());
+    public List<Post> recentPostsByFollowings(List<User> followings, int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber, 10);
+        return postRepository.findAllByUserInOrderByActivityTimeDesc(followings, pageable);
     }
 
+    @Secured("ROLE_PROFILE_PRIVILEGE")
     @Override
-    public List<Post> recentPostsByUser(User user) {
-        return postRepository.findAllByUserOrderByActivityTimeDesc(user);
+    public List<Post> recentPostsByUser(User user, int pageNumber)
+    {
+        Pageable pageable = PageRequest.of(pageNumber, 10);
+        return postRepository.findAllByUserOrderByActivityTimeDesc(user, pageable);
     }
 }

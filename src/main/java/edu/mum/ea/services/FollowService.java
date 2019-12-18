@@ -13,4 +13,6 @@ public interface FollowService extends GenericService<Follow> {
 
     List<User> whoIFollow(User user);
 
+    List<String>stringListOfMyFollowers(User user);
+
 }

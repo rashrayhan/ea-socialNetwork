@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -61,6 +62,16 @@ public class UserController {
     @GetMapping(value = "/dashboard")
     public String dashboard(@ModelAttribute("advert") Advert advert) {
         return "dashboard";
+    }
+
+    @GetMapping(value = "/home")
+    public String home(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+        User user = userService.findByUsername(userPrincipal.getUser().getUsername());
+        if(user.getRoles().get(0).getName().equalsIgnoreCase("ROLE_ADMIN")) {
+            return "redirect:/dashboard";
+        } else {
+            return "redirect:/timeline";
+        }
     }
 
     @GetMapping(value = "/timeline")

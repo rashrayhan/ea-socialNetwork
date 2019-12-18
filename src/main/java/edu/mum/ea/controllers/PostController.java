@@ -3,10 +3,11 @@ package edu.mum.ea.controllers;
 import edu.mum.ea.models.Post;
 import edu.mum.ea.models.User;
 import edu.mum.ea.models.util.UserPrincipal;
+import edu.mum.ea.services.FollowService;
+import edu.mum.ea.services.MessagingService;
 import edu.mum.ea.services.PostService;
 import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,13 +19,18 @@ import java.util.List;
 @Controller
 public class PostController {
 
-    PostService postService;
-    UserService userService;
+    private PostService postService;
+    private UserService userService;
+    private FollowService followService;
+    private MessagingService messagingService;
 
     @Autowired
-    public PostController(PostService postService, UserService userService) {
+    public PostController(PostService postService, UserService userService,
+                          MessagingService messagingService, FollowService followService) {
         this.postService = postService;
         this.userService = userService;
+        this.messagingService = messagingService;
+        this.followService = followService;
     }
 
     @PostMapping(value = "/post")
@@ -32,31 +38,27 @@ public class PostController {
                     @AuthenticationPrincipal UserPrincipal userPrincipal) {
             if(!bindingResult.hasErrors()) {
                 post.setUser(userPrincipal.getUser());
-                postService.save(post);
+                post = postService.save(post);
+                messagingService.notifyFollowers(post, followService.stringListOfMyFollowers(userPrincipal.getUser()));
                 return "Your post has been successfully submitted!";
             }
             return "Error";
     }
 
-    @SubscribeMapping(value = "/test")
-    public String testWebSocket(String message) {
-        return "received:{" + message + "}";
-    }
-
-    @GetMapping("/timeline/data")
-    public @ResponseBody List<Post> timelineData(@AuthenticationPrincipal UserPrincipal userPrincipal) {
+    @GetMapping("/timeline/data/{pageNumber}")
+    public @ResponseBody List<Post> timelineData(@PathVariable int pageNumber, @AuthenticationPrincipal UserPrincipal userPrincipal) {
         User user = userPrincipal.getUser();
-        return postService.getTimelinePosts(user);
+        return postService.getTimelinePosts(user, pageNumber);
     }
 
-    @GetMapping("/authenticated-user-profile-data")
-    public @ResponseBody List<Post> authenticatedUserProfileData(@AuthenticationPrincipal UserPrincipal userPrincipal) {
-        return postService.recentPostsByUser(userPrincipal.getUser());
+    @GetMapping("/authenticated-user-profile-data/{pageNumber}")
+    public @ResponseBody List<Post> authenticatedUserProfileData(@PathVariable int pageNumber, @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        return postService.recentPostsByUser(userPrincipal.getUser(), pageNumber);
     }
 
-    @GetMapping("/searched-user-profile-data/{username}")
-    public @ResponseBody List<Post> searchedUserProfileData(@PathVariable String username) {
-        return postService.recentPostsByUser(userService.findByUsername(username));
+    @GetMapping("/searched-user-profile-data/{username}/{pageNumber}")
+    public @ResponseBody List<Post> searchedUserProfileData(@PathVariable int pageNumber, @PathVariable String username) {
+        return postService.recentPostsByUser(userService.findByUsername(username), pageNumber);
     }
 }
 
