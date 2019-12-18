@@ -32,7 +32,7 @@ public class UserController {
         this.followService = followService;
     }
 
-    @GetMapping(value = {"/", "/login", "/index"})
+    @GetMapping(value = {"/", "/index"})
     public String welcome() {
         return "index";
     }
@@ -127,5 +127,10 @@ public class UserController {
         info.setFollowers(followService.whoFollowsMe(user));
         info.setFollowings(followService.whoIFollow(user));
         return info;
+    }
+
+    @PostMapping(value = "/login")
+    public String login() {
+        return "timeline";
     }
 }
