@@ -26,6 +26,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -111,18 +112,14 @@ public class PostServiceImpl implements PostService {
     @Secured({"ROLE_POST_PRIVILEGE", "ROLE_USER_MANAGEMENT_PRIVILEGE"})
     @Override
     public boolean delete(Post post) {
-
-
         postRepository.delete(post);
-
         return true;
-
-
     }
 
     @Override
     public Post findById(Long id) {
-        return null;
+        Optional<Post> optionalPost = postRepository.findById(id);
+        return optionalPost.orElse(null);
     }
 
     @Override
@@ -158,5 +155,10 @@ public class PostServiceImpl implements PostService {
     {
         Pageable pageable = PageRequest.of(pageNumber, 10);
         return postRepository.findAllByUserOrderByActivityTimeDesc(user, pageable);
+    }
+
+    @Override
+    public List<Post> findAllByHasFilthyWordTrue() {
+        return postRepository.findAllByHasFilthyWordTrue();
     }
 }

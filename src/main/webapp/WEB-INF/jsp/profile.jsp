@@ -33,10 +33,10 @@
 
                     <div class="row cm-peep cm-peep-up">
                         <div class="cmp-cover">
-                            <img src="./images/HIyWCaRh.jpg"/>
+                            <img src="../../../resources/static/images/HIyWCaRh.jpg"/>
                         </div>
                         <div class="cmp-profile">
-                            <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
+                            <img class="aAvatar" src="../../../resources/static/images/parallel-avatar.jpg"/>
                             <br/>
                             <label class=""> <i class="fa fa-edit text-info ml-5"></i><input type="file" class="uploadFile" name="picture[]" multiple accept="image/*">
                             </label>

@@ -1,6 +1,7 @@
 package edu.mum.ea.services.impl;
 
 import edu.mum.ea.Application;
+import edu.mum.ea.models.Activity;
 import edu.mum.ea.models.Advert;
 import edu.mum.ea.models.Media;
 import edu.mum.ea.models.MediaType;
@@ -46,6 +47,7 @@ public class AdvertServiceImpl implements AdvertService {
     @Secured("ROLE_ADVERTISE_PRIVILEGE")
     @Override
     public Advert save(Advert advert) {
+
         String picturePath = context.getRealPath("/") + appProperties.getPicture();
         String videoPath = context.getRealPath("/") + appProperties.getVideo();
 
@@ -90,7 +92,7 @@ public class AdvertServiceImpl implements AdvertService {
 
     @Override
     public List<Advert> findAll() {
-        return null;
+        return (List<Advert>) advertRepository.findAll();
     }
 
     public void fileUploadHelper(@ModelAttribute("advert") @Valid Advert advert, StringBuilder fileNames, MultipartFile file, File pictureUploadDirectory, MediaType image) {

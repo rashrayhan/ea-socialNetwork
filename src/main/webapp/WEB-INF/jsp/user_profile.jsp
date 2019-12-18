@@ -33,10 +33,10 @@
 
                     <div class="row cm-peep cm-peep-up">
                         <div class="cmp-cover">
-                            <img src="./images/HIyWCaRh.jpg"/>
+                            <img src="../../../resources/static/images/HIyWCaRh.jpg"/>
                         </div>
                         <div class="cmp-profile">
-                            <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
+                            <img class="aAvatar" src="../../../resources/static/images/parallel-avatar.jpg"/>
 
                         </div>
                         <div class="cmp-btn">
@@ -59,7 +59,7 @@
 
                 <div class="cm-timeline row">
                       <span class="col-1 cmt-img">
-                          <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
+                          <img class="aAvatar" src="../../../resources/static/images/parallel-avatar.jpg"/>
                       </span>
 
                     <span class="col-11 cmt-text">
@@ -68,7 +68,7 @@
                         </p>
                         <p>Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups,  ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual </p>
                         <div class="cmtt-img">
-                          <img src="./images/HIyWCaRh.jpg"/>
+                          <img src="../../../resources/static/images/HIyWCaRh.jpg"/>
                         </div>
                         <div class="row cmtt-action">
                           <span class="ca-action"><i class="fa fa-heart"></i></span>
@@ -88,7 +88,7 @@
                             </div>
                             <div class="row cmttc-otherComments" >
                               <div class="col-1 cmttco-user">
-                                  <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
+                                  <img class="aAvatar" src="../../../resources/static/images/parallel-avatar.jpg"/>
                                   <p class="small">@user</p>
                               </div>
                               <div class="col-9 cmttco-cmt">

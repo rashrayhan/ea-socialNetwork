@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/jsp/includes/dashboard-header.jsp"></jsp:include>
 
     
@@ -29,17 +30,18 @@
 
                                 <!-- Table body -->
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>11-12-2019</td>
-                                    <td>test@mum.edu</td>
-                                    <td>fuck, pussy, sex</td>
-                                    <td class="text-center">
-                                        <a href="#" class="mx-2" role="button" title="delete post"><i class="fa fa-trash-alt text-warning"></i></a>
-                                        <a href="#" class="mx-2" role="button" title="block user (delete post as well)"><i class="fa fa-user-lock text-danger"></i></a>
-                                    </td>
-                                </tr>
-
+                                <c:forEach items="${filthy}" var="filthy">
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>${filthy.activityTime}</td>
+                                        <td>${filthy.user.username}</td>
+                                        <td>${filthy.content}</td>
+                                        <td class="text-center">
+                                            <a href="filthy/delete/${filthy.id}" class="mx-2" role="button" title="delete post"><i class="fa fa-trash-alt text-warning"></i></a>
+                                            <a href="filthy/block/${filthy.user.id}/${filthy.id}" class="mx-2" role="button" title="block user (delete post as well)"><i class="fa fa-user-lock text-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                                 <!-- Table body -->
                             </table>

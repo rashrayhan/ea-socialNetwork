@@ -6,7 +6,7 @@
     <h5 class="cm-title">Home</h5>
     <div class="row cm-peep">
                 <span class="col-1 cmp-img">
-                    <img class="aAvatar" src="./images/parallel-avatar.jpg"/>
+                    <img class="aAvatar" src="../../../resources/static/images/parallel-avatar.jpg"/>
                 </span>
         <div class="col-11 cmp-form">
             <h6 style="color: green;" id="postSaved"></h6>

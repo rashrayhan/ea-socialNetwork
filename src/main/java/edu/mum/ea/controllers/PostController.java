@@ -1,5 +1,6 @@
 package edu.mum.ea.controllers;
 
+import edu.mum.ea.models.AccountStatus;
 import edu.mum.ea.models.Post;
 import edu.mum.ea.models.User;
 import edu.mum.ea.models.util.UserPrincipal;
@@ -10,6 +11,7 @@ import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -60,6 +62,31 @@ public class PostController {
     public @ResponseBody List<Post> searchedUserProfileData(@PathVariable int pageNumber, @PathVariable String username) {
         return postService.recentPostsByUser(userService.findByUsername(username), pageNumber);
     }
+
+    @GetMapping(value = "/filthy")
+    public String filthy(Model model) {
+        model.addAttribute("filthy", postService.findAllByHasFilthyWordTrue());
+        return "filthy";
+    }
+
+    @GetMapping(value="/filthy/delete/{filthyContentId}")
+    public String delete(@PathVariable("filthyContentId") Long filthyContentId){
+        //System.out.println(filthyContentId);
+        postService.delete(postService.findById(filthyContentId));
+        return "redirect:/filthy";
+    }
+
+    @GetMapping(value="/filthy/block/{filthyPosterId}/{filthyContentId}")
+    public String block(@PathVariable("filthyPosterId") Long filthyPosterId,
+                        @PathVariable("filthyContentId") Long filthyContentId){
+        User user = userService.findById(filthyPosterId);
+        user.setAccountStatus(AccountStatus.Blocked);
+        userService.update(user);
+        postService.delete(postService.findById(filthyContentId));
+        return "redirect:/filthy";
+    }
+
+
 }
 
 

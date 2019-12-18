@@ -1,6 +1,8 @@
 package edu.mum.ea.services.impl;
 
 import edu.mum.ea.models.AccountStatus;
+import edu.mum.ea.models.FilthyWord;
+import edu.mum.ea.models.Post;
 import edu.mum.ea.models.User;
 import edu.mum.ea.models.util.UserPrincipal;
 import edu.mum.ea.repos.UserRepository;
@@ -42,17 +44,19 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public boolean delete(User user) {
-        return false;
+        userRepository.delete(user);
+        return true;
     }
 
     @Override
     public User findById(Long id) {
-        return null;
+        Optional<User> optionalUser = userRepository.findById(id);
+        return optionalUser.orElse(null);
     }
 
     @Override
     public List<User> findAll() {
-        return null;
+        return (List<User>) userRepository.findAll();
     }
 
     @Override

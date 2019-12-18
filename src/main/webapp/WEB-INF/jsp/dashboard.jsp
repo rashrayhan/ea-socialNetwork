@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/jsp/includes/dashboard-header.jsp"></jsp:include>
 
     
@@ -61,20 +62,22 @@
                                 <!-- Table head -->
                                 <thead class="blue lighten-4">
                                 <tr>
-                                    <th>#</th>
                                     <th>Post Date</th>
-                                    <th>Post Text</th>
+                                    <th>Post Title</th>
+                                    <th>Post Content</th>
                                 </tr>
                                 </thead>
                                 <!-- Table head -->
 
                                 <!-- Table body -->
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>11-12-19</td>
-                                    <td>This is a post</td>
-                                </tr>
+                                <c:forEach items="${adverts}" var="adverts">
+                                    <tr>
+                                        <td>${adverts.activityTime}</td>
+                                        <td>${adverts.title}</td>
+                                        <td>${adverts.content}</td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                                 <!-- Table body -->
                             </table>

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/jsp/includes/dashboard-header.jsp"></jsp:include>
 
     
@@ -21,7 +22,7 @@
                                     <th>#</th>
                                     <th>Date</th>
                                     <th>username</th>
-                                    <th>Claim</th>
+                                    <th>Claim Description</th>
                                     <th class="text-center">Actions</th>
                                 </tr>
                                 </thead>
@@ -29,17 +30,18 @@
 
                                 <!-- Table body -->
                                 <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>11-12-2019</td>
-                                    <td>test@mum.edu</td>
-                                    <td>It was a typo. I promise I wont do it again.</td>
-                                    <td class="text-center">
-                                        <a href="#" class="mx-2" role="button" title="unblock user"><i class="fa fa-lock-open text-success"></i></a>
-                                        <a href="#" class="mx-2" role="button" title="delete user"><i class="fa fa-trash-alt text-danger"></i></a>
-                                    </td>
-                                </tr>
-
+                                <c:forEach items="${claims}" var="claims" varStatus="loop">
+                                    <tr>
+                                        <th scope="row">${loop.count}</th>
+                                        <td>${claims.activityTime}</td>
+                                        <td>${claims.user.username}</td>
+                                        <td>${claims.description}</td>
+                                        <td class="text-center">
+                                            <a href="user_claims/unblock/${claims.user.id}" class="mx-2" role="button" title="unblock user"><i class="fa fa-lock-open text-success"></i></a>
+                                            <a href="user_claims/delete/${claims.user.id}" class="mx-2" role="button" title="delete user"><i class="fa fa-trash-alt text-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
                                 </tbody>
                                 <!-- Table body -->
                             </table>

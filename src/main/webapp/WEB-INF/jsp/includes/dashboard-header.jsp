@@ -47,7 +47,7 @@
             <a href="filthy" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-ban mr-3 blue-grey-text"></i>Filthy posts</a>
             <a href="filthy_words" class="list-group-item list-group-item-action waves-effect">
-                <i class="fas fa-file-word mr-3 blue-grey-text"></i>Filthy words</a>
+                <i class="fas fa-file-word mr-3 blue-grey-text"></i> Filthy words</a>
             <a href="users_all" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-users mr-3 blue-grey-text"></i>System users</a>
             <a href="user_claims" class="list-group-item list-group-item-action waves-effect">

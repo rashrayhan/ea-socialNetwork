@@ -1,6 +1,7 @@
 package edu.mum.ea.models;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -9,6 +10,7 @@ import java.util.Date;
 @Data
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
+@NoArgsConstructor
 public abstract class Activity {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

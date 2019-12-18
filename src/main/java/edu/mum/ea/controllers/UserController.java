@@ -1,8 +1,6 @@
 package edu.mum.ea.controllers;
 
-import edu.mum.ea.models.Advert;
-import edu.mum.ea.models.Post;
-import edu.mum.ea.models.User;
+import edu.mum.ea.models.*;
 import edu.mum.ea.models.util.ProfileFollowInfo;
 import edu.mum.ea.models.util.ProfileUserInfo;
 import edu.mum.ea.models.util.UserPrincipal;
@@ -14,10 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
@@ -59,10 +54,6 @@ public class UserController {
         return "register";
     }
 
-    @GetMapping(value = "/dashboard")
-    public String dashboard(@ModelAttribute("advert") Advert advert) {
-        return "dashboard";
-    }
 
     @GetMapping(value = "/home")
     public String home(@AuthenticationPrincipal UserPrincipal userPrincipal) {
@@ -79,25 +70,28 @@ public class UserController {
         return "timeline";
     }
 
-    @GetMapping(value = "/filthy")
-    public String filthy() {
-        return "filthy";
-    }
-
     @GetMapping(value = "/users_all")
-    public String users_all() {
+    public String users_all(@ModelAttribute("user") User user, Model model) {
+        model.addAttribute("users", userService.findAll());
         return "users_all";
     }
 
-    @GetMapping(value = "/user_claims")
-    public String user_claims() {
-        return "user_claims";
+    @GetMapping(value="/users_all/block/{userId}")
+    public String block(@PathVariable("userId") Long userId){
+        User user = userService.findById(userId);
+        user.setAccountStatus(AccountStatus.Blocked);
+        userService.update(user);
+        return "redirect:/users_all";
     }
 
-    @GetMapping(value = "/filthy_words")
-    public String filthy_words() {
-        return "filthy_words";
+    @GetMapping(value="/users_all/unblock/{userId}")
+    public String unblock(@PathVariable("userId") Long userId){
+        User user = userService.findById(userId);
+        user.setAccountStatus(AccountStatus.Active);
+        userService.update(user);
+        return "redirect:/users_all";
     }
+
 
     @GetMapping(value = "/follow")
     public String follow() {
@@ -114,16 +108,17 @@ public class UserController {
         return "user_profile";
     }
 
-    @GetMapping(value = "/claim")
-    public String claim() {
-        return "claim";
-    }
-
     @GetMapping("/who-to-follow")
     public @ResponseBody
     List<User> whoToFollow(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         return followService.whoToFollow(userPrincipal.getUser());
     }
+
+    @GetMapping(value = "/claim")
+    public String claim() {
+        return "claim";
+    }
+
 
     @GetMapping("/authenticated-user-info")
     public @ResponseBody ProfileUserInfo authenticatedUserInfo(@AuthenticationPrincipal UserPrincipal userPrincipal) {
