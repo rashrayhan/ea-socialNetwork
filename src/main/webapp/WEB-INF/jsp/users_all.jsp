@@ -1,5 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/jsp/includes/dashboard-header.jsp"></jsp:include>
-<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
+
 
 <main class="pt-5 mx-lg-5">
     <div class="container-fluid mt-5">
@@ -20,8 +21,8 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>Account creation date</th>
-                                <th>YOB</th>
+                                <th>Username</th>
+                                <th>DOB</th>
                                 <th>Email</th>
                                 <th>Status</th>
                                 <th>Action(s)</th>
@@ -31,20 +32,20 @@
 
                             <!-- Table body -->
                             <tbody>
-
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>Felix Walle Josh</td>
-                                <td>Dec-11-2019</td>
-                                <td>1970</td>
-                                <td>test@mum.edu</td>
-                                <td>Active</td>
-                                <td>
-                                    <a href="#" class="mx-2" role="button" title="block user"><i class="fa fa-user-lock text-danger"></i></a>
-                                    <a href="#" class="mx-2" role="button" title="unblock post"><i class="fa fa-lock-open text-success"></i></a>
-                                </td>
-                            </tr>
-
+                            <c:forEach items="${users}" var="users" varStatus="loop">
+                                <tr>
+                                    <th scope="row">${loop.count}</th>
+                                    <td>${users.surname} ${users.otherNames}</td>
+                                    <td>${users.username}</td>
+                                    <td>${users.dateOfBirth}</td>
+                                    <td>${users.email}</td>
+                                    <td>${users.accountStatus}</td>
+                                    <td>
+                                        <a href="users_all/block/${users.id}" class="mx-2" role="button" title="block user"><i class="fa fa-user-lock text-danger"></i></a>
+                                        <a href="users_all/unblock/${users.id}" class="mx-2" role="button" title="unblock user"><i class="fa fa-lock-open text-success"></i></a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
                             </tbody>
                             <!-- Table body -->
                         </table>

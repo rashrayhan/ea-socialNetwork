@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -103,18 +104,14 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public boolean delete(Post post) {
-
-
         postRepository.delete(post);
-
         return true;
-
-
     }
 
     @Override
     public Post findById(Long id) {
-        return null;
+        Optional<Post> optionalPost = postRepository.findById(id);
+        return optionalPost.orElse(null);
     }
 
     @Override
@@ -147,5 +144,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public List<Post> recentPostsByUser(User user) {
         return postRepository.findAllByUserOrderByActivityTimeDesc(user);
+    }
+
+    @Override
+    public List<Post> findAllByHasFilthyWordTrue() {
+        return postRepository.findAllByHasFilthyWordTrue();
     }
 }

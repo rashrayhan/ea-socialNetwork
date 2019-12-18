@@ -5,7 +5,7 @@
     <div class="row" >
         <div class="col-2 c-aside-left">
             <a class="waves-effect">
-                <img src="./images/logo.png" class="img-fluid" alt="">
+                <img src="../../../../resources/static/images/logo.png" class="img-fluid" alt="">
             </a>
 
             <div class="list-group list-group-flush mt-5">

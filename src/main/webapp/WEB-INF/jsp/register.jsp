@@ -7,8 +7,9 @@
 <%--			<img src="./images/logo.png"/>--%>
 		</div>
 		<!-- Default form register -->
-		<form class="text-center shadow bg-white rounded border border-light p-5" action="/register" method="post">
-<input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden"/>
+		<form class="text-center shadow bg-white rounded border border-light p-5" method="post">
+
+			<input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden"/>
 			<p class="h4 mb-2">Sign up</p>
 			<p class="p-underline"></p>
 
@@ -16,12 +17,12 @@
 			<div class="form-row md-form">
 				<div class="col">
 					<!-- First name -->
-					<input type="text" id="fname" class="form-control" name="surname" >
+					<input type="text" id="fname" class="form-control" name="fname">
 					<label for="fname">First name</label>
 				</div>
 				<div class="col">
 					<!-- Last name -->
-					<input type="text" id="lname" class="form-control" name="otherNames">
+					<input type="text" id="lname" class="form-control" name="lname">
 					<label for="lname">Last name</label>
 				</div>
 			</div>
@@ -34,7 +35,7 @@
 
 			<!-- DOB -->
 			<div class="md-form">
-				<input type="date" id="dob" class="form-control" name="dateOfBirth">
+				<input type="text" id="dob" class="form-control" name="dob">
 				<label for="dob">Year of Birth</label>
 			</div>
 
