@@ -3,11 +3,27 @@ $(function () {
     let res = window.location.pathname;
     if (res === "/timeline") {
         whoToFollow();
-        timeline();
+        let timelineHandler = timeline();
+        timelineHandler.timelineHandler();
+        $(window).scroll(function () {
+           if($(window).height() + $(window).scrollTop() === $(document).height()) {
+               if(timelineHandler.hasMore()) {
+                   timelineHandler.timelineHandler();
+               }
+           }
+        });
     }
     if (res === "/profile") {
         authenticatedUserInfo();
-        authenticatedUserProfile();
+        let profileHandler = authenticatedUserProfile();
+        profileHandler.userProfile();
+        $(window).scroll(function () {
+            if($(window).height() + $(window).scrollTop() === $(document).height()) {
+                if(profileHandler.hasMore()) {
+                    profileHandler.userProfile();
+                }
+            }
+        });
     }
     if(res === "/follow") {
         authenticatedUserFollowInfo();
@@ -85,45 +101,94 @@ const whoToFollow = function () {
 };
 
 const timeline = function () {
-    $.ajax({
-        url: '/timeline/data',
-        method: 'GET',
-        success: function (posts) {
-            $('.cm-timeline').remove();
-            $('.cm-timelines').append(postsDesigner(posts));
-        },
-        error: function (err) {
-            console.log(err);
+    let pageNumber = 0;
+    let hasMore = true;
+
+    let timelineHandler = function () {
+        $.ajax({
+            url: '/timeline/data/'+pageNumber,
+            method: 'GET',
+            success: function (posts) {
+                if(posts.length < 10) {
+                    hasMore = false;
+                } else {
+                    pageNumber++;
+                }
+                $('.cm-timelines').append(postsDesigner(posts));
+                streamVideos();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    };
+
+    return {
+        timelineHandler:timelineHandler,
+        hasMore:function () {
+            return hasMore;
         }
-    });
+    }
 };
 
 const authenticatedUserProfile = function () {
-    $.ajax({
-        url: '/authenticated-user-profile-data',
-        method: 'GET',
-        success: function (posts) {
-            $('.profile-row').remove();
-            $('.cm-timelines').append(postsDesigner(posts, 'profile-row'));
-        },
-        error: function (err) {
-            console.log(err);
+    let hasMore = true;
+    let pageNumber = 0;
+    let userProfile = function () {
+        $.ajax({
+            url: '/authenticated-user-profile-data/' + pageNumber,
+            method: 'GET',
+            success: function (posts) {
+                if(posts.length < 10) {
+                    hasMore = false;
+                } else {
+                    pageNumber++;
+                }
+                $('.profile-row').remove();
+                $('.cm-timelines').append(postsDesigner(posts, 'profile-row'));
+                streamVideos();
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    };
+    return {
+        userProfile:userProfile,
+        hasMore: function () {
+            return hasMore;
         }
-    });
+    }
 };
 
 const searchedUserProfile = function (username) {
-    $.ajax({
-        url: '/searched-user-profile-data/' + username,
-        method: 'GET',
-        success: function (posts) {
-            $('.cm-timeline').remove();
-            $('.cm-timelines').append(postsDesigner(posts, ''));
-        },
-        error: function (err) {
-            console.log(err);
+    let pageNumber = 0;
+    let hasMore = true;
+    let userProfileHandler = function () {
+        $.ajax({
+            url: '/searched-user-profile-data/' + username + "/" + pageNumber,
+            method: 'GET',
+            success: function (posts) {
+                if(posts.length < 10) {
+                    hasMore = false;
+                } else {
+                    pageNumber++;
+                }
+                $('.cm-timeline').remove();
+                $('.cm-timelines').append(postsDesigner(posts, ''));
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    };
+
+    return {
+        userProfileHandler:userProfileHandler,
+        hasMore:function () {
+            return hasMore;
         }
-    });
+    }
 };
 
 const postsDesigner = function (posts, rowClass) {
@@ -138,7 +203,12 @@ const postsDesigner = function (posts, rowClass) {
             timeline += '<p>' + posts[i].content + '</p>';
         }
         if (posts[i].mediaItems && posts[i].mediaItems.length > 0) {
-            timeline += '<div class="cmtt-img"><img src="/uploads/pictures/' + posts[i].mediaItems[0].filePath + '" alt="Default Image"/></div>';
+            if(posts[i].mediaItems[0].mediaType === 'Image') {
+                timeline += '<div class="cmtt-img"><img src="/uploads/pictures/' + posts[i].mediaItems[0].filePath + '" alt="Default Image"/></div>';
+            } else {
+                timeline += '<div class="cmtt-img"><video src="/uploads/videos/' + posts[i].mediaItems[0].filePath + '"' +
+                    ' autoplay class="video"/></div>';
+            }
         }
         timeline += '<div class="row cmtt-action"><span class="ca-action"><i class="fa fa-heart"></i></span>'
             + '<span class="col-3 ca-count">82.5K</span><span class="ca-action commentToggle">'
@@ -219,5 +289,23 @@ const authenticatedUserFollowInfo = function () {
         error: function (err) {
             console.log(err);
         }
+    });
+};
+
+const streamVideos = function () {
+    $('.video').each(function(){
+        const myMediaSource = new MediaSource();
+        const url = URL.createObjectURL(myMediaSource);
+        let vidSrc = this.src;
+        this.src = url;
+
+        const videoSourceBuffer = myMediaSource
+            .addSourceBuffer('video/webm; codecs="avc1.64001e"');
+
+        fetch(window.location.host + vidSrc).then(function(response) {
+            return response.arrayBuffer();
+        }).then(function(videoData) {
+            videoSourceBuffer.appendBuffer(videoData);
+        });
     });
 };

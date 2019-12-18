@@ -17,7 +17,7 @@
                 <form:label class="btn purple-gradient btn-sm" path="picture"> <i class="fa fa-image"></i>
                     <form:input type="file" class="uploadFile" path="picture" accept="image/*"/>
                 </form:label>
-                <form:label class="btn aqua-gradient btn-sm" path="picture"> <i class="fa fa-video"></i>
+                <form:label class="btn aqua-gradient btn-sm" path="video"> <i class="fa fa-video"></i>
                     <form:input type="file" class="uploadFile" path="video" accept="video/*"/>
                 </form:label>
 
