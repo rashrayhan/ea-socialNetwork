@@ -39,12 +39,12 @@ public class UserController {
 
 
     @GetMapping(value = "/register")
-    public String getRegister() {
+    public String getRegister(@ModelAttribute("newUser") User user) {
         return "register";
     }
 
     @PostMapping(value = "/register")
-    public String postRegister(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String postRegister(@Valid @ModelAttribute("newUser") User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (!bindingResult.hasErrors()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             User retUser = userService.save(user);

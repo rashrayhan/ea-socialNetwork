@@ -1,6 +1,5 @@
 package edu.mum.ea.services;
 
-import edu.mum.ea.models.FilthyWord;
 import edu.mum.ea.models.Post;
 import edu.mum.ea.models.User;
 

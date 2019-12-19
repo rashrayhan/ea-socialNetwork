@@ -30,4 +30,11 @@ public class FollowController {
         followService.save(follow);
         return true;
     }
+
+    @GetMapping("/unfollow/{username}")
+    public @ResponseBody boolean unfollow(@PathVariable("username") String username,
+                                        @AuthenticationPrincipal UserPrincipal userPrincipal) {
+        Follow follow = followService.findByFollowingUserAndUser(userService.findByUsername(username), userPrincipal.getUser());
+        return followService.delete(follow);
+    }
 }

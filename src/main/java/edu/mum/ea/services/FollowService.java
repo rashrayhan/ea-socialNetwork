@@ -15,4 +15,8 @@ public interface FollowService extends GenericService<Follow> {
 
     List<String>stringListOfMyFollowers(User user);
 
+    Follow findByFollowingUserAndUser(User followingUser, User user);
+
+    Follow findByUserAndFollowingUser(User user, User followingUser);
+
 }

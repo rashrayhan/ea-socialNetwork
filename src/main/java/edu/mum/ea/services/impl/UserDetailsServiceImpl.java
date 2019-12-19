@@ -1,13 +1,12 @@
 package edu.mum.ea.services.impl;
 
-import edu.mum.ea.models.AccountStatus;
-import edu.mum.ea.models.FilthyWord;
-import edu.mum.ea.models.Post;
-import edu.mum.ea.models.User;
+import edu.mum.ea.models.*;
 import edu.mum.ea.models.util.UserPrincipal;
+import edu.mum.ea.repos.RoleRepository;
 import edu.mum.ea.repos.UserRepository;
 import edu.mum.ea.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,6 +20,8 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -31,12 +32,16 @@ public class UserDetailsServiceImpl implements UserDetailsService, UserService {
         return new UserPrincipal(user);
     }
 
+    @PreAuthorize("isAnonymous()")
     @Override
     public User save(User user) {
         user.setAccountStatus(AccountStatus.Active);
-        return userRepository.save(user);
+        user = userRepository.save(user);
+        user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
+        return user;
     }
 
+    @PreAuthorize("isAuthenticated()")
     @Override
     public User update(User user) {
         return null;
