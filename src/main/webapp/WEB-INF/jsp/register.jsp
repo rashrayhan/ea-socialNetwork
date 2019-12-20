@@ -7,42 +7,50 @@
 <%--			<img src="./images/logo.png"/>--%>
 		</div>
 		<!-- Default form register -->
-		<form class="text-center shadow bg-white rounded border border-light p-5" method="post">
-
-			<input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden"/>
+		<form:form modelAttribute="newUser" class="text-center shadow bg-white rounded border border-light p-5" method="post">
 			<p class="h4 mb-2">Sign up</p>
 			<p class="p-underline"></p>
-
-
 			<div class="form-row md-form">
 				<div class="col">
 					<!-- First name -->
-					<input type="text" id="fname" class="form-control" name="fname">
-					<label for="fname">First name</label>
+					<form:input type="text" path="surname" class="form-control"/>
+					<form:label path="surname">Surname</form:label>
+					<form:errors path="surname" cssStyle="color: red; font-size: 12px;"/>
 				</div>
 				<div class="col">
 					<!-- Last name -->
-					<input type="text" id="lname" class="form-control" name="lname">
-					<label for="lname">Last name</label>
+					<form:input type="text" class="form-control" path="otherNames"/>
+					<form:label path="otherNames">Other names</form:label>
+					<form:errors path="otherNames" cssStyle="color: red; font-size: 12px;"/>
 				</div>
 			</div>
 
 			<!-- E-mail -->
 			<div class="md-form">
-				<input type="email" id="email" class="form-control" name="email">
-				<label for="email">Email</label>
+				<form:input type="email" class="form-control" path="email"/>
+				<form:label path="email">Email</form:label>
+				<form:errors path="email" cssStyle="color: red; font-size: 12px;"/>
 			</div>
 
 			<!-- DOB -->
 			<div class="md-form">
-				<input type="text" id="dob" class="form-control" name="dob">
-				<label for="dob">Year of Birth</label>
+				<form:input type="date" class="form-control" path="dateOfBirth"/>
+				<form:label path="dateOfBirth">Year of Birth</form:label>
+				<form:errors path="dateOfBirth" cssStyle="color: red; font-size: 12px;"/>
+			</div>
+
+			<!-- Username -->
+			<div class="md-form">
+				<form:input class="form-control" path="username"/>
+				<form:label path="username">Username</form:label>
+				<form:errors path="username" cssStyle="color: red; font-size: 12px;"/>
 			</div>
 
 			<!-- Password -->
 			<div class="md-form">
-				<input type="password" id="password" class="form-control" name="password" aria-describedby="passHelp">
-				<label for="password">Password</label>
+				<form:password class="form-control" path="password" aria-describedby="passHelp"/>
+				<form:label path="password">Password</form:label>
+				<form:errors path="password" cssStyle="color: red; font-size: 12px;"/>
 				<small id="passHelp" class="form-text text-left text-muted">
 					At least 8 characters and 1 digit
 				</small>
@@ -60,9 +68,9 @@
 
 			<hr>
 
-			<p><a href="index" class="teal-text font-weight-normal">sign in</a></p>
+			<p><a href="/login" class="teal-text font-weight-normal">sign in</a></p>
 
-		</form>
+		</form:form>
 
 	</section>
 <jsp:include page="/WEB-INF/jsp/includes/global-footer.jsp"></jsp:include>

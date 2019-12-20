@@ -76,22 +76,6 @@ public class PostController {
         return "redirect:/filthy";
     }
 
-<<<<<<< HEAD
-    @GetMapping(value = "/filthy")
-    public String filthy(Model model) {
-        model.addAttribute("filthy", postService.findAllByHasFilthyWordTrue());
-        return "filthy";
-    }
-
-    @GetMapping(value="/filthy/delete/{filthyContentId}")
-    public String delete(@PathVariable("filthyContentId") Long filthyContentId){
-        //System.out.println(filthyContentId);
-        postService.delete(postService.findById(filthyContentId));
-        return "redirect:/filthy";
-    }
-
-=======
->>>>>>> 73b8fb914823120babe0685d92a792cc1cc4ecd7
     @GetMapping(value="/filthy/block/{filthyPosterId}/{filthyContentId}")
     public String block(@PathVariable("filthyPosterId") Long filthyPosterId,
                         @PathVariable("filthyContentId") Long filthyContentId){

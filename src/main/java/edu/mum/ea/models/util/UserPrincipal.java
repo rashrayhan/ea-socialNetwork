@@ -1,5 +1,6 @@
 package edu.mum.ea.models.util;
 
+import edu.mum.ea.models.AccountStatus;
 import edu.mum.ea.models.Privilege;
 import edu.mum.ea.models.Role;
 import edu.mum.ea.models.User;
@@ -54,6 +55,9 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
+        if (user.getAccountStatus().equals(AccountStatus.Blocked)) {
+            return false;
+        }
         return true;
     }
 
@@ -63,7 +67,11 @@ public class UserPrincipal implements UserDetails {
     }
 
     @Override
-    public boolean isEnabled() {
+    public boolean isEnabled()
+    {
+        if (user.getAccountStatus().equals(AccountStatus.Blocked)) {
+            return false;
+        }
         return true;
     }
 

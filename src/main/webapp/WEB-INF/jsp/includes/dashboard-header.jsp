@@ -37,7 +37,7 @@
     <div id="navbarSupportedContent" class="sidebar-fixed position-fixed">
 
         <a class="waves-effect">
-            <img src="./images/logo.PNG" class="img-fluid" alt="">
+            <img src="images/logo.PNG" class="img-fluid" alt="">
         </a>
 
         <div class="list-group list-group-flush mt-5">
@@ -52,7 +52,7 @@
                 <i class="fas fa-users mr-3 blue-grey-text"></i>System users</a>
             <a href="user_claims" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-id-card mr-3 blue-grey-text"></i>User Claims</a>
-            <a href="timeline" class="list-group-item list-group-item-action waves-effect">
+            <a href="#" class="list-group-item list-group-item-action waves-effect">
                 <i class="fas fa-stream mr-3 blue-grey-text"></i>System timeline</a>
         </div>
 

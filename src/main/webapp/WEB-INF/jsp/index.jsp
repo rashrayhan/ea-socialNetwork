@@ -12,7 +12,9 @@
 			<c:set var="username" value="${registeredUser.username}"/>
 		</c:if>
 		<form class="index-right container shadow bg-white rounded border border-light p-5" action="/login" method="post">
+
 			<p class="h2 mb-2 text-center">mum-social Sign in</p>
+
 			<p class="p-underline"></p>
 			<input name="${_csrf.parameterName}" value="${_csrf.token}" type="hidden"/>
 			<div class="md-form">

@@ -27,10 +27,8 @@
 <%--            </div>--%>
             <!-- timelines -->
             <div class="cm-timelines">
-
                 <!-- timeline -->
                 <div class="cm-timeline row">
-
                     <div class="row cm-peep cm-peep-up">
                         <div class="cmp-cover">
                             <img src="../../../resources/static/images/HIyWCaRh.jpg"/>

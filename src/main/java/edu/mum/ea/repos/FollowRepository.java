@@ -24,4 +24,7 @@ public interface FollowRepository extends CrudRepository<Follow, Long> {
             " f.followingUser = ?1")
     List<String> stringListOfMyFollowers(User user);
 
+    Follow findByFollowingUserAndUser(User followingUser, User user);
+
+    Follow findByUserAndFollowingUser(User user, User followingUser);
 }

@@ -44,7 +44,8 @@ public class FollowServiceImpl implements FollowService {
     @Secured("ROLE_FOLLOW_PRIVILEGE")
     @Override
     public boolean delete(Follow follow) {
-        return false;
+        followRepository.delete(follow);
+        return true;
     }
 
     @Override
@@ -57,7 +58,6 @@ public class FollowServiceImpl implements FollowService {
         return null;
     }
 
-    @Secured("ROLE_FOLLOW_PRIVILEGE")
     @Override
     public List<User> whoToFollow(User user) {
         List<User> users = (List<User>) userRepository.findAll();
@@ -69,21 +69,28 @@ public class FollowServiceImpl implements FollowService {
                 .collect(Collectors.toList());
     }
 
-    @Secured("ROLE_FOLLOW_PRIVILEGE")
     @Override
     public List<User> whoFollowsMe(User user) {
         return followRepository.peopleWhoFollowMe(user);
     }
 
-    @Secured("ROLE_FOLLOW_PRIVILEGE")
     @Override
     public List<User> whoIFollow(User user) {
         return followRepository.peopleIFollow(user);
     }
 
-    @Secured("ROLE_FOLLOW_PRIVILEGE")
     @Override
     public List<String> stringListOfMyFollowers(User user) {
         return followRepository.stringListOfMyFollowers(user);
+    }
+
+    @Override
+    public Follow findByFollowingUserAndUser(User followingUser, User user) {
+        return followRepository.findByFollowingUserAndUser(followingUser, user);
+    }
+
+    @Override
+    public Follow findByUserAndFollowingUser(User user, User followingUser) {
+        return followRepository.findByUserAndFollowingUser(user, followingUser);
     }
 }

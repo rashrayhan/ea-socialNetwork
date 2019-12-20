@@ -6,27 +6,41 @@ $(function () {
         let timelineHandler = timeline();
         timelineHandler.timelineHandler();
         $(window).scroll(function () {
-           if($(window).height() + $(window).scrollTop() === $(document).height()) {
-               if(timelineHandler.hasMore()) {
-                   timelineHandler.timelineHandler();
-               }
-           }
+            if ($(window).height() + $(window).scrollTop() === $(document).height()) {
+                if (timelineHandler.hasMore()) {
+                    timelineHandler.timelineHandler();
+                }
+            }
         });
     }
     if (res === "/profile") {
         authenticatedUserInfo();
         let profileHandler = authenticatedUserProfile();
         profileHandler.userProfile();
+        whoToFollow();
         $(window).scroll(function () {
-            if($(window).height() + $(window).scrollTop() === $(document).height()) {
-                if(profileHandler.hasMore()) {
+            if ($(window).height() + $(window).scrollTop() === $(document).height()) {
+                if (profileHandler.hasMore()) {
                     profileHandler.userProfile();
                 }
             }
         });
     }
-    if(res === "/follow") {
+    if (res === "/follow") {
         authenticatedUserFollowInfo();
+        let userProfileHandler = authenticatedUserProfile();
+        whoToFollow();
+        $(document).on('click', 'button.unfollow', function () {
+            userProfileHandler.unfollow($(this).data("username"));
+            $(this).closest(".cars-contact").remove();
+        });
+
+        $(document).on('click', 'button.follow', function () {
+            userProfileHandler.follow($(this).data("username"));
+            let fUsername = $(this).closest(".cars-contact").find('.f-username');
+            $(this).remove();
+            fUsername.append('&nbsp;&nbsp;<em style="color: #002244;">You follow each other</em>');
+        });
     }
 
     $(document).on('click', '.follow-btn', function (e) {
@@ -40,7 +54,15 @@ $(function () {
                 if (res) {
                     $this.text("Following");
                     $this.attr('disabled', true);
-                    timeline();
+                    if(res === '/timeline') {
+                        timeline();
+                    }
+                    else if(res === '/profile') {
+                        authenticatedUserInfo();
+                    }
+                    else if(res === '/follow') {
+                        authenticatedUserFollowInfo();
+                    }
                     setTimeout(whoToFollow, 5000);
                 }
             },
@@ -106,10 +128,10 @@ const timeline = function () {
 
     let timelineHandler = function () {
         $.ajax({
-            url: '/timeline/data/'+pageNumber,
+            url: '/timeline/data/' + pageNumber,
             method: 'GET',
             success: function (posts) {
-                if(posts.length < 10) {
+                if (posts.length < 10) {
                     hasMore = false;
                 } else {
                     pageNumber++;
@@ -124,8 +146,8 @@ const timeline = function () {
     };
 
     return {
-        timelineHandler:timelineHandler,
-        hasMore:function () {
+        timelineHandler: timelineHandler,
+        hasMore: function () {
             return hasMore;
         }
     }
@@ -139,7 +161,7 @@ const authenticatedUserProfile = function () {
             url: '/authenticated-user-profile-data/' + pageNumber,
             method: 'GET',
             success: function (posts) {
-                if(posts.length < 10) {
+                if (posts.length < 10) {
                     hasMore = false;
                 } else {
                     pageNumber++;
@@ -153,8 +175,37 @@ const authenticatedUserProfile = function () {
             }
         });
     };
+
+    let unfollow = function (username) {
+        $.ajax({
+            url: '/unfollow/' + username,
+            method: 'GET',
+            success: function (res) {
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    };
+
+    let follow = function (username) {
+        $.ajax({
+            url: '/follow/' + username,
+            method: 'GET',
+            success: function (res) {
+
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        })
+    };
+
     return {
-        userProfile:userProfile,
+        userProfile: userProfile,
+        unfollow: unfollow,
+        follow:follow,
         hasMore: function () {
             return hasMore;
         }
@@ -169,7 +220,7 @@ const searchedUserProfile = function (username) {
             url: '/searched-user-profile-data/' + username + "/" + pageNumber,
             method: 'GET',
             success: function (posts) {
-                if(posts.length < 10) {
+                if (posts.length < 10) {
                     hasMore = false;
                 } else {
                     pageNumber++;
@@ -184,8 +235,8 @@ const searchedUserProfile = function (username) {
     };
 
     return {
-        userProfileHandler:userProfileHandler,
-        hasMore:function () {
+        userProfileHandler: userProfileHandler,
+        hasMore: function () {
             return hasMore;
         }
     }
@@ -203,7 +254,7 @@ const postsDesigner = function (posts, rowClass) {
             timeline += '<p>' + posts[i].content + '</p>';
         }
         if (posts[i].mediaItems && posts[i].mediaItems.length > 0) {
-            if(posts[i].mediaItems[0].mediaType === 'Image') {
+            if (posts[i].mediaItems[0].mediaType === 'Image') {
                 timeline += '<div class="cmtt-img"><img src="/uploads/pictures/' + posts[i].mediaItems[0].filePath + '" alt="Default Image"/></div>';
             } else {
                 timeline += '<div class="cmtt-img"><video src="/uploads/videos/' + posts[i].mediaItems[0].filePath + '"' +
@@ -257,17 +308,31 @@ const authenticatedUserFollowInfo = function () {
                         + '<img class="aAvatar" src="./images/parallel-avatar.jpg" alt="User Photo"/>'
                         + '</span><span class="col-8 carsc-2"><b class="f-names">' + followings[i].otherNames + ' '
                         + followings[i].surname + '</b><span class="muted small f-username">' +
-                        '@'+followings[i].username+'</span><br/>';
-                        if(followings[i].bio) {
-                            data += '<span class="bio small">'+followings[i].biography+'</span>';
+                        '@' + followings[i].username + '&nbsp;';
+                    if (followers) {
+                        let chk = false;
+                        for (let j = 0; j < followers.length; j++) {
+                            if (followings[i].username === followers[j].username) {
+                                chk = true;
+                                break;
+                            }
                         }
-                        data += '</span><span class="col-2 carsc-3">'
-                        + '<button class="btn btn-sm btn-outline-danger" type="submit">Unfollow</button>'
+                        if (chk) {
+                            data += '<em style="color: #002244;">follows you</em>';
+                        }
+                    }
+                    data += '</span><br/>';
+                    if (followings[i].bio) {
+                        data += '<span class="bio small">' + followings[i].biography + '</span>';
+                    }
+                    data += '</span><span class="col-2 carsc-3">'
+                        + '<button class="btn btn-sm btn-outline-danger unfollow" data-username="' + followings[i].username + '" ' +
+                        'type="button">Unfollow</button>'
                         + '</span></div>';
                 }
                 $('.followings').append(data);
             }
-            if(followers) {
+            if (followers) {
                 let data = "";
                 $('.followers .cars-contact').remove();
                 for (let i = 0; i < followers.length; i++) {
@@ -275,13 +340,30 @@ const authenticatedUserFollowInfo = function () {
                         + '<img class="aAvatar" src="./images/parallel-avatar.jpg" alt="User Photo"/>'
                         + '</span><span class="col-8 carsc-2"><b class="f-names">' + followers[i].otherNames + ' '
                         + followers[i].surname + '</b><span class="muted small f-username">' +
-                        '@'+followers[i].username+'</span><br/>';
-                    if(followers[i].bio) {
-                        data += '<span class="bio small">'+followers[i].biography+'</span>';
+                        '@' + followers[i].username + '';
+                    let chk = false;
+                    if (followings) {
+                        for (let j = 0; j < followings.length; j++) {
+                            if (followers[i].username === followings[j].username) {
+                                chk = true;
+                                break;
+                            }
+                        }
+                        if (chk) {
+                            data += '&nbsp;&nbsp;<em style="color: #002244;">You follow each other</em>';
+                        }
                     }
-                    data += '</span><span class="col-2 carsc-3">'
-                        + '<button class="btn btn-sm btn-outline-info" type="submit">Follow</button>'
-                        + '</span></div>';
+                    data += '</span><br/>';
+                    if (followers[i].bio) {
+                        data += '<span class="bio small">' + followers[i].biography + '</span>';
+                    }
+                    data += '</span><span class="col-2 carsc-3">';
+
+                    if (!chk) {
+                        data += '<button class="btn btn-sm btn-outline-info follow" data-username="' + followers[i].username + '" ' +
+                            'type="button">Follow</button>';
+                    }
+                    data += '</span></div>';
                 }
                 $('.followers').append(data);
             }
@@ -293,7 +375,7 @@ const authenticatedUserFollowInfo = function () {
 };
 
 const streamVideos = function () {
-    $('.video').each(function(){
+    $('.video').each(function () {
         const myMediaSource = new MediaSource();
         const url = URL.createObjectURL(myMediaSource);
         let vidSrc = this.src;
@@ -302,9 +384,9 @@ const streamVideos = function () {
         const videoSourceBuffer = myMediaSource
             .addSourceBuffer('video/webm; codecs="avc1.64001e"');
 
-        fetch(window.location.host + vidSrc).then(function(response) {
+        fetch(window.location.host + vidSrc).then(function (response) {
             return response.arrayBuffer();
-        }).then(function(videoData) {
+        }).then(function (videoData) {
             videoSourceBuffer.appendBuffer(videoData);
         });
     });

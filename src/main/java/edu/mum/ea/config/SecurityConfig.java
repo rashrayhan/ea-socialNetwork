@@ -1,9 +1,6 @@
 package edu.mum.ea.config;
 
 import edu.mum.ea.services.impl.UserDetailsServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,7 +14,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-//@EnableOAuth2Sso
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -42,8 +38,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/claims", "/advertise", "/users", "/dashboard",
-                        "/timeline", "/profile", "/user_profile", "/follow", "/filthy", "/filthy_words", "/users_all", "/user_claims")
                 .antMatchers("/timeline", "/timeline/**")
                 .hasRole("TIMELINE_PRIVILEGE")
                 .antMatchers("/profile", "/user_profile", "/authenticated-user-info",

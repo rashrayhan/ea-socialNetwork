@@ -32,19 +32,19 @@ public class UserController {
         this.followService = followService;
     }
 
-    @GetMapping(value = {"/", "/index"})
+    @GetMapping(value = {"/", "/index", "/login"})
     public String welcome() {
         return "index";
     }
 
 
     @GetMapping(value = "/register")
-    public String getRegister() {
+    public String getRegister(@ModelAttribute("newUser") User user) {
         return "register";
     }
 
     @PostMapping(value = "/register")
-    public String postRegister(@Valid User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String postRegister(@Valid @ModelAttribute("newUser") User user, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (!bindingResult.hasErrors()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             User retUser = userService.save(user);
@@ -54,9 +54,6 @@ public class UserController {
         return "register";
     }
 
-
-<<<<<<< HEAD
-=======
     @GetMapping(value = "/home")
     public String home(@AuthenticationPrincipal UserPrincipal userPrincipal) {
         User user = userService.findByUsername(userPrincipal.getUser().getUsername());
@@ -67,7 +64,6 @@ public class UserController {
         }
     }
 
->>>>>>> 73b8fb914823120babe0685d92a792cc1cc4ecd7
     @GetMapping(value = "/timeline")
     public String timeline(@ModelAttribute("newPost") Post post) {
         return "timeline";

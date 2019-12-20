@@ -27,10 +27,6 @@ import java.io.FileOutputStream;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-<<<<<<< HEAD
-import java.util.stream.Collectors;
-=======
->>>>>>> 73b8fb914823120babe0685d92a792cc1cc4ecd7
 
 @Service
 @Transactional
@@ -139,31 +135,23 @@ public class PostServiceImpl implements PostService {
         return false;
     }
 
-    @Secured("ROLE_TIMELINE_PRIVILEGE")
     @Override
     public List<Post> getTimelinePosts(User user, int pageNumber) {
         List<User> followings = followRepository.peopleIFollow(user);
         return recentPostsByFollowings(followings, pageNumber);
     }
 
-    @Secured("ROLE_TIMELINE_PRIVILEGE")
     @Override
     public List<Post> recentPostsByFollowings(List<User> followings, int pageNumber) {
         Pageable pageable = PageRequest.of(pageNumber, 10);
         return postRepository.findAllByUserInOrderByActivityTimeDesc(followings, pageable);
     }
 
-    @Secured("ROLE_PROFILE_PRIVILEGE")
     @Override
     public List<Post> recentPostsByUser(User user, int pageNumber)
     {
         Pageable pageable = PageRequest.of(pageNumber, 10);
         return postRepository.findAllByUserOrderByActivityTimeDesc(user, pageable);
-    }
-
-    @Override
-    public List<Post> findAllByHasFilthyWordTrue() {
-        return postRepository.findAllByHasFilthyWordTrue();
     }
 
     @Override

@@ -51,33 +51,10 @@
 
             <div class="tab-content card col-12">
                 <div class="tab-pane fade in show active p-4 followings" id="panel4" role="tabpane4">
-                    <div class="row cars-contact">
-                              <span class="col-1 carsc-1">
-                                    <img class="aAvatar" src="../../../resources/static/images/parallel-avatar.jpg"/>
-                              </span>
-                        <span class="col-8 carsc-2">
-                                   <b class="f-names"></b> <span class="muted small f-username">@azarq_m</span><br/>
-                                    <span class="bio small">The Ideological Warfare Center is a good one</span>
-                               </span>
-                        <span class="col-2 carsc-3">
-                                     <button class="btn btn-sm btn-outline-danger" type="submit">Unfollow</button>
-                              </span>
-                    </div>
+
                 </div>
 
                 <div class="tab-pane fade in show p-4 followers" id="panel5" role="tabpane5">
-                    <div class="row cars-contact">
-                              <span class="col-1 carsc-1">
-                                    <img class="aAvatar" src="../../../resources/static/images/parallel-avatar.jpg"/>
-                              </span>
-                        <span class="col-8 carsc-2">
-                                   <b class="f-names"></b> <span class="muted small f-username">@azarq_m</span><br/>
-                                    <span class="bio small">The Ideological Warfare Center is a good one</span>
-                               </span>
-                        <span class="col-2 carsc-3">
-                                     <button class="btn btn-sm btn-outline-info" type="submit">follow</button>
-                              </span>
-                    </div>
 
                 </div>
             </div>

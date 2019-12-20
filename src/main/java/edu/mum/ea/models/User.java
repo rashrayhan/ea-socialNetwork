@@ -3,7 +3,10 @@ package edu.mum.ea.models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +16,20 @@ import java.util.List;
 public class User {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty @Size(min = 2, max = 30)
     private String surname;
+    @NotEmpty @Size(min = 2, max = 30)
     @Column(name = "other_names")
     private String otherNames;
+    @Past
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
+    @Email
     private String email;
+    @NotEmpty @Size(min = 4, max = 12) @Column(unique = true)
     private String username;
+    @NotEmpty @Size(min = 6)
     private String password;
     @Enumerated(EnumType.STRING)
     @Column(name = "account_status")
@@ -31,7 +41,6 @@ public class User {
     private String biography;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id")
-
     private Address address;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Fetch(FetchMode.SUBSELECT)
