@@ -135,21 +135,18 @@ public class PostServiceImpl implements PostService {
         return false;
     }
 
-    @Secured("ROLE_TIMELINE_PRIVILEGE")
     @Override
     public List<Post> getTimelinePosts(User user, int pageNumber) {
         List<User> followings = followRepository.peopleIFollow(user);
         return recentPostsByFollowings(followings, pageNumber);
     }
 
-    @Secured("ROLE_TIMELINE_PRIVILEGE")
     @Override
     public List<Post> recentPostsByFollowings(List<User> followings, int pageNumber) {
         Pageable pageable = PageRequest.of(pageNumber, 10);
         return postRepository.findAllByUserInOrderByActivityTimeDesc(followings, pageable);
     }
 
-    @Secured("ROLE_PROFILE_PRIVILEGE")
     @Override
     public List<Post> recentPostsByUser(User user, int pageNumber)
     {

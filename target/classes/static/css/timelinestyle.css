@@ -1,0 +1,280 @@
+.container .c-aside-left {
+    position: fixed;
+}
+.container mat-list-item.mat-list-item {
+    font-size: 14px;
+}
+.container mat-list-item.mat-list-item:hover {
+    cursor: pointer;
+    color: #1da1f2;
+}
+.container .btnSign {
+    background: #2fbde2;
+    color: #fff;
+    border-radius: 20px;
+}
+.container .c-main {
+    border-left: 0.5px solid #e6ecf0;
+    border-right: 0.5px solid #e6ecf0;
+    padding: 0px;
+    left: 20%;
+    position: relative;
+}
+.container .c-main h5.cm-title {
+    padding: 15px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    border-bottom: 0.5px solid #e6ecf0;
+}
+.container .c-main .cm-peep {
+    margin: 0px;
+    padding: 10px 0px;
+    border-bottom: 5px solid #e6ecf0;
+}
+.container .c-main .cm-peep .cmp-img img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+.container .c-main .cm-peep .cmp-form textarea {
+    resize: none;
+    border: none;
+    width: 100%;
+    font-size: 22px;
+    overflow: hidden;
+}
+.container .c-main .cm-peep .cmp-form textarea:focus {
+    outline: none !important;
+}
+.container .c-main .cm-peep .cmp-form div {
+    padding-right: 20px;
+}
+.container .c-main .cm-peep .cmp-form div mat-icon.mat-icon {
+    color: #2fbde2;
+    font-size: 30px;
+    display: inline-block;
+}
+.container .c-main .cm-peep .cmp-form div mat-icon.mat-icon:hover {
+    cursor: pointer;
+}
+.container .c-main .cm-peep .cmp-form div button {
+    display: inline-block;
+    max-width: 20px !important;
+}
+.container .c-main .cm-timeline {
+    padding: 10px;
+    border-bottom: 0.5px solid #e6ecf0;
+    margin: 0px;
+}
+.container .c-main .cm-timeline:hover {
+    cursor: pointer;
+    background: #f5f8fa;
+}
+.container .c-main .cm-timeline .cmt-img img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+.container .c-main .cm-timeline .cmt-text {
+    font-size: 12px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.container .c-main .cm-timeline .cmt-text span#cmttt-handle {
+    color: #8699a5;
+}
+.container .c-main .cm-timeline .cmt-text .cmtt-img {
+    margin-bottom: 10px;
+}
+.container .c-main .cm-timeline .cmt-text .cmtt-img img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e6ecf0;
+}
+.container .c-main .cm-timeline .cmt-text .cmtt-action {
+    width: 100%;
+    margin: 0px;
+    color: #657786;
+}
+.container .c-main .cm-timeline .cmt-text .cmtt-action .ca-action:first-child:hover {
+    color: #e23237;
+}
+.container .c-main .cm-timeline .cmt-text .cmtt-action .ca-action:nth-child(3):hover {
+    color: #2fbde2;
+}
+.container .c-main .cm-timeline .cmt-text .cmtt-action .ca-action:last-child:hover {
+    color: #77b255;
+}
+.container .c-main .cm-timeline .cmt-text .cmtt-action .ca-count {
+    padding: 2px !important;
+}
+.container .c-aside-right {
+    right: 5%;
+    position: fixed;
+    padding-top: 10px;
+}
+.container .c-aside-right .car-search mat-form-field.mat-form-field {
+    font-size: 12px;
+    width: 100%;
+}
+.container .c-aside-right .car-suggest {
+    background: #f5f8fa;
+    padding: 10px 0px;
+    border-radius: 10px;
+}
+.container .c-aside-right .car-suggest h6 {
+    font-family: 'Fira Sans', sans-serif;
+    padding: 10px;
+    border-bottom: 0.5px solid #e6ecf0;
+    font-weight: bolder;
+}
+.container .c-aside-right .cars-contact {
+    margin: 0;
+    border-bottom: 0.5px solid #e6ecf0;
+    padding: 5px 0px;
+}
+.container .c-aside-right .cars-contact .carsc-1 {
+    padding: 0px 5px;
+}
+.container .c-aside-right .cars-contact .carsc-1 img{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+.container .c-aside-right .cars-contact .carsc-2 {
+    padding: 0px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.container .c-aside-right .cars-contact .carsc-2:hover {
+    cursor: pointer;
+}
+.container .c-aside-right .cars-contact .carsc-2 .handle {
+    color: #8a97a4;
+}
+.container .c-aside-right .cars-contact .carsc-3 button{
+     padding: 5px 10px;
+}
+.cmttc-otherComments .cmttco-user img, .carsc-1 img.aAvatar{
+    height: 30px;
+    width: 30px;
+}
+.cmtt-comments{
+    display: none;
+    margin-top: -20px;
+}
+@media only screen and (max-width: 768px) {
+    .c-main {
+        width: 90%;
+    }
+    .aLogo {
+        display: none;
+    }
+    .cmp-form textarea {
+        font-size: 14px;
+    }
+    .c-aside-right {
+        display: none;
+    }
+}
+
+.cm-peep-up {
+    height: 320px;
+    margin: 0px;
+    width: 100%;
+}
+
+.cm-peep .cmp-cover {
+    height: 200px;
+    width: 100%;
+    position: absolute;
+}
+.cm-peep .cmp-cover img {
+    height: 100%;
+    width: 95%;
+}
+.cm-peep .cmp-profile {
+    position: relative;
+    top: 140px;
+    left: 20px;
+}
+.cm-peep .cmp-profile img {
+    height: 120px;
+    border-radius: 50%;
+    width: 120px;
+    border: 2px solid #fff;
+}
+.cm-peep .cmp-btn {
+    position: relative;
+    top: 200px;
+    left: 50%;
+}
+.cm-details {
+    margin: 0px;
+    padding: 0px 20px;
+    font-size: 11px;
+}
+.cm-details .cmd-handle {
+    font-size: 15px;
+    line-height: 17px;
+    margin: 0px;
+}
+.cm-details .cmd-handle span {
+    color: #8a97a4;
+    font-size: 13px;
+}
+.cm-details .cmd-bio {
+    margin: 5px 0px;
+}
+.cm-details .cmd-follow {
+    font-weight: bold;
+}
+.cm-details .cmd-follow span {
+    color: #8a97a4;
+}
+.cm-timeline {
+    padding: 10px;
+    border-bottom: 0.5px solid #e6ecf0;
+    margin: 0px;
+}
+.cm-timeline:hover {
+    cursor: pointer;
+    background: #f5f8fa;
+}
+.cm-timeline .cmt-img img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+.cm-timeline .cmt-text {
+    font-size: 12px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.cm-timeline .cmt-text span#cmttt-handle {
+    color: #8699a5;
+}
+.cm-timeline .cmt-text .cmtt-img {
+    margin-bottom: 10px;
+}
+.cm-timeline .cmt-text .cmtt-img img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #e6ecf0;
+}
+.cm-timeline .cmt-text .cmtt-action {
+    width: 100%;
+    margin: 0px;
+    color: #657786;
+}
+.cm-timeline .cmt-text .cmtt-action .ca-action:first-child:hover {
+    color: #e23237;
+}
+.cm-timeline .cmt-text .cmtt-action .ca-action:nth-child(3):hover {
+    color: #2fbde2;
+}
+.cm-timeline .cmt-text .cmtt-action .ca-action:last-child:hover {
+    color: #77b255;
+}
+.cm-timeline .cmt-text .cmtt-action .ca-count {
+    padding: 2px !important;
+}
+

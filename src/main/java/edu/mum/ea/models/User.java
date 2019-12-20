@@ -27,7 +27,7 @@ public class User {
     private LocalDate dateOfBirth;
     @Email
     private String email;
-    @NotEmpty @Size(min = 4, max = 12)
+    @NotEmpty @Size(min = 4, max = 12) @Column(unique = true)
     private String username;
     @NotEmpty @Size(min = 6)
     private String password;
